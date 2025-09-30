@@ -1,0 +1,383 @@
+import { useState, useMemo } from 'react';
+import { Filter, Grid, List, ChevronDown } from 'lucide-react';
+import { Button } from './ui/button';
+import { Card, CardContent } from './ui/card';
+import { Checkbox } from './ui/checkbox';
+import { Slider } from './ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
+import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from './ui/breadcrumb';
+import { ProductCard } from './ProductCard';
+import { products, categories, brands } from '../data/products';
+
+interface ProductListingProps {
+  onNavigate: (page: string) => void;
+  onProductClick: (productId: string) => void;
+  searchQuery?: string;
+}
+
+interface Filters {
+  categories: string[];
+  brands: string[];
+  priceRange: [number, number];
+  rating: number;
+}
+
+export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }: ProductListingProps) {
+  const [showFilters, setShowFilters] = useState(false);
+  const [sortBy, setSortBy] = useState('featured');
+  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [currentPage, setCurrentPage] = useState(1);
+  const [filters, setFilters] = useState<Filters>({
+    categories: [],
+    brands: [],
+    priceRange: [0, 3000],
+    rating: 0
+  });
+
+  const itemsPerPage = 12;
+
+  // Filter and sort products
+  const filteredProducts = useMemo(() => {
+    let filtered = products;
+
+    // Search filter
+    if (searchQuery) {
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.brand.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    // Category filter
+    if (filters.categories.length > 0) {
+      filtered = filtered.filter(product =>
+        filters.categories.includes(product.category)
+      );
+    }
+
+    // Brand filter
+    if (filters.brands.length > 0) {
+      filtered = filtered.filter(product =>
+        filters.brands.includes(product.brand)
+      );
+    }
+
+    // Price range filter
+    filtered = filtered.filter(product =>
+      product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1]
+    );
+
+    // Rating filter
+    if (filters.rating > 0) {
+      filtered = filtered.filter(product => product.rating >= filters.rating);
+    }
+
+    // Sort products
+    switch (sortBy) {
+      case 'price-low':
+        filtered.sort((a, b) => a.price - b.price);
+        break;
+      case 'price-high':
+        filtered.sort((a, b) => b.price - a.price);
+        break;
+      case 'rating':
+        filtered.sort((a, b) => b.rating - a.rating);
+        break;
+      case 'newest':
+        // Mock newest sort (in real app, would use creation date)
+        filtered.sort(() => Math.random() - 0.5);
+        break;
+      default: // featured
+        filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    }
+
+    return filtered;
+  }, [filters, sortBy, searchQuery]);
+
+  // Pagination
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+  const paginatedProducts = filteredProducts.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  const updateCategoryFilter = (category: string, checked: boolean) => {
+    setFilters(prev => ({
+      ...prev,
+      categories: checked
+        ? [...prev.categories, category]
+        : prev.categories.filter(c => c !== category)
+    }));
+  };
+
+  const updateBrandFilter = (brand: string, checked: boolean) => {
+    setFilters(prev => ({
+      ...prev,
+      brands: checked
+        ? [...prev.brands, brand]
+        : prev.brands.filter(b => b !== brand)
+    }));
+  };
+
+  const clearFilters = () => {
+    setFilters({
+      categories: [],
+      brands: [],
+      priceRange: [0, 3000],
+      rating: 0
+    });
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Breadcrumb */}
+        <Breadcrumb className="mb-6">
+          <BreadcrumbList>
+            <BreadcrumbItem>
+              <button onClick={() => onNavigate('home')} className="hover:text-primary">
+                Home
+              </button>
+            </BreadcrumbItem>
+            <BreadcrumbSeparator />
+            <BreadcrumbItem>
+              <BreadcrumbPage>Products</BreadcrumbPage>
+            </BreadcrumbItem>
+          </BreadcrumbList>
+        </Breadcrumb>
+
+        {/* Header */}
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              {searchQuery ? `Search Results for "${searchQuery}"` : 'All Products'}
+            </h1>
+            <p className="text-gray-600">
+              {filteredProducts.length} products found
+            </p>
+          </div>
+
+          <div className="flex items-center space-x-4 mt-4 lg:mt-0">
+            {/* View Toggle */}
+            <div className="flex border rounded-lg">
+              <Button
+                variant={viewMode === 'grid' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('grid')}
+                className="rounded-r-none"
+              >
+                <Grid className="h-4 w-4" />
+              </Button>
+              <Button
+                variant={viewMode === 'list' ? 'default' : 'ghost'}
+                size="sm"
+                onClick={() => setViewMode('list')}
+                className="rounded-l-none"
+              >
+                <List className="h-4 w-4" />
+              </Button>
+            </div>
+
+            {/* Sort Dropdown */}
+            <Select value={sortBy} onValueChange={setSortBy}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="Sort by" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="featured">Featured</SelectItem>
+                <SelectItem value="price-low">Price: Low to High</SelectItem>
+                <SelectItem value="price-high">Price: High to Low</SelectItem>
+                <SelectItem value="rating">Highest Rated</SelectItem>
+                <SelectItem value="newest">Newest</SelectItem>
+              </SelectContent>
+            </Select>
+
+            {/* Filter Toggle (Mobile) */}
+            <Button
+              variant="outline"
+              onClick={() => setShowFilters(!showFilters)}
+              className="lg:hidden"
+            >
+              <Filter className="h-4 w-4 mr-2" />
+              Filters
+            </Button>
+          </div>
+        </div>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          {/* Filters Sidebar */}
+          <div className={`lg:w-64 ${showFilters ? 'block' : 'hidden lg:block'}`}>
+            <Card className="sticky top-24">
+              <CardContent className="p-6">
+                <div className="flex items-center justify-between mb-6">
+                  <h3 className="font-semibold text-gray-900">Filters</h3>
+                  <Button variant="ghost" size="sm" onClick={clearFilters}>
+                    Clear All
+                  </Button>
+                </div>
+
+                {/* Categories */}
+                <div className="mb-6">
+                  <h4 className="font-medium text-gray-900 mb-3">Categories</h4>
+                  <div className="space-y-2">
+                    {categories.map((category) => (
+                      <div key={category.id} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={category.id}
+                          checked={filters.categories.includes(category.id)}
+                          onCheckedChange={(checked) =>
+                            updateCategoryFilter(category.id, checked as boolean)
+                          }
+                        />
+                        <label
+                          htmlFor={category.id}
+                          className="text-sm text-gray-700 cursor-pointer"
+                        >
+                          {category.name}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Price Range */}
+                <div className="mb-6">
+                  <h4 className="font-medium text-gray-900 mb-3">Price Range</h4>
+                  <div className="px-2">
+                    <Slider
+                      value={filters.priceRange}
+                      onValueChange={(value) =>
+                        setFilters(prev => ({ ...prev, priceRange: value as [number, number] }))
+                      }
+                      max={3000}
+                      min={0}
+                      step={50}
+                      className="mb-2"
+                    />
+                    <div className="flex justify-between text-sm text-gray-600">
+                      <span>${filters.priceRange[0]}</span>
+                      <span>${filters.priceRange[1]}</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Brands */}
+                <div className="mb-6">
+                  <h4 className="font-medium text-gray-900 mb-3">Brands</h4>
+                  <div className="space-y-2">
+                    {brands.map((brand) => (
+                      <div key={brand} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={brand}
+                          checked={filters.brands.includes(brand)}
+                          onCheckedChange={(checked) =>
+                            updateBrandFilter(brand, checked as boolean)
+                          }
+                        />
+                        <label
+                          htmlFor={brand}
+                          className="text-sm text-gray-700 cursor-pointer"
+                        >
+                          {brand}
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Rating */}
+                <div>
+                  <h4 className="font-medium text-gray-900 mb-3">Minimum Rating</h4>
+                  <div className="space-y-2">
+                    {[4, 3, 2, 1].map((rating) => (
+                      <div key={rating} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`rating-${rating}`}
+                          checked={filters.rating === rating}
+                          onCheckedChange={(checked) =>
+                            setFilters(prev => ({ ...prev, rating: checked ? rating : 0 }))
+                          }
+                        />
+                        <label
+                          htmlFor={`rating-${rating}`}
+                          className="text-sm text-gray-700 cursor-pointer"
+                        >
+                          {rating}+ Stars
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Products Grid */}
+          <div className="flex-1">
+            {paginatedProducts.length === 0 ? (
+              <div className="text-center py-12">
+                <p className="text-gray-500 text-lg">No products found matching your criteria.</p>
+                <Button
+                  variant="outline"
+                  onClick={clearFilters}
+                  className="mt-4"
+                >
+                  Clear Filters
+                </Button>
+              </div>
+            ) : (
+              <>
+                <div className={viewMode === 'grid' 
+                  ? 'grid sm:grid-cols-2 lg:grid-cols-3 gap-6'
+                  : 'space-y-4'
+                }>
+                  {paginatedProducts.map((product) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      onProductClick={onProductClick}
+                    />
+                  ))}
+                </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="flex justify-center items-center space-x-2 mt-8">
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                      disabled={currentPage === 1}
+                    >
+                      Previous
+                    </Button>
+                    
+                    {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+                      <Button
+                        key={page}
+                        variant={page === currentPage ? 'default' : 'outline'}
+                        onClick={() => setCurrentPage(page)}
+                        size="sm"
+                      >
+                        {page}
+                      </Button>
+                    ))}
+                    
+                    <Button
+                      variant="outline"
+                      onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                      disabled={currentPage === totalPages}
+                    >
+                      Next
+                    </Button>
+                  </div>
+                )}
+              </>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
