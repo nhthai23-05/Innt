@@ -6,8 +6,9 @@ import { ProductDetail } from './components/ProductDetail';
 import { Cart } from './components/Cart';
 import { Auth } from './components/Auth';
 import { Profile } from './components/Profile';
+import { About } from './components/About';
 
-type Page = 'home' | 'products' | 'product-detail' | 'cart' | 'auth' | 'profile';
+type Page = 'home' | 'products' | 'product-detail' | 'cart' | 'auth' | 'profile' | 'about';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
@@ -58,6 +59,8 @@ export default function App() {
         return <Auth onNavigate={handleNavigate} />;
       case 'profile':
         return <Profile onNavigate={handleNavigate} />;
+      case 'about':
+        return <About onNavigate={handleNavigate} />;
       default:
         return (
           <HomePage

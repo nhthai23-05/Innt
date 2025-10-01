@@ -47,6 +47,5 @@ docker-compose up -d
 - User authentication & profiles
 - Product catalog with categories
 - Shopping cart functionality
-- Order management
 - Admin dashboard
 - Responsive design based on Figma mockups

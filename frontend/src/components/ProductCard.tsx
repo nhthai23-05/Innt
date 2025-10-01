@@ -70,20 +70,10 @@ export function ProductCard({ product, onProductClick }: ProductCardProps) {
           {/* Product Info */}
           <div className="p-4">
             <div className="mb-2">
-              <p className="text-sm text-gray-500 mb-1">{product.brand}</p>
+              <p className="text-sm text-gray-500 mb-1">{product.category}</p>
               <h3 className="font-medium text-gray-900 line-clamp-2 hover:text-primary transition-colors">
                 {product.name}
               </h3>
-            </div>
-
-            {/* Rating */}
-            <div className="flex items-center mb-2">
-              <div className="flex items-center">
-                <Star className="h-4 w-4 fill-yellow-400 text-yellow-400" />
-                <span className="text-sm text-gray-600 ml-1">
-                  {product.rating} ({product.reviewCount})
-                </span>
-              </div>
             </div>
 
             {/* Price */}

@@ -3,11 +3,10 @@ import { Filter, Grid, List, ChevronDown } from 'lucide-react';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
 import { Checkbox } from './ui/checkbox';
-import { Slider } from './ui/slider';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from './ui/breadcrumb';
 import { ProductCard } from './ProductCard';
-import { products, categories, brands } from '../data/products';
+import { products, categories } from '../data/products';
 
 interface ProductListingProps {
   onNavigate: (page: string) => void;
@@ -17,9 +16,6 @@ interface ProductListingProps {
 
 interface Filters {
   categories: string[];
-  brands: string[];
-  priceRange: [number, number];
-  rating: number;
 }
 
 export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }: ProductListingProps) {
@@ -28,10 +24,7 @@ export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }:
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState<Filters>({
-    categories: [],
-    brands: [],
-    priceRange: [0, 3000],
-    rating: 0
+    categories: []
   });
 
   const itemsPerPage = 12;
@@ -55,23 +48,6 @@ export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }:
       filtered = filtered.filter(product =>
         filters.categories.includes(product.category)
       );
-    }
-
-    // Brand filter
-    if (filters.brands.length > 0) {
-      filtered = filtered.filter(product =>
-        filters.brands.includes(product.brand)
-      );
-    }
-
-    // Price range filter
-    filtered = filtered.filter(product =>
-      product.price >= filters.priceRange[0] && product.price <= filters.priceRange[1]
-    );
-
-    // Rating filter
-    if (filters.rating > 0) {
-      filtered = filtered.filter(product => product.rating >= filters.rating);
     }
 
     // Sort products
@@ -112,21 +88,9 @@ export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }:
     }));
   };
 
-  const updateBrandFilter = (brand: string, checked: boolean) => {
-    setFilters(prev => ({
-      ...prev,
-      brands: checked
-        ? [...prev.brands, brand]
-        : prev.brands.filter(b => b !== brand)
-    }));
-  };
-
   const clearFilters = () => {
     setFilters({
-      categories: [],
-      brands: [],
-      priceRange: [0, 3000],
-      rating: 0
+      categories: []
     });
   };
 
@@ -219,7 +183,7 @@ export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }:
                 </div>
 
                 {/* Categories */}
-                <div className="mb-6">
+                <div>
                   <h4 className="font-medium text-gray-900 mb-3">Categories</h4>
                   <div className="space-y-2">
                     {categories.map((category) => (
@@ -236,75 +200,6 @@ export function ProductListing({ onNavigate, onProductClick, searchQuery = '' }:
                           className="text-sm text-gray-700 cursor-pointer"
                         >
                           {category.name}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Price Range */}
-                <div className="mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">Price Range</h4>
-                  <div className="px-2">
-                    <Slider
-                      value={filters.priceRange}
-                      onValueChange={(value) =>
-                        setFilters(prev => ({ ...prev, priceRange: value as [number, number] }))
-                      }
-                      max={3000}
-                      min={0}
-                      step={50}
-                      className="mb-2"
-                    />
-                    <div className="flex justify-between text-sm text-gray-600">
-                      <span>${filters.priceRange[0]}</span>
-                      <span>${filters.priceRange[1]}</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Brands */}
-                <div className="mb-6">
-                  <h4 className="font-medium text-gray-900 mb-3">Brands</h4>
-                  <div className="space-y-2">
-                    {brands.map((brand) => (
-                      <div key={brand} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={brand}
-                          checked={filters.brands.includes(brand)}
-                          onCheckedChange={(checked) =>
-                            updateBrandFilter(brand, checked as boolean)
-                          }
-                        />
-                        <label
-                          htmlFor={brand}
-                          className="text-sm text-gray-700 cursor-pointer"
-                        >
-                          {brand}
-                        </label>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* Rating */}
-                <div>
-                  <h4 className="font-medium text-gray-900 mb-3">Minimum Rating</h4>
-                  <div className="space-y-2">
-                    {[4, 3, 2, 1].map((rating) => (
-                      <div key={rating} className="flex items-center space-x-2">
-                        <Checkbox
-                          id={`rating-${rating}`}
-                          checked={filters.rating === rating}
-                          onCheckedChange={(checked) =>
-                            setFilters(prev => ({ ...prev, rating: checked ? rating : 0 }))
-                          }
-                        />
-                        <label
-                          htmlFor={`rating-${rating}`}
-                          className="text-sm text-gray-700 cursor-pointer"
-                        >
-                          {rating}+ Stars
                         </label>
                       </div>
                     ))}

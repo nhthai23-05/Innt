@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Search, ShoppingCart, User, Menu, X, Heart } from 'lucide-react';
+import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Badge } from './ui/badge';
@@ -25,8 +25,7 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
   const navigation = [
     { name: 'Home', page: 'home' },
     { name: 'Products', page: 'products' },
-    { name: 'Categories', page: 'products' },
-    { name: 'About', page: 'home' },
+    { name: 'About', page: 'about' },
   ];
 
   return (
@@ -79,11 +78,6 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
             {/* Mobile Search */}
             <button className="lg:hidden p-2 text-gray-600 hover:text-primary">
               <Search className="h-5 w-5" />
-            </button>
-
-            {/* Wishlist */}
-            <button className="hidden sm:block p-2 text-gray-600 hover:text-primary relative">
-              <Heart className="h-5 w-5" />
             </button>
 
             {/* Cart */}

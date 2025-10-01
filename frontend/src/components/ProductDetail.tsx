@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Star, Heart, Share2, ShoppingCart, Minus, Plus, Truck, Shield, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Star, Share2, ShoppingCart, Minus, Plus, Truck, Shield, RotateCcw } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardContent } from './ui/card';
@@ -55,30 +55,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
       });
     }
   };
-
-  const reviews = [
-    {
-      id: 1,
-      author: 'John D.',
-      rating: 5,
-      date: '2024-01-15',
-      comment: 'Excellent product! Exceeded my expectations in every way.'
-    },
-    {
-      id: 2,
-      author: 'Sarah M.',
-      rating: 4,
-      date: '2024-01-10',
-      comment: 'Great quality and fast shipping. Very satisfied with my purchase.'
-    },
-    {
-      id: 3,
-      author: 'Mike R.',
-      rating: 5,
-      date: '2024-01-05',
-      comment: 'Outstanding performance and build quality. Highly recommended!'
-    }
-  ];
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -158,25 +134,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
             <div className="mb-4">
               <p className="text-primary font-medium mb-2">{product.brand}</p>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
-              
-              {/* Rating */}
-              <div className="flex items-center mb-4">
-                <div className="flex items-center">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className={`h-5 w-5 ${
-                        i < Math.floor(product.rating)
-                          ? 'fill-yellow-400 text-yellow-400'
-                          : 'text-gray-300'
-                      }`}
-                    />
-                  ))}
-                </div>
-                <span className="ml-2 text-gray-600">
-                  {product.rating} ({product.reviewCount} reviews)
-                </span>
-              </div>
 
               {/* Price */}
               <div className="flex items-center space-x-3 mb-6">
@@ -238,9 +195,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                   Add to Cart
                 </Button>
                 <Button variant="outline" size="lg">
-                  <Heart className="h-5 w-5" />
-                </Button>
-                <Button variant="outline" size="lg">
                   <Share2 className="h-5 w-5" />
                 </Button>
               </div>
@@ -281,12 +235,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                 >
                   Specifications
                 </TabsTrigger>
-                <TabsTrigger
-                  value="reviews"
-                  className="data-[state=active]:border-b-2 data-[state=active]:border-primary rounded-none bg-transparent"
-                >
-                  Reviews ({product.reviewCount})
-                </TabsTrigger>
               </TabsList>
               
               <TabsContent value="description" className="p-6">
@@ -308,34 +256,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                     <div key={key} className="flex justify-between py-2 border-b">
                       <span className="font-medium text-gray-900">{key}:</span>
                       <span className="text-gray-700">{value}</span>
-                    </div>
-                  ))}
-                </div>
-              </TabsContent>
-              
-              <TabsContent value="reviews" className="p-6">
-                <div className="space-y-6">
-                  {reviews.map((review) => (
-                    <div key={review.id} className="border-b pb-6">
-                      <div className="flex items-center justify-between mb-2">
-                        <div className="flex items-center">
-                          <span className="font-medium text-gray-900 mr-3">{review.author}</span>
-                          <div className="flex items-center">
-                            {[...Array(5)].map((_, i) => (
-                              <Star
-                                key={i}
-                                className={`h-4 w-4 ${
-                                  i < review.rating
-                                    ? 'fill-yellow-400 text-yellow-400'
-                                    : 'text-gray-300'
-                                }`}
-                              />
-                            ))}
-                          </div>
-                        </div>
-                        <span className="text-gray-500 text-sm">{review.date}</span>
-                      </div>
-                      <p className="text-gray-700">{review.comment}</p>
                     </div>
                   ))}
                 </div>
