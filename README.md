@@ -7,8 +7,7 @@ This project is an e-commerce application built using Django for the backend and
 ```
 Innt/
 ├── backend/                 # Django REST API
-├── frontend/               # Python Frontend
-├── design/                 # Figma assets
+├── frontend/               # TypeScript Frontend       
 ├── docs/                   # Documentation
 ├── docker-compose.yml      # Docker services configuration
 ├── .env                    # Environment variables
@@ -16,8 +15,6 @@ Innt/
 ```
 
 ## Quick Start with Docker
-
-**No virtual environment needed - Docker handles everything!**
 
 ### Prerequisites
 - [Docker](https://www.docker.com/get-started) 
