@@ -1,21 +1,22 @@
-FROM python:3.11-slim
+FROM node:18-alpine
 
 # Set work directory
 WORKDIR /app
 
-# Set environment variables
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
+# Copy package files
+COPY package*.json ./
 
-# Install Python dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Install dependencies
+RUN npm ci --only=production
 
-# Copy project
+# Copy project files
 COPY . .
+
+# Build the application
+RUN npm run build
 
 # Expose port
 EXPOSE 3000
 
 # Run the application
-CMD ["python", "main.py"]
+CMD ["npm", "start"]

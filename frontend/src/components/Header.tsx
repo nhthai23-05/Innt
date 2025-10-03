@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { Search, ShoppingCart, User, Menu, X } from 'lucide-react';
+import { Search, Menu, X, Mail } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
-import { Badge } from './ui/badge';
-import { useCart } from '../hooks/useCart';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
@@ -14,7 +12,6 @@ interface HeaderProps {
 export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
-  const { getTotalItems } = useCart();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -80,26 +77,16 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
               <Search className="h-5 w-5" />
             </button>
 
-            {/* Cart */}
-            <button
-              onClick={() => onNavigate('cart')}
-              className="p-2 text-gray-600 hover:text-primary relative"
+            {/* Contact Button */}
+            <Button
+              asChild
+              className="hidden sm:flex bg-primary hover:bg-primary/90 text-white"
             >
-              <ShoppingCart className="h-5 w-5" />
-              {getTotalItems() > 0 && (
-                <Badge className="absolute -top-1 -right-1 h-5 w-5 flex items-center justify-center text-xs bg-primary text-white">
-                  {getTotalItems()}
-                </Badge>
-              )}
-            </button>
-
-            {/* User */}
-            <button
-              onClick={() => onNavigate('auth')}
-              className="hidden sm:block p-2 text-gray-600 hover:text-primary"
-            >
-              <User className="h-5 w-5" />
-            </button>
+              <a href="https://example.com/contact" target="_blank" rel="noopener noreferrer">
+                <Mail className="h-4 w-4 mr-2" />
+                Contact
+              </a>
+            </Button>
 
             {/* Mobile Menu Toggle */}
             <button
@@ -145,15 +132,15 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
                     {item.name}
                   </button>
                 ))}
-                <button
-                  onClick={() => {
-                    onNavigate('auth');
-                    setIsMenuOpen(false);
-                  }}
-                  className="block w-full text-left py-2 px-3 text-gray-600 hover:bg-gray-100 rounded-md"
+                <a
+                  href="https://example.com/contact"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center w-full py-2 px-3 text-gray-600 hover:bg-gray-100 rounded-md"
                 >
-                  Account
-                </button>
+                  <Mail className="h-4 w-4 mr-2" />
+                  Contact
+                </a>
               </nav>
             </div>
           </div>

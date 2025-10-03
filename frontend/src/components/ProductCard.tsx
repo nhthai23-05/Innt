@@ -1,9 +1,6 @@
-import { Heart, Star, ShoppingCart } from 'lucide-react';
-import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardContent } from './ui/card';
 import { Product } from '../data/products';
-import { useCart } from '../hooks/useCart';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface ProductCardProps {
@@ -12,17 +9,6 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product, onProductClick }: ProductCardProps) {
-  const { addToCart } = useCart();
-
-  const handleAddToCart = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      image: product.image,
-    });
-  };
 
   const discountPercentage = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
@@ -47,23 +33,6 @@ export function ProductCard({ product, onProductClick }: ProductCardProps) {
                   -{discountPercentage}%
                 </Badge>
               )}
-            </div>
-            
-            {/* Wishlist Button */}
-            <button className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-300 hover:bg-gray-50">
-              <Heart className="h-4 w-4 text-gray-600" />
-            </button>
-
-            {/* Quick Add to Cart */}
-            <div className="absolute bottom-3 left-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <Button
-                onClick={handleAddToCart}
-                className="w-full bg-primary text-white hover:bg-primary/90"
-                size="sm"
-              >
-                <ShoppingCart className="h-4 w-4 mr-2" />
-                Add to Cart
-              </Button>
             </div>
           </div>
 

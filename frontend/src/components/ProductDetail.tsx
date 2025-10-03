@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowLeft, Star, Share2, ShoppingCart, Minus, Plus, Truck, Shield, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Share2, Mail, Truck, Shield, RotateCcw } from 'lucide-react';
 import { Button } from './ui/button';
 import { Badge } from './ui/badge';
 import { Card, CardContent } from './ui/card';
@@ -7,7 +7,6 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from './ui/breadcrumb';
 import { ProductCard } from './ProductCard';
 import { products } from '../data/products';
-import { useCart } from '../hooks/useCart';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface ProductDetailProps {
@@ -18,9 +17,7 @@ interface ProductDetailProps {
 
 export function ProductDetail({ productId, onNavigate, onProductClick }: ProductDetailProps) {
   const [selectedImage, setSelectedImage] = useState(0);
-  const [quantity, setQuantity] = useState(1);
   const [activeTab, setActiveTab] = useState('description');
-  const { addToCart } = useCart();
 
   const product = products.find(p => p.id === productId);
   
@@ -44,17 +41,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
   const discountPercentage = product.originalPrice
     ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
     : 0;
-
-  const handleAddToCart = () => {
-    for (let i = 0; i < quantity; i++) {
-      addToCart({
-        id: product.id,
-        name: product.name,
-        price: product.price,
-        image: product.image,
-      });
-    }
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -160,39 +146,17 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                 )}
               </div>
 
-              {/* Quantity Selector */}
-              <div className="flex items-center space-x-4 mb-6">
-                <label className="font-medium text-gray-900">Quantity:</label>
-                <div className="flex items-center border rounded-lg">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
-                    disabled={quantity <= 1}
-                  >
-                    <Minus className="h-4 w-4" />
-                  </Button>
-                  <span className="px-4 py-2 border-x">{quantity}</span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => setQuantity(quantity + 1)}
-                  >
-                    <Plus className="h-4 w-4" />
-                  </Button>
-                </div>
-              </div>
-
               {/* Action Buttons */}
               <div className="flex space-x-4 mb-8">
                 <Button
+                  asChild
                   size="lg"
                   className="flex-1 bg-primary hover:bg-primary/90 text-white"
-                  onClick={handleAddToCart}
-                  disabled={!product.inStock}
                 >
-                  <ShoppingCart className="h-5 w-5 mr-2" />
-                  Add to Cart
+                  <a href="https://example.com/contact" target="_blank" rel="noopener noreferrer">
+                    <Mail className="h-5 w-5 mr-2" />
+                    Contact Us
+                  </a>
                 </Button>
                 <Button variant="outline" size="lg">
                   <Share2 className="h-5 w-5" />
