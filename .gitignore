@@ -1,3 +1,6 @@
-.env
-frontend/node_modules/
-frontend/nginx.conf
+node_modules/
+.vite/
+nginx.conf
+src/config.ts
+dist/
+.vercel

@@ -57,3 +57,10 @@
           "build": "vite build"
       }
   }
+
+{
+  "scripts": {
+    "build": "vite build",
+    "preview": "vite preview"
+  }
+}

@@ -6,6 +6,7 @@ import { Input } from './ui/input';
 import { ProductCard } from './ProductCard';
 import { products, categories } from '../data/products';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { config } from '../config';
 
 interface HomePageProps {
   onNavigate: (page: string) => void;
@@ -167,7 +168,7 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
       {/* Footer */}
       <footer className="bg-gray-900 text-white py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid md:grid-cols-4 gap-8">
+          <div className="grid md:grid-cols-3 gap-8">
             <div>
               <h3 className="text-2xl font-bold mb-4">TechStore</h3>
               <p className="text-gray-400 mb-4">
@@ -197,21 +198,11 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Support</h4>
-              <ul className="space-y-2 text-gray-400">
-                <li><button className="hover:text-white transition-colors">Help Center</button></li>
-                <li><button className="hover:text-white transition-colors">Shipping Info</button></li>
-                <li><button className="hover:text-white transition-colors">Returns</button></li>
-                <li><button className="hover:text-white transition-colors">Warranty</button></li>
-              </ul>
-            </div>
-            
-            <div>
               <h4 className="font-semibold mb-4">Contact Info</h4>
               <ul className="space-y-2 text-gray-400">
-                <li>📞 +1 (555) 123-4567</li>
-                <li>✉️ info@techstore.com</li>
-                <li>📍 123 Tech Street, Digital City</li>
+                <li>📞 {config.phoneNumber}</li>
+                <li>✉️ {config.email}</li>
+                <li>📍 {config.address}</li>
                 <li>🕒 Mon-Fri: 9AM-6PM</li>
               </ul>
             </div>

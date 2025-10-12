@@ -8,6 +8,7 @@ import { Breadcrumb, BreadcrumbItem, BreadcrumbList, BreadcrumbPage, BreadcrumbS
 import { ProductCard } from './ProductCard';
 import { products } from '../data/products';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { config } from '../config';
 
 interface ProductDetailProps {
   productId: string;
@@ -153,7 +154,7 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                   size="lg"
                   className="flex-1 bg-primary hover:bg-primary/90 text-white"
                 >
-                  <a href="https://example.com/contact" target="_blank" rel="noopener noreferrer">
+                  <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
                     <Mail className="h-5 w-5 mr-2" />
                     Contact Us
                   </a>

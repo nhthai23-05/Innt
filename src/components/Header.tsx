@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Search, Menu, X, Mail } from 'lucide-react';
 import { Button } from './ui/button';
 import { Input } from './ui/input';
+import { config } from '../config';
 
 interface HeaderProps {
   onNavigate: (page: string) => void;
@@ -82,7 +83,7 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
               asChild
               className="hidden sm:flex bg-primary hover:bg-primary/90 text-white"
             >
-              <a href="https://example.com/contact" target="_blank" rel="noopener noreferrer">
+              <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
                 <Mail className="h-4 w-4 mr-2" />
                 Contact
               </a>
@@ -133,7 +134,7 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
                   </button>
                 ))}
                 <a
-                  href="https://example.com/contact"
+                  href={config.contactUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center w-full py-2 px-3 text-gray-600 hover:bg-gray-100 rounded-md"
