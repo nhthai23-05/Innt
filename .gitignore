@@ -1,6 +1,6 @@
 node_modules/
 .vite/
 nginx.conf
-src/config.ts
+.env
 dist/
 .vercel
