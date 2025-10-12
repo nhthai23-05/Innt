@@ -24,7 +24,7 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-4 bg-primary text-white">
-                New Arrivals
+                Nổi bật
               </Badge>
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
                 Latest Tech at
@@ -40,7 +40,7 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
                   className="bg-primary hover:bg-primary/90 text-white"
                   onClick={() => onNavigate('products')}
                 >
-                  Shop Now
+                  Xem ngay
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button
@@ -107,10 +107,10 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Featured Products
+              Các sản phẩm nổi bật
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              Discover our hand-picked selection of the latest and greatest tech products
+              Khám phá các sản phẩm nổi bật của công ty chúng tôi ngay tại đây
             </p>
           </div>
           
@@ -131,7 +131,7 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
               onClick={() => onNavigate('products')}
               className="border-primary text-primary hover:bg-primary hover:text-white"
             >
-              View All Products
+              Xem tất cả sản phẩm
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>
@@ -170,7 +170,7 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-3 gap-8">
             <div>
-              <h3 className="text-2xl font-bold mb-4">TechStore</h3>
+              <h3 className="text-2xl font-bold mb-4">INNT</h3>
               <p className="text-gray-400 mb-4">
                 Your trusted destination for the latest technology and electronics.
               </p>
@@ -188,28 +188,28 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Quick Links</h4>
+              <h4 className="font-semibold mb-4">Phím tắt</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Home</button></li>
-                <li><button onClick={() => onNavigate('products')} className="hover:text-white transition-colors">Products</button></li>
-                <li><button className="hover:text-white transition-colors">About Us</button></li>
-                <li><button className="hover:text-white transition-colors">Contact</button></li>
+                <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Trang chủ</button></li>
+                <li><button onClick={() => onNavigate('products')} className="hover:text-white transition-colors">Sản phẩm</button></li>
+                <li><button className="hover:text-white transition-colors">Về chúng tôi</button></li>
+                <li><button className="hover:text-white transition-colors">Liên hệ</button></li>
               </ul>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Contact Info</h4>
+              <h4 className="font-semibold mb-4">Thông tin liên hệ</h4>
               <ul className="space-y-2 text-gray-400">
                 <li>📞 {config.phoneNumber}</li>
                 <li>✉️ {config.email}</li>
                 <li>📍 {config.address}</li>
-                <li>🕒 Mon-Fri: 9AM-6PM</li>
+                <li>🕒 Mon-Sat: 8AM-5PM</li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 TechStore. All rights reserved.</p>
+            <p>&copy; 1995 INNT. All rights reserved.</p>
           </div>
         </div>
       </footer>

@@ -21,9 +21,9 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
   };
 
   const navigation = [
-    { name: 'Home', page: 'home' },
-    { name: 'Products', page: 'products' },
-    { name: 'About', page: 'about' },
+    { name: 'Trang chủ', page: 'home' },
+    { name: 'Sản phẩm', page: 'products' },
+    { name: 'Về chúng tôi', page: 'about' },
   ];
 
   return (
@@ -36,7 +36,7 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
               onClick={() => onNavigate('home')}
               className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors"
             >
-              TechStore
+              INNT
             </button>
           </div>
 
@@ -85,7 +85,7 @@ export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
             >
               <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
                 <Mail className="h-4 w-4 mr-2" />
-                Contact
+                Liên hệ
               </a>
             </Button>
 
