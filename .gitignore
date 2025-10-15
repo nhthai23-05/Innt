@@ -4,3 +4,4 @@ nginx.conf
 .env
 build/
 .vercel
+product_image/
