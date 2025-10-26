@@ -33,3 +33,9 @@ export const products: Product[] = [
     featured: true
   }
 ]
+
+// Export categories array
+export const categories = [
+  { id: 'phong-bi', name: 'Phong bì', count: products.filter(p => p.category === 'phong bì').length },
+  // Thêm các category khác nếu cần
+];
