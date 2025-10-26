@@ -26,9 +26,9 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-gray-900 mb-4">Product Not Found</h1>
+          <h1 className="text-2xl font-bold text-gray-900 mb-4">Không tìm thấy sản phẩm</h1>
           <Button onClick={() => onNavigate('products')}>
-            Back to Products
+            Quay lại danh sách sản phẩm
           </Button>
         </div>
       </div>
@@ -38,10 +38,6 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
   const relatedProducts = products
     .filter(p => p.category === product.category && p.id !== product.id)
     .slice(0, 4);
-
-  const discountPercentage = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -87,9 +83,9 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                 alt={product.name}
                 className="w-full h-96 object-cover rounded-lg"
               />
-              {discountPercentage > 0 && (
+              {product.featured && (
                 <Badge className="absolute top-4 left-4 bg-primary text-white">
-                  -{discountPercentage}%
+                  Sản phẩm nổi bật
                 </Badge>
               )}
             </div>
@@ -122,27 +118,22 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
               <p className="text-primary font-medium mb-2">{product.brand}</p>
               <h1 className="text-3xl font-bold text-gray-900 mb-4">{product.name}</h1>
 
-              {/* Price */}
-              <div className="flex items-center space-x-3 mb-6">
-                <span className="text-3xl font-bold text-gray-900">
-                  ${product.price}
-                </span>
-                {product.originalPrice && (
-                  <span className="text-xl text-gray-500 line-through">
-                    ${product.originalPrice}
-                  </span>
-                )}
+              {/* Category */}
+              <div className="mb-6">
+                <Badge className="bg-gray-100 text-gray-800">
+                  {product.category}
+                </Badge>
               </div>
 
               {/* Stock Status */}
               <div className="mb-6">
                 {product.inStock ? (
                   <Badge className="bg-green-100 text-green-800">
-                    ✓ In Stock
+                    ✓ Còn hàng
                   </Badge>
                 ) : (
                   <Badge variant="secondary">
-                    Out of Stock
+                    Hết hàng
                   </Badge>
                 )}
               </div>
@@ -156,7 +147,7 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                 >
                   <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
                     <Mail className="h-5 w-5 mr-2" />
-                    Contact Us
+                    Liên hệ báo giá
                   </a>
                 </Button>
                 <Button variant="outline" size="lg">
@@ -168,15 +159,15 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
               <div className="space-y-3">
                 <div className="flex items-center text-gray-600">
                   <Truck className="h-5 w-5 mr-3 text-primary" />
-                  <span>Free shipping on orders over $100</span>
+                  <span>Giao hàng toàn quốc</span>
                 </div>
                 <div className="flex items-center text-gray-600">
                   <Shield className="h-5 w-5 mr-3 text-primary" />
-                  <span>2-year warranty included</span>
+                  <span>Sản phẩm chất lượng cao</span>
                 </div>
                 <div className="flex items-center text-gray-600">
                   <RotateCcw className="h-5 w-5 mr-3 text-primary" />
-                  <span>30-day return policy</span>
+                  <span>Tùy chỉnh theo yêu cầu</span>
                 </div>
               </div>
             </div>
@@ -208,9 +199,9 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
                     {product.description}
                   </p>
                   <p className="text-gray-700 leading-relaxed mt-4">
-                    This premium product from {product.brand} represents the latest in technology and innovation. 
-                    Designed with both performance and aesthetics in mind, it delivers exceptional value for 
-                    professionals and enthusiasts alike.
+                    Sản phẩm cao cấp từ {product.brand} được thiết kế và sản xuất với tiêu chuẩn chất lượng cao nhất. 
+                    Chúng tôi cam kết mang đến cho khách hàng những sản phẩm giấy in ấn hoàn hảo, 
+                    phù hợp cho mọi nhu cầu từ cá nhân đến doanh nghiệp.
                   </p>
                 </div>
               </TabsContent>
@@ -232,7 +223,7 @@ export function ProductDetail({ productId, onNavigate, onProductClick }: Product
         {/* Related Products */}
         {relatedProducts.length > 0 && (
           <div>
-            <h2 className="text-2xl font-bold text-gray-900 mb-8">Related Products</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-8">Sản phẩm liên quan</h2>
             <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {relatedProducts.map((relatedProduct) => (
                 <ProductCard

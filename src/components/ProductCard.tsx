@@ -10,10 +10,6 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onProductClick }: ProductCardProps) {
 
-  const discountPercentage = product.originalPrice
-    ? Math.round(((product.originalPrice - product.price) / product.originalPrice) * 100)
-    : 0;
-
   return (
     <Card className="group cursor-pointer transition-all duration-300 hover:shadow-lg hover:-translate-y-1">
       <CardContent className="p-0">
@@ -28,9 +24,9 @@ export function ProductCard({ product, onProductClick }: ProductCardProps) {
             
             {/* Badges */}
             <div className="absolute top-3 left-3">
-              {discountPercentage > 0 && (
+              {product.featured && (
                 <Badge className="bg-primary text-white">
-                  -{discountPercentage}%
+                  Nổi bật
                 </Badge>
               )}
             </div>
@@ -45,22 +41,20 @@ export function ProductCard({ product, onProductClick }: ProductCardProps) {
               </h3>
             </div>
 
-            {/* Price */}
+            {/* Description Preview */}
+            <p className="text-sm text-gray-600 line-clamp-2 mb-3">
+              {product.description}
+            </p>
+
+            {/* Stock Status */}
             <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2">
-                <span className="font-semibold text-lg text-gray-900">
-                  ${product.price}
-                </span>
-                {product.originalPrice && (
-                  <span className="text-sm text-gray-500 line-through">
-                    ${product.originalPrice}
-                  </span>
-                )}
-              </div>
+              <span className="text-sm text-primary font-medium">
+                Xem chi tiết →
+              </span>
               
               {!product.inStock && (
                 <Badge variant="secondary" className="text-xs">
-                  Out of Stock
+                  Hết hàng
                 </Badge>
               )}
             </div>

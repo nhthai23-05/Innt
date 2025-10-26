@@ -24,15 +24,15 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <Badge className="mb-4 bg-primary text-white">
-                Nổi bật
+                Chuyên nghiệp - Uy tín - Chất lượng
               </Badge>
               <h1 className="text-4xl md:text-6xl font-bold mb-6">
-                Latest Tech at
-                <span className="text-primary"> Amazing Prices</span>
+                Sản xuất sản phẩm giấy
+                <span className="text-primary"> chất lượng cao</span>
               </h1>
               <p className="text-xl text-gray-300 mb-8">
-                Discover cutting-edge electronics, from smartphones to gaming gear. 
-                Premium quality, competitive prices, fast delivery.
+                Chuyên sản xuất phong bì, hộp quà, thiệp cưới và các sản phẩm in ấn cao cấp. 
+                Phục vụ nhu cầu cá nhân và doanh nghiệp trên toàn quốc.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
@@ -40,26 +40,27 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
                   className="bg-primary hover:bg-primary/90 text-white"
                   onClick={() => onNavigate('products')}
                 >
-                  Xem ngay
+                  Xem sản phẩm
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
                 <Button
                   size="lg"
                   variant="outline"
                   className="border-white text-white hover:bg-white hover:text-gray-900"
+                  onClick={() => onNavigate('about')}
                 >
-                  Learn More
+                  Về chúng tôi
                 </Button>
               </div>
             </div>
             <div className="relative">
               <ImageWithFallback
-                src="https://images.unsplash.com/photo-1758186386318-42f7fb10f465?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzbWFydHBob25lJTIwZWxlY3Ryb25pY3MlMjB0ZWNobm9sb2d5fGVufDF8fHx8MTc1OTA2NjIzNnww&ixlib=rb-4.1.0&q=80&w=1080"
-                alt="Latest Technology"
+                src="https://res.cloudinary.com/dt4zsrqho/image/upload/v1761494203/logo_u6rctw.jpg"
+                alt="Sản phẩm giấy chất lượng cao"
                 className="rounded-lg shadow-2xl w-full"
               />
               <div className="absolute top-4 right-4 bg-primary text-white px-3 py-1 rounded-full text-sm font-medium">
-                20% OFF
+                Từ 1995
               </div>
             </div>
           </div>
@@ -74,29 +75,29 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Truck className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Free Shipping</h3>
-              <p className="text-gray-600 text-sm">Free delivery on orders over $100</p>
+              <h3 className="font-semibold mb-2">Giao hàng toàn quốc</h3>
+              <p className="text-gray-600 text-sm">Giao hàng nhanh chóng khắp Việt Nam</p>
             </div>
             <div className="text-center">
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Shield className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">2 Year Warranty</h3>
-              <p className="text-gray-600 text-sm">Comprehensive warranty coverage</p>
+              <h3 className="font-semibold mb-2">Chất lượng đảm bảo</h3>
+              <p className="text-gray-600 text-sm">Cam kết sản phẩm chất lượng cao</p>
             </div>
             <div className="text-center">
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Headphones className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">24/7 Support</h3>
-              <p className="text-gray-600 text-sm">Round-the-clock customer service</p>
+              <h3 className="font-semibold mb-2">Hỗ trợ 24/7</h3>
+              <p className="text-gray-600 text-sm">Tư vấn và hỗ trợ khách hàng liên tục</p>
             </div>
             <div className="text-center">
               <div className="bg-primary/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Award className="h-8 w-8 text-primary" />
               </div>
-              <h3 className="font-semibold mb-2">Best Quality</h3>
-              <p className="text-gray-600 text-sm">Premium products from top brands</p>
+              <h3 className="font-semibold mb-2">Kinh nghiệm 30 năm</h3>
+              <p className="text-gray-600 text-sm">Uy tín được khẳng định từ 1995</p>
             </div>
           </div>
         </div>
@@ -143,21 +144,21 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Shop by Category
+              Danh mục sản phẩm
             </h2>
             <p className="text-gray-600">
-              Find exactly what you're looking for
+              Khám phá đa dạng sản phẩm của chúng tôi
             </p>
           </div>
           
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((category) => (
-              <Card key={category.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300">
+              <Card key={category.id} className="group cursor-pointer hover:shadow-lg transition-all duration-300" onClick={() => onNavigate('products')}>
                 <CardContent className="p-6 text-center">
-                  <div className="text-4xl mb-4">{category.icon}</div>
-                  <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors">
+                  <h3 className="font-semibold text-gray-900 group-hover:text-primary transition-colors mb-2">
                     {category.name}
                   </h3>
+                  <p className="text-sm text-gray-500">{category.count} sản phẩm</p>
                 </CardContent>
               </Card>
             ))}
@@ -172,28 +173,25 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
             <div>
               <h3 className="text-2xl font-bold mb-4">INNT</h3>
               <p className="text-gray-400 mb-4">
-                Your trusted destination for the latest technology and electronics.
+                Công ty sản xuất sản phẩm giấy chất lượng cao, phục vụ nhu cầu in ấn của khách hàng từ 1995.
               </p>
               <div className="flex space-x-4">
                 <Button size="sm" variant="outline" className="border-gray-600 text-gray-400 hover:text-white">
                   Facebook
                 </Button>
                 <Button size="sm" variant="outline" className="border-gray-600 text-gray-400 hover:text-white">
-                  Twitter
-                </Button>
-                <Button size="sm" variant="outline" className="border-gray-600 text-gray-400 hover:text-white">
-                  Instagram
+                  Zalo
                 </Button>
               </div>
             </div>
             
             <div>
-              <h4 className="font-semibold mb-4">Phím tắt</h4>
+              <h4 className="font-semibold mb-4">Liên kết nhanh</h4>
               <ul className="space-y-2 text-gray-400">
                 <li><button onClick={() => onNavigate('home')} className="hover:text-white transition-colors">Trang chủ</button></li>
                 <li><button onClick={() => onNavigate('products')} className="hover:text-white transition-colors">Sản phẩm</button></li>
-                <li><button className="hover:text-white transition-colors">Về chúng tôi</button></li>
-                <li><button className="hover:text-white transition-colors">Liên hệ</button></li>
+                <li><button onClick={() => onNavigate('about')} className="hover:text-white transition-colors">Về chúng tôi</button></li>
+                <li><a href={config.contactUrl} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">Liên hệ</a></li>
               </ul>
             </div>
             
@@ -203,13 +201,13 @@ export function HomePage({ onNavigate, onProductClick }: HomePageProps) {
                 <li>📞 {config.phoneNumber}</li>
                 <li>✉️ {config.email}</li>
                 <li>📍 {config.address}</li>
-                <li>🕒 Mon-Sat: 8AM-5PM</li>
+                <li>🕒 Thứ 2 - Thứ 7: 8h - 17h</li>
               </ul>
             </div>
           </div>
           
           <div className="border-t border-gray-700 mt-12 pt-8 text-center text-gray-400">
-            <p>&copy; 1995 INNT. All rights reserved.</p>
+            <p>&copy; 1995-2025 INNT. Bản quyền được bảo lưu.</p>
           </div>
         </div>
       </footer>

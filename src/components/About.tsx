@@ -11,23 +11,23 @@ export function About({ onNavigate }: AboutProps) {
   const values = [
     {
       icon: <Target className="h-8 w-8 text-primary" />,
-      title: 'Our Mission',
-      description: 'To provide cutting-edge technology products that enhance the lives of our customers through innovation and quality.'
+      title: 'Sứ mệnh của chúng tôi',
+      description: 'Cung cấp sản phẩm giấy in ấn chất lượng cao nhất, đáp ứng mọi nhu cầu của khách hàng từ cá nhân đến doanh nghiệp.'
     },
     {
       icon: <Users className="h-8 w-8 text-primary" />,
-      title: 'Customer First',
-      description: 'We prioritize customer satisfaction above all else, offering exceptional service and support at every step.'
+      title: 'Khách hàng là trung tâm',
+      description: 'Chúng tôi luôn đặt sự hài lòng của khách hàng lên hàng đầu, với dịch vụ tư vấn và hỗ trợ tận tình.'
     },
     {
       icon: <Award className="h-8 w-8 text-primary" />,
-      title: 'Quality Guarantee',
-      description: 'Every product we sell meets our rigorous quality standards and comes with comprehensive warranty coverage.'
+      title: 'Chất lượng đảm bảo',
+      description: 'Mọi sản phẩm đều được kiểm soát chất lượng nghiêm ngặt, đảm bảo độ bền và tính thẩm mỹ cao.'
     },
     {
       icon: <TrendingUp className="h-8 w-8 text-primary" />,
-      title: 'Innovation',
-      description: 'We stay ahead of the curve, bringing you the latest technology trends and breakthrough products.'
+      title: 'Đổi mới không ngừng',
+      description: 'Luôn cập nhật xu hướng thiết kế và công nghệ in ấn hiện đại nhất để phục vụ khách hàng tốt nhất.'
     }
   ];
 
@@ -38,10 +38,10 @@ export function About({ onNavigate }: AboutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-6xl font-bold mb-6">
-              About TechStore
+              Về INNT
             </h1>
             <p className="text-xl text-gray-300">
-              Your trusted partner in technology since 2015
+              Đối tác tin cậy trong sản xuất sản phẩm giấy từ năm 1995
             </p>
           </div>
         </div>
@@ -53,30 +53,30 @@ export function About({ onNavigate }: AboutProps) {
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-                Our Story
+                Câu chuyện của chúng tôi
               </h2>
               <div className="space-y-4 text-gray-600">
                 <p>
-                  Founded in 2015, TechStore began with a simple vision: to make the latest technology 
-                  accessible to everyone. What started as a small online retailer has grown into a trusted 
-                  destination for tech enthusiasts and everyday consumers alike.
+                  Được thành lập từ năm 1995, INNT bắt đầu với tầm nhìn đơn giản: mang đến những sản phẩm 
+                  giấy in ấn chất lượng cao cho mọi người. Từ một xưởng in nhỏ, chúng tôi đã phát triển 
+                  thành một trong những đơn vị sản xuất phong bì, hộp quà, thiệp cưới hàng đầu.
                 </p>
                 <p>
-                  Over the years, we've built strong relationships with leading technology brands, 
-                  allowing us to offer premium products at competitive prices. Our commitment to 
-                  customer satisfaction has earned us a loyal community of over 100,000 satisfied customers.
+                  Qua nhiều năm, chúng tôi đã xây dựng được mối quan hệ vững chắc với khách hàng và đối tác, 
+                  cho phép chúng tôi cung cấp sản phẩm chất lượng với giá cả cạnh tranh. Cam kết về sự hài lòng 
+                  của khách hàng đã giúp chúng tôi có được cộng đồng khách hàng trung thành.
                 </p>
                 <p>
-                  Today, TechStore stands as a testament to our dedication to quality, innovation, 
-                  and exceptional service. We continue to evolve, bringing you the latest innovations 
-                  in electronics, from smartphones and laptops to gaming gear and smart home devices.
+                  Hôm nay, INNT là minh chứng cho sự tận tâm của chúng tôi với chất lượng, đổi mới và dịch vụ 
+                  xuất sắc. Chúng tôi tiếp tục phát triển, mang đến những sản phẩm in ấn hiện đại nhất, 
+                  từ phong bì văn phòng đến thiệp cưới cao cấp và hộp quà sang trọng.
                 </p>
               </div>
             </div>
             <div className="relative">
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&w=1080"
-                alt="Our Team"
+                alt="Đội ngũ của chúng tôi"
                 className="rounded-lg shadow-xl w-full"
               />
             </div>
@@ -89,10 +89,10 @@ export function About({ onNavigate }: AboutProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-              Our Values
+              Giá trị cốt lõi
             </h2>
             <p className="text-gray-600 max-w-2xl mx-auto">
-              The principles that guide everything we do
+              Những nguyên tắc định hướng mọi hoạt động của chúng tôi
             </p>
           </div>
           
