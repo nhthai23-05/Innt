@@ -24,7 +24,7 @@ export function Footer({ onNavigate }: FooterProps) {
               <ImageWithFallback
                 src="https://res.cloudinary.com/dt4zsrqho/image/upload/v1761494203/logo_u6rctw.jpg"
                 alt="Công ty In N&T Logo"
-                className="h-12 w-auto object-contain brightness-0 invert"
+                className="h-12 w-auto object-contain"
               />
             </div>
             <p className="text-gray-300 mb-4">
