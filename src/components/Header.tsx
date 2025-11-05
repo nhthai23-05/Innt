@@ -28,7 +28,7 @@ export function Header({ currentPage, onNavigate }: HeaderProps) {
             className="flex items-center gap-3 hover:opacity-80 transition-opacity"
           >
             <ImageWithFallback
-              src="[YOUR_LOGO_IMAGE.jpg]"
+              src="https://res.cloudinary.com/dt4zsrqho/image/upload/v1761494203/logo_u6rctw.jpg"
               alt="Công ty In N&T Logo"
               className="h-12 w-auto object-contain"
             />
