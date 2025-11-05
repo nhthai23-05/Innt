@@ -1,150 +1,85 @@
 import { useState } from 'react';
-import { Search, Menu, X, Mail } from 'lucide-react';
-import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { config } from '../config';
+import { Menu, X } from 'lucide-react';
+import { ImageWithFallback } from './figma/ImageWithFallback';
 
 interface HeaderProps {
-  onNavigate: (page: string) => void;
   currentPage: string;
-  onSearch: (query: string) => void;
+  onNavigate: (page: string) => void;
 }
 
-export function Header({ onNavigate, currentPage, onSearch }: HeaderProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+export function Header({ currentPage, onNavigate }: HeaderProps) {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  const handleSearch = (e: React.FormEvent) => {
-    e.preventDefault();
-    onSearch(searchQuery);
-    onNavigate('products');
-  };
-
-  const navigation = [
-    { name: 'Trang chủ', page: 'home' },
-    { name: 'Sản phẩm', page: 'products' },
-    { name: 'Về chúng tôi', page: 'about' },
+  const menuItems = [
+    { id: 'home', label: 'Trang chủ' },
+    { id: 'about', label: 'Giới thiệu' },
+    { id: 'products', label: 'Sản phẩm' },
+    { id: 'process', label: 'Quy trình' },
+    { id: 'contact', label: 'Liên hệ' },
   ];
 
   return (
-    <header className="bg-white shadow-sm border-b sticky top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+    <header className="sticky top-0 z-50 bg-white border-b border-[#E5E7EB]">
+      <div className="container mx-auto px-4 md:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
-          <div className="flex items-center">
-            <button
-              onClick={() => onNavigate('home')}
-              className="text-2xl font-bold text-primary hover:text-primary/80 transition-colors"
-            >
-              INNT
-            </button>
-          </div>
+          <button
+            onClick={() => onNavigate('home')}
+            className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+          >
+            <ImageWithFallback
+              src="[YOUR_LOGO_IMAGE.jpg]"
+              alt="Công ty In N&T Logo"
+              className="h-12 w-auto object-contain"
+            />
+          </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden md:flex space-x-8">
-            {navigation.map((item) => (
+          <nav className="hidden md:flex items-center gap-8">
+            {menuItems.map((item) => (
               <button
-                key={item.name}
-                onClick={() => onNavigate(item.page)}
-                className={`${
-                  currentPage === item.page
-                    ? 'text-primary border-b-2 border-primary'
-                    : 'text-gray-600 hover:text-primary'
-                } pb-1 transition-colors duration-200`}
+                key={item.id}
+                onClick={() => onNavigate(item.id)}
+                className={`transition-colors ${
+                  currentPage === item.id
+                    ? 'text-[#E62026]'
+                    : 'text-[#374151] hover:text-[#E62026]'
+                }`}
               >
-                {item.name}
+                {item.label}
               </button>
             ))}
           </nav>
 
-          {/* Search Bar */}
-          <form onSubmit={handleSearch} className="hidden lg:flex flex-1 max-w-lg mx-8">
-            <div className="relative w-full">
-              <Input
-                type="text"
-                placeholder="Search products..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 pr-4"
-              />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-            </div>
-          </form>
-
-          {/* Right Icons */}
-          <div className="flex items-center space-x-4">
-            {/* Mobile Search */}
-            <button className="lg:hidden p-2 text-gray-600 hover:text-primary">
-              <Search className="h-5 w-5" />
-            </button>
-
-            {/* Contact Button */}
-            <Button
-              asChild
-              className="hidden sm:flex bg-primary hover:bg-primary/90 text-white"
-            >
-              <a href={config.contactUrl} target="_blank" rel="noopener noreferrer">
-                <Mail className="h-4 w-4 mr-2" />
-                Liên hệ
-              </a>
-            </Button>
-
-            {/* Mobile Menu Toggle */}
-            <button
-              onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 text-gray-600 hover:text-primary"
-            >
-              {isMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </button>
-          </div>
+          {/* Mobile Menu Button */}
+          <button
+            className="md:hidden p-2 text-[#374151] hover:text-[#E62026] transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
 
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden border-t bg-white absolute left-0 right-0 shadow-lg">
-            <div className="px-4 py-4 space-y-4">
-              {/* Mobile Search */}
-              <form onSubmit={handleSearch} className="relative">
-                <Input
-                  type="text"
-                  placeholder="Search products..."
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10"
-                />
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-              </form>
-
-              {/* Mobile Navigation */}
-              <nav className="space-y-2">
-                {navigation.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => {
-                      onNavigate(item.page);
-                      setIsMenuOpen(false);
-                    }}
-                    className={`block w-full text-left py-2 px-3 rounded-md ${
-                      currentPage === item.page
-                        ? 'bg-primary text-white'
-                        : 'text-gray-600 hover:bg-gray-100'
-                    }`}
-                  >
-                    {item.name}
-                  </button>
-                ))}
-                <a
-                  href={config.contactUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center w-full py-2 px-3 text-gray-600 hover:bg-gray-100 rounded-md"
-                >
-                  <Mail className="h-4 w-4 mr-2" />
-                  Contact
-                </a>
-              </nav>
-            </div>
-          </div>
+        {/* Mobile Navigation */}
+        {mobileMenuOpen && (
+          <nav className="md:hidden py-4 border-t border-[#E5E7EB]">
+            {menuItems.map((item) => (
+              <button
+                key={item.id}
+                onClick={() => {
+                  onNavigate(item.id);
+                  setMobileMenuOpen(false);
+                }}
+                className={`block w-full text-left px-4 py-3 transition-colors ${
+                  currentPage === item.id
+                    ? 'text-[#E62026] bg-[#F9FAFB]'
+                    : 'text-[#374151] hover:bg-[#F9FAFB] hover:text-[#E62026]'
+                }`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
         )}
       </div>
     </header>

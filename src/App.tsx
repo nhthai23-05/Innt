@@ -1,75 +1,51 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Header } from './components/Header';
-import { HomePage } from './components/HomePage';
-import { ProductListing } from './components/ProductListing';
-import { ProductDetail } from './components/ProductDetail';
-import { About } from './components/About';
+import { Footer } from './components/Footer';
+import { StickyContactButton } from './components/StickyContactButton';
+import { HomePage } from './pages/HomePage';
+import { AboutPage } from './pages/AboutPage';
+import { ProductsPage } from './pages/ProductsPage';
+import { ProductDetailPage } from './pages/ProductDetailPage';
+import { ProcessPage } from './pages/ProcessPage';
+import { ContactPage } from './pages/ContactPage';
 
-type Page = 'home' | 'products' | 'product-detail' | 'about';
+type Page = 'home' | 'about' | 'products' | 'product-detail' | 'process' | 'contact';
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [selectedProductId, setSelectedProductId] = useState<string>('');
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [categoryId, setCategoryId] = useState<string>('boxes');
 
-  const handleNavigate = (page: string) => {
+  const handleNavigate = (page: string, categoryIdParam?: string) => {
     setCurrentPage(page as Page);
-  };
-
-  const handleProductClick = (productId: string) => {
-    setSelectedProductId(productId);
-    setCurrentPage('product-detail');
-  };
-
-  const handleSearch = (query: string) => {
-    setSearchQuery(query);
-  };
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'home':
-        return (
-          <HomePage
-            onNavigate={handleNavigate}
-            onProductClick={handleProductClick}
-          />
-        );
-      case 'products':
-        return (
-          <ProductListing
-            onNavigate={handleNavigate}
-            onProductClick={handleProductClick}
-            searchQuery={searchQuery}
-          />
-        );
-      case 'product-detail':
-        return (
-          <ProductDetail
-            productId={selectedProductId}
-            onNavigate={handleNavigate}
-            onProductClick={handleProductClick}
-          />
-        );
-      case 'about':
-        return <About onNavigate={handleNavigate} />;
-      default:
-        return (
-          <HomePage
-            onNavigate={handleNavigate}
-            onProductClick={handleProductClick}
-          />
-        );
+    if (categoryIdParam) {
+      setCategoryId(categoryIdParam);
     }
+    // Scroll to top when navigating
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
+
+  // Scroll to top on initial load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header
-        onNavigate={handleNavigate}
-        currentPage={currentPage}
-        onSearch={handleSearch}
-      />
-      <main>{renderPage()}</main>
+    <div className="min-h-screen flex flex-col bg-white">
+      <Header currentPage={currentPage} onNavigate={handleNavigate} />
+      
+      <main className="flex-1">
+        {currentPage === 'home' && <HomePage onNavigate={handleNavigate} />}
+        {currentPage === 'about' && <AboutPage onNavigate={handleNavigate} />}
+        {currentPage === 'products' && <ProductsPage onNavigate={handleNavigate} />}
+        {currentPage === 'product-detail' && (
+          <ProductDetailPage categoryId={categoryId} onNavigate={handleNavigate} />
+        )}
+        {currentPage === 'process' && <ProcessPage onNavigate={handleNavigate} />}
+        {currentPage === 'contact' && <ContactPage onNavigate={handleNavigate} />}
+      </main>
+
+      <Footer onNavigate={handleNavigate} />
+      <StickyContactButton />
     </div>
   );
 }
