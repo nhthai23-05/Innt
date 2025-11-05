@@ -62,8 +62,8 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                 <div>
                   <h4 className="text-[#1F2937] mb-1">Email</h4>
                   <p className="text-[#374151]">
-                    <a href="mailto:contact@nt-packaging.vn" className="text-[#E62026] hover:underline">
-                      contact@nt-packaging.vn
+                    <a href="mailto:innt1995@gmail.com" className="text-[#E62026] hover:underline">
+                      innt1995@gmail.com
                     </a><br />
                     <a href="mailto:innt1995@gmail.com" className="text-[#E62026] hover:underline">
                       innt1995@gmail.com
