@@ -108,14 +108,14 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => window.open('tel:+84123456789')}
+                onClick={() => window.open('https://zalo.me/84867081781')}
                 className="bg-[#E62026] hover:bg-[#c71d23] text-white"
               >
                 <Phone className="mr-2" size={20} />
                 Gọi ngay
               </Button>
               <Button
-                onClick={() => window.open('[YOUR_ZALO_OR_MESSENGER_LINK_HERE]', '_blank')}
+                onClick={() => window.open('https://zalo.me/84867081781, '_blank')}
                 variant="outline"
                 className="border-[#E62026] text-[#E62026] hover:bg-[#E62026] hover:text-white"
               >
