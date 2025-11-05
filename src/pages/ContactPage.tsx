@@ -36,8 +36,8 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                 <div>
                   <h4 className="text-[#1F2937] mb-1">Địa chỉ</h4>
                   <p className="text-[#374151]">
-                    123 Đường ABC, Phường XYZ<br />
-                    Quận 1, TP. Hồ Chí Minh, Việt Nam
+                    Số 6, Ngách 180/79 Nam Dư<br />
+                    Phường Lĩnh Nam, Hà Nội, Việt Nam
                   </p>
                 </div>
               </div>
@@ -49,8 +49,8 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                 <div>
                   <h4 className="text-[#1F2937] mb-1">Số điện thoại</h4>
                   <p className="text-[#374151]">
-                    Hotline: <a href="tel:+84123456789" className="text-[#E62026] hover:underline">+84 123 456 789</a><br />
-                    Kinh doanh: <a href="tel:+84987654321" className="text-[#E62026] hover:underline">+84 987 654 321</a>
+                    Hotline: <a href="tel:+84867081781" className="text-[#E62026] hover:underline">+84 867081781</a><br />
+                    Kinh doanh: <a href="tel:+84867081781" className="text-[#E62026] hover:underline">+84 867081781</a>
                   </p>
                 </div>
               </div>
@@ -65,8 +65,8 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                     <a href="mailto:contact@nt-packaging.vn" className="text-[#E62026] hover:underline">
                       contact@nt-packaging.vn
                     </a><br />
-                    <a href="mailto:sales@nt-packaging.vn" className="text-[#E62026] hover:underline">
-                      sales@nt-packaging.vn
+                    <a href="mailto:innt1995@gmail.com" className="text-[#E62026] hover:underline">
+                      innt1995@gmail.com
                     </a>
                   </p>
                 </div>
@@ -80,8 +80,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                   <h4 className="text-[#1F2937] mb-1">Giờ làm việc</h4>
                   <p className="text-[#374151]">
                     Thứ 2 - Thứ 6: 8:00 - 17:30<br />
-                    Thứ 7: 8:00 - 12:00<br />
-                    Chủ nhật: Nghỉ
+                    Thứ 7 - Chủ Nhật: Nghỉ
                   </p>
                 </div>
               </div>

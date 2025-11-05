@@ -57,19 +57,19 @@ export function Footer({ onNavigate }: FooterProps) {
               <li className="flex items-start gap-3">
                 <MapPin size={20} className="text-[#E62026] flex-shrink-0 mt-1" />
                 <span className="text-gray-300">
-                  123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh
+                  Số 6, Ngách 180/79 Nam Dư, Lĩnh Nam, Hà Nội
                 </span>
               </li>
               <li className="flex items-center gap-3">
                 <Phone size={20} className="text-[#E62026] flex-shrink-0" />
-                <a href="tel:+84123456789" className="text-gray-300 hover:text-[#E62026] transition-colors">
-                  +84 123 456 789
+                <a href="tel:+84867081781" className="text-gray-300 hover:text-[#E62026] transition-colors">
+                  +84 867081781
                 </a>
               </li>
               <li className="flex items-center gap-3">
                 <Mail size={20} className="text-[#E62026] flex-shrink-0" />
-                <a href="mailto:contact@nt-packaging.vn" className="text-gray-300 hover:text-[#E62026] transition-colors">
-                  contact@nt-packaging.vn
+                <a href="mailto:innt1995@gmail.com" className="text-gray-300 hover:text-[#E62026] transition-colors">
+                  innt1995@gmail.com
                 </a>
               </li>
             </ul>
