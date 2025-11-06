@@ -30,9 +30,8 @@ const values = [
 ];
 
 const milestones = [
-  { year: '2015', title: 'Thành lập công ty', description: 'Khởi đầu với 10 nhân viên và một xưởng nhỏ' },
-  { year: '2017', title: 'Mở rộng quy mô', description: 'Đầu tư máy móc hiện đại, tăng công suất gấp 5 lần' },
-  { year: '2020', title: 'Đạt chứng nhận ISO', description: 'Đạt chứng nhận ISO 9001:2015 về hệ thống quản lý chất lượng' },
+  { year: '1995', title: 'Thành lập công ty', description: 'Khởi đầu với 5 nhân viên và một xưởng nhỏ' },
+  { year: '2020', title: 'Mở rộng quy mô', description: 'Đầu tư máy móc hiện đại, tăng công suất gấp 3 lần' },
   { year: '2025', title: 'Hơn 500 khách hàng', description: 'Phục vụ hơn 500 doanh nghiệp trên toàn quốc' },
 ];
 
@@ -46,7 +45,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <h1 className="text-[#1F2937] mb-6">Về Công ty In N&T</h1>
             <p className="text-[#374151]">
               Đối tác tin cậy của hơn 500 doanh nghiệp trên toàn quốc, 
-              chuyên cung cấp giải pháp bao bì cao cấp với chất lượng quốc tế.
+              chuyên cung cấp giải pháp bao bì cao cấp với chất lượng và sự tận tâm.
             </p>
           </div>
         </div>
@@ -59,17 +58,17 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             <div>
               <h2 className="text-[#1F2937] mb-6">Câu chuyện của chúng tôi</h2>
               <p className="text-[#374151] mb-4">
-                Công ty In N&T được thành lập vào năm 2015 với mục tiêu cung cấp giải pháp bao bì 
-                chất lượng cao cho các doanh nghiệp Việt Nam. Bắt đầu từ một xưởng nhỏ với 10 nhân viên, 
+                Công ty In N&T được thành lập vào năm 1995 với mục tiêu cung cấp giải pháp bao bì 
+                chất lượng cao cho các doanh nghiệp Việt Nam. Bắt đầu từ một xưởng nhỏ với 5 nhân viên, 
                 chúng tôi đã không ngừng nỗ lực và phát triển.
               </p>
               <p className="text-[#374151] mb-4">
-                Qua hơn 10 năm hoạt động, N&T đã trở thành một trong những nhà sản xuất bao bì 
+                Qua hơn 20 năm hoạt động, N&T đã trở thành một trong những nhà sản xuất bao bì 
                 uy tín hàng đầu tại Việt Nam. Chúng tôi tự hào đã phục vụ hơn 500 khách hàng 
                 từ nhiều lĩnh vực khác nhau: mỹ phẩm, thực phẩm, điện tử, thời trang...
               </p>
               <p className="text-[#374151] mb-6">
-                Với đội ngũ hơn 100 nhân viên có tay nghề cao, máy móc thiết bị hiện đại 
+                Với đội ngũ nhân viên có tay nghề cao, máy móc thiết bị hiện đại 
                 và quy trình sản xuất được kiểm soát chặt chẽ, chúng tôi cam kết mang đến 
                 những sản phẩm bao bì tốt nhất cho khách hàng.
               </p>

@@ -87,12 +87,17 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
             </div>
 
             {/* Map Placeholder */}
-            <div className="bg-[#F9FAFB] rounded-lg p-12 text-center border-2 border-dashed border-[#E5E7EB]">
-              <MapPin className="mx-auto text-[#E62026] mb-4" size={48} />
-              <p className="text-[#374151]">
-                Google Maps Integration<br />
-                <span className="text-[#9CA3AF]">[Embed your Google Maps here]</span>
-              </p>
+            <div className="bg-[#F9FAFB] rounded-lg overflow-hidden border border-[#E5E7EB]">
+              <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d658.5328339493915!2d105.88293104100552!3d20.98364573043702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aea2c420e57f%3A0x6972114b4de02b33!2sC%C3%B4ng%20ty%20TNHH%20in%20N%26T!5e0!3m2!1svi!2s!4v1762401257546!5m2!1svi!2s" 
+                width="100%" 
+                height="450" 
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Bản đồ vị trí Công ty TNHH in N&T"
+              />
             </div>
           </div>
         </div>
@@ -115,7 +120,7 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
                 Gọi ngay
               </Button>
               <Button
-                onClick={() => window.open('https://zalo.me/84867081781, '_blank')}
+                onClick={() => window.open('https://zalo.me/84867081781', '_blank')}
                 variant="outline"
                 className="border-[#E62026] text-[#E62026] hover:bg-[#E62026] hover:text-white"
               >

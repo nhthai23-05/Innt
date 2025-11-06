@@ -80,7 +80,7 @@ export function HomePage({ onNavigate }: HomePageProps) {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
             <div>
               <h1 className="text-[#1F2937] mb-6">
-                Giải pháp Sản xuất & In ấn Bao bì Tùy chỉnh Hàng đầu
+                Giải pháp Sản xuất & In ấn Bao bì Hàng đầu
               </h1>
               <p className="text-[#374151] mb-8">
                 Công ty In N&T - Đối tác tin cậy của hơn 500 doanh nghiệp trên toàn quốc. 
@@ -129,8 +129,8 @@ export function HomePage({ onNavigate }: HomePageProps) {
             <div className="order-1 md:order-2">
               <h2 className="text-[#1F2937] mb-4">Về Công ty In N&T</h2>
               <p className="text-[#374151] mb-4">
-                Với hơn 10 năm kinh nghiệm trong ngành sản xuất và in ấn bao bì, 
-                Công ty In N&T tự hào là đối tác tin cậy của nhiều thương hiệu lớn tại Việt Nam.
+                Với gần 30 năm kinh nghiệm trong ngành sản xuất và in ấn bao bì, 
+                Công ty In N&T tự hào là đối tác tin cậy của nhiều thương hiệu tại Việt Nam.
               </p>
               <p className="text-[#374151] mb-6">
                 Chúng tôi không chỉ sản xuất bao bì, mà còn tạo ra những giải pháp đóng gói 
