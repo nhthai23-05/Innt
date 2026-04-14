@@ -137,7 +137,7 @@ User Image → CLIP ViT Encode → Cosine Similarity vs Product Image Embeddings
 
 ## 3. Data Design
 
-### 3.1 Products Data (`products.json`)
+### 3.1 Products Data (`data/products.json`)
 
 **Current state**: Good structure with `embedding_data`, `metadata`, and `generation_enhancers`. 23 products across 7 categories.
 
@@ -179,7 +179,7 @@ User Image → CLIP ViT Encode → Cosine Similarity vs Product Image Embeddings
 5. **Add `finishing_options`** where applicable — enriches the knowledge base
 6. **Add `redirect_note`** — standard message for when chatbot should redirect to Zalo
 
-### 3.2 Business Data (`business.json`)
+### 3.2 Business Data (`data/business.json`)
 
 **Current state**: Good. 5 documents covering company overview, production capabilities, delivery timeline, key clients, and contact info.
 
@@ -474,11 +474,11 @@ A floating chat widget embedded on all pages of innt.vn:
 
 | Task | Details |
 |------|---------|
-| **Product images** | Add Cloudinary URLs to `products.json` → display in ProductCard and ProductDetailPage |
+| **Product images** | Add Cloudinary URLs to `data/products.json` → display in ProductCard and ProductDetailPage |
 | **Product search/filter** | Add text search + category filter dropdown on ProductsPage |
 | **Contact form** | Embed Zalo link prominently + Google Maps (already partially done) |
 | **StickyContactButton** | Wire up to real Zalo company link |
-| **Product detail data** | Load product data from `products.json` instead of hardcoded content |
+| **Product detail data** | Load product data from `data/products.json` instead of hardcoded content |
 
 ---
 
@@ -486,71 +486,73 @@ A floating chat widget embedded on all pages of innt.vn:
 
 ```
 /Innt
-├── src/                              # Frontend (React)
+├── frontend/                         # Frontend (React + Vite + TypeScript)
 │   ├── components/
-│   │   ├── chat/                     # NEW: Chat widget
-│   │   │   ├── ChatWidget.tsx        # Main chat container
-│   │   │   ├── ChatMessage.tsx       # Single message bubble
-│   │   │   ├── ChatInput.tsx         # Text input + send button
-│   │   │   └── ImageUpload.tsx       # Image upload component
-│   │   └── ...existing components...
-│   ├── pages/
-│   │   └── ...existing pages...
-│   ├── services/
-│   │   └── chatApi.ts                # NEW: API client for backend
-│   └── ...existing files...
+│   │   ├── ui/                       #   shadcn/ui primitives (~50 files)
+│   │   ├── figma/                    #   ImageWithFallback
+│   │   ├── chat/                     #   Chat widget (to build)
+│   │   └── *.tsx                     #   Header, Footer, ProductCard, etc.
+│   ├── pages/                        #   6 pages (existing)
+│   ├── services/                     #   API clients (to build)
+│   ├── types/                        #   TypeScript type definitions
+│   ├── styles/
+│   ├── App.tsx
+│   └── main.tsx
 │
-├── backend/                          # NEW: Python backend
+├── backend/                          # Python backend (FastAPI)
 │   ├── app/
-│   │   ├── main.py                   # FastAPI app entry point
-│   │   ├── config.py                 # Configuration / env vars
+│   │   ├── main.py                   #   FastAPI entry point
+│   │   ├── config.py                 #   All settings (env vars with RAG_ prefix)
 │   │   ├── api/
-│   │   │   ├── routes.py             # API route definitions
-│   │   │   └── schemas.py            # Pydantic request/response models
+│   │   │   ├── routes.py             #   API route definitions
+│   │   │   └── schemas.py            #   Pydantic request/response models
 │   │   ├── rag/
-│   │   │   ├── pipeline.py           # RAG orchestrator (configurable)
-│   │   │   ├── chunking.py           # Chunking strategies
-│   │   │   ├── embeddings.py         # Embedding model wrapper
-│   │   │   ├── retrieval.py          # Dense, BM25, hybrid search
-│   │   │   ├── reranking.py          # Cross-encoder reranker
-│   │   │   ├── generation.py         # LLM generation wrapper
-│   │   │   ├── query_enhancement.py  # HyDE, query rewriting
-│   │   │   └── intent.py             # Intent classification (Agentic RAG)
+│   │   │   ├── pipeline.py           #   RAG orchestrator (configurable)
+│   │   │   ├── chunking.py           #   Chunking strategies
+│   │   │   ├── embeddings.py         #   Embedding model wrapper
+│   │   │   ├── retrieval.py          #   Dense, BM25, hybrid search
+│   │   │   ├── reranking.py          #   Cross-encoder reranker
+│   │   │   ├── generation.py         #   LLM generation wrapper
+│   │   │   ├── query_enhancement.py  #   HyDE, query rewriting
+│   │   │   └── intent.py             #   Intent classification (Agentic RAG)
 │   │   ├── multimodal/
-│   │   │   └── image_matching.py     # CLIP-based image-to-product
-│   │   ├── indexing/
-│   │   │   └── indexer.py            # Document processing & vector store indexing
-│   │   └── data/
-│   │       ├── products.json         # Symlink or copy from root
-│   │       └── business.json         # Symlink or copy from root
+│   │   │   └── image_matching.py     #   CLIP-based image-to-product
+│   │   └── indexing/
+│   │       └── indexer.py            #   Document processing & vector store indexing
 │   ├── evaluation/
-│   │   ├── test_set.json             # Ground truth Q&A pairs
-│   │   ├── evaluate.py               # Evaluation runner (RAGAS + custom)
-│   │   ├── metrics.py                # Custom metric implementations
-│   │   └── run_experiments.py        # Experiment orchestrator
+│   │   ├── test_set.json             #   Ground truth Q&A pairs
+│   │   ├── evaluate.py               #   RAGAS evaluation runner
+│   │   ├── metrics.py                #   Custom metric implementations
+│   │   └── run_experiments.py        #   Experiment orchestrator
 │   ├── experiments/
-│   │   ├── configs/                  # YAML configs for each experiment run
-│   │   └── results/                  # Saved experiment results (JSON/CSV)
+│   │   ├── configs/                  #   YAML configs for each experiment run
+│   │   └── results/                  #   Saved experiment results (JSON/CSV)
+│   ├── tests/                        #   Python tests
 │   ├── requirements.txt
-│   └── Dockerfile
+│   ├── Dockerfile
+│   └── .env.example
 │
-├── report/                           # NEW: LaTeX report
+├── data/                             # Shared knowledge base (source of truth)
+│   ├── products.json                 #   23 products with embedding_data + metadata
+│   ├── business.json                 #   5 company info documents
+│   └── images/                       #   Product reference images (for CLIP)
+│
+├── report/                           # LaTeX report
 │   ├── main.tex
 │   ├── references.bib
 │   ├── chapters/
-│   │   ├── 01-introduction.tex
-│   │   ├── 02-related-work.tex
-│   │   ├── 03-methodology.tex
-│   │   ├── 04-system-design.tex
-│   │   ├── 05-experiments.tex
-│   │   ├── 06-results.tex
-│   │   └── 07-conclusion.tex
 │   └── figures/
 │
-├── products.json                     # Source of truth
-├── business.json                     # Source of truth
+├── docs/                             # Presentation & additional docs
+│   └── presentation/
+│
 ├── SPEC.md                           # This file
-└── docker-compose.yml                # Updated for backend service
+├── CLAUDE.md                         # Claude Code session context
+├── README.md                         # Project overview & setup
+├── docker-compose.yml                # Backend + frontend orchestration
+├── package.json                      # Frontend dependencies
+├── vite.config.ts                    # Vite build config
+└── .env.example                      # Frontend env template
 ```
 
 ---

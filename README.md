@@ -69,24 +69,36 @@ uvicorn app.main:app --reload --port 8000
 ## Project Structure
 
 ```
-├── src/                    # Frontend (React SPA)
-│   ├── components/         # UI components (chat widget, product cards, etc.)
-│   └── pages/              # Home, About, Products, ProductDetail, Process, Contact
-├── backend/                # Python backend (to be built)
-│   ├── app/                # FastAPI application
-│   │   ├── rag/            # RAG pipeline (embeddings, retrieval, generation)
-│   │   └── multimodal/     # CLIP image-to-product matching
-│   └── evaluation/         # RAGAS evaluation & experiment runner
-├── report/                 # LaTeX report
-├── products.json           # Product catalog (23 products, Vietnamese)
-├── business.json           # Company information (5 documents, Vietnamese)
-└── SPEC.md                 # Full project specification
+├── frontend/                   # Frontend (React + Vite + TypeScript)
+│   ├── components/
+│   │   ├── ui/                 #   shadcn/ui primitives
+│   │   ├── chat/               #   Chat widget (to build)
+│   │   └── *.tsx               #   Header, Footer, ProductCard, etc.
+│   ├── pages/                  #   Home, About, Products, ProductDetail, Process, Contact
+│   ├── services/               #   API clients
+│   └── types/                  #   TypeScript types
+├── backend/                    # Python backend (FastAPI)
+│   ├── app/
+│   │   ├── api/                #   REST endpoints
+│   │   ├── rag/                #   RAG pipeline modules
+│   │   ├── multimodal/         #   CLIP image-to-product matching
+│   │   └── indexing/           #   Document indexing
+│   ├── evaluation/             #   RAGAS + custom metrics
+│   ├── experiments/            #   Configs & results
+│   └── tests/
+├── data/                       # Shared knowledge base
+│   ├── products.json           #   Product catalog (23 products)
+│   ├── business.json           #   Company info (5 documents)
+│   └── images/                 #   Product reference images (for CLIP)
+├── report/                     # LaTeX report
+├── docs/                       # Presentation slides
+└── SPEC.md                     # Full project specification
 ```
 
 ## Data
 
-- **products.json** — 23 printing products across 7 categories (envelopes, flyers, folded materials, paper bags, labels, forms, business cards)
-- **business.json** — 5 company documents (overview, production capability, delivery timeline, key clients, contact info)
+- **data/products.json** — 23 printing products across 7 categories (envelopes, flyers, folded materials, paper bags, labels, forms, business cards)
+- **data/business.json** — 5 company documents (overview, production capability, delivery timeline, key clients, contact info)
 
 All content is in Vietnamese. Pricing is intentionally excluded (business-sensitive — users are redirected to Zalo for quotes).
 

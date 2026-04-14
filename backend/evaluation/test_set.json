@@ -1,0 +1,4 @@
+{
+  "_description": "Ground truth Q&A pairs for RAG evaluation. Each member contributes 15-20 pairs.",
+  "test_cases": []
+}

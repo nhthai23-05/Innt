@@ -1,8 +1,41 @@
+## Node / Frontend
 node_modules/
 .vite/
-nginx.conf
-.env
 build/
 .vercel
-product_image/
+
+## Python / Backend
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+.venv/
+*.egg
+dist/
+chroma_db/
+backend/chroma_db/
+
+## Environment
+.env
+backend/.env
+
+## OS
 .DS_Store
+
+## Misc
+nginx.conf
+product_image/
+
+## Experiment outputs (large files)
+backend/experiments/results/*.csv
+backend/experiments/results/*.png
+
+## LaTeX build artifacts
+report/*.aux
+report/*.log
+report/*.out
+report/*.toc
+report/*.bbl
+report/*.blg
+report/*.pdf
+report/*.synctex.gz
