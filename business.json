@@ -1,0 +1,83 @@
+[
+  {
+    "embedding_data": {
+      "document_title": "Tổng quan doanh nghiệp và Lịch sử hình thành",
+      "detailed_description": "Công ty được thành lập từ năm 2009, khởi điểm ban đầu là một xưởng in lưới thủ công quy mô nhỏ chỉ với 3-4 nhân sự. Trải qua nhiều năm phát triển và nâng cấp công nghệ, hiện tại chúng tôi đã mở rộng thành một xưởng in offset chuyên nghiệp với đội ngũ 15 nhân công lành nghề, giàu kinh nghiệm, cam kết mang lại chất lượng bản in sắc nét và tận tâm nhất.",
+      "key_highlights": [
+        "Thành lập năm 2009 (Bề dày kinh nghiệm)",
+        "Đi lên từ in lưới thủ công (Sự tận tâm, tỉ mỉ)",
+        "Đội ngũ 15 nhân sự lành nghề",
+        "Chuyển đổi sang công nghệ in offset hiện đại"
+      ]
+    },
+    "metadata": {
+      "category": "Corporate Profile",
+      "established_year": 2009,
+      "employee_count": 15
+    }
+  },
+  {
+    "embedding_data": {
+      "document_title": "Năng lực sản xuất và Quy trình gia công in ấn",
+      "detailed_description": "Chúng tôi vận hành quy trình sản xuất khép kín chuyên nghiệp. Bắt đầu từ khâu Thiết kế (tiếp nhận file Corel Draw, PDF, Illustrator), chuyển sang Chế bản (xuất kẽm, làm khuôn). Tiếp đó là khâu In ấn bằng công nghệ in offset từ 1 đến 4 màu, đáp ứng các kích thước từ khổ A1 trở xuống. Cuối cùng là khâu Gia công sau in với các kỹ thuật như cán màng, bế, xén để hoàn thiện sản phẩm.",
+      "key_highlights": [
+        "Thiết kế: Nhận file Corel Draw, PDF, AI",
+        "In ấn: In offset 1-4 màu, khổ max A1",
+        "Gia công: Cán màng, bế khuôn, xén thành phẩm",
+        "Quy trình khép kín, kiểm soát chất lượng nội bộ"
+      ]
+    },
+    "metadata": {
+      "category": "Production Capability",
+      "technology": "In Offset 1-4 màu",
+      "max_print_size": "A1"
+    }
+  },
+  {
+    "embedding_data": {
+      "document_title": "Thời gian hoàn thành và Tiến độ giao hàng",
+      "detailed_description": "Tiến độ sản xuất được tối ưu hóa để đáp ứng nhu cầu của đối tác. Khâu thiết kế phụ thuộc vào số trang và độ phức tạp của mẫu. Khâu chế bản xuất kẽm mất từ 1-3 ngày. Khâu in ấn chạy máy mất 1-2 ngày. Khâu gia công thành phẩm (cán, bế, dán) mất từ 3-5 ngày tùy số lượng.",
+      "key_highlights": [
+        "Thiết kế: Tùy biến theo yêu cầu",
+        "Chế bản: 1 - 3 ngày",
+        "In ấn: 1 - 2 ngày",
+        "Gia công sau in: 3 - 5 ngày"
+      ]
+    },
+    "metadata": {
+      "category": "Workflow & Timeline",
+      "total_estimated_days": "5 - 10 ngày (Trung bình)"
+    }
+  },
+  {
+    "embedding_data": {
+      "document_title": "Khách hàng tiêu biểu và Đối tác thương mại",
+      "detailed_description": "Chất lượng in ấn và sự uy tín của chúng tôi đã được khẳng định qua việc hợp tác lâu dài với nhiều doanh nghiệp và tập đoàn lớn. Tiêu biểu có thể kể đến các Công ty thương mại (như Bảo Minh), Tập đoàn Bưu chính Viễn thông Việt Nam (VNPT), và nhiều đối tác doanh nghiệp khác.",
+      "key_highlights": [
+        "Công ty thương mại Bảo Minh",
+        "Tập đoàn Bưu chính Viễn thông Việt Nam (VNPT)",
+        "Kinh nghiệm phục vụ khách hàng B2B lớn"
+      ]
+    },
+    "metadata": {
+      "category": "Clients & Partners"
+    }
+  },
+  {
+    "embedding_data": {
+      "document_title": "Thông tin liên hệ và Địa chỉ",
+      "detailed_description": "Để được tư vấn kỹ thuật chuyên sâu, báo giá chi tiết và gửi file thiết kế, quý khách hàng vui lòng liên hệ trực tiếp với chúng tôi qua số Hotline hoặc đến tham quan trực tiếp xưởng sản xuất theo địa chỉ dưới đây.",
+      "key_highlights": [
+        "Hỗ trợ tư vấn kỹ thuật in offset",
+        "Tiếp nhận yêu cầu báo giá B2B",
+        "Hỗ trợ kiểm tra file thiết kế trước khi in"
+      ]
+    },
+    "metadata": {
+      "category": "Contact Information",
+      "address": "",
+      "hotline": "",
+      "email": ""
+    }
+  }
+]

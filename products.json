@@ -1,0 +1,502 @@
+[
+  {
+    "embedding_data": {
+      "product_name": "Phong bì A5",
+      "detailed_description": "Phong bì kích thước trung bình (chuẩn A5), thiết kế nắp gập an toàn giúp bảo mật nội dung bên trong. Bề mặt giấy mịn, bám mực tốt, phù hợp để in ấn logo và thông tin nhận diện thương hiệu công ty một cách sắc nét.",
+      "use_cases": [
+        "Đựng tờ rơi, tờ gấp quảng cáo",
+        "Gửi hóa đơn, hợp đồng nhỏ",
+        "Gửi thư mời sự kiện, thiệp chúc mừng",
+        "Tài liệu nội bộ doanh nghiệp"
+      ]
+    },
+    "metadata": {
+      "category": "Phong bì",
+      "technical_specs": {
+        "dimensions": "16 x 23 cm",
+        "thickness_gsm": "100g/m2 - 150g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
+        "material": "Giấy Ford (Ốp) hoặc Giấy Couche",
+        "colors": "In offset 1 đến 4 màu"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Phong bì A4 (Phong bì hồ sơ)",
+      "detailed_description": "Phong bì khổ lớn tiêu chuẩn, được thiết kế để đựng vừa vặn tài liệu A4 mà không cần phải gấp nếp, giúp bảo vệ form tài liệu nguyên vẹn. Đáy và mép được dán gia công chắc chắn, chịu được sức nặng của các tập hồ sơ dày.",
+      "use_cases": [
+        "Đựng hồ sơ dự thầu, năng lực công ty",
+        "Đựng catalogue, brochure khổ lớn",
+        "Gửi hợp đồng, chứng từ quan trọng",
+        "Hồ sơ xin việc, chuyển phát nhanh"
+      ]
+    },
+    "metadata": {
+      "category": "Phong bì",
+      "technical_specs": {
+        "dimensions": "25 x 34 cm",
+        "thickness_gsm": "150g/m2 - 250g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
+        "material": "Giấy Kraft, Giấy Ford hoặc Giấy Duplex",
+        "colors": "In offset 1 đến 4 màu"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tiêu đề thư (Letterhead)",
+      "detailed_description": "Ấn phẩm văn phòng cốt lõi chứa logo, tên công ty và thông tin liên hệ được in sẵn ở phần đầu hoặc chân trang. Sản phẩm được thiết kế trên chất liệu giấy tiêu chuẩn, đảm bảo tương thích hoàn hảo với các loại máy in laser hoặc máy in phun văn phòng mà không bị nhòe mực.",
+      "use_cases": [
+        "In hợp đồng kinh tế",
+        "Báo giá gửi khách hàng, đối tác",
+        "Công văn, thông báo chính thức",
+        "Thư ngỏ, thư cảm ơn"
+      ]
+    },
+    "metadata": {
+      "category": "Ấn phẩm văn phòng",
+      "technical_specs": {
+        "dimensions": "21 x 29.7 cm (Khổ A4 chuẩn)",
+        "thickness_gsm": "80g/m2 - 120g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
+        "material": "Giấy Ford (Giấy Ốp)",
+        "colors": "In offset 1 đến 4 màu sắc nét"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+    {
+    "embedding_data": {
+      "product_name": "Phong bì trắng (Phong bì tiêu chuẩn)",
+      "detailed_description": "Phong bì trắng tiêu chuẩn với thiết kế nắp gập truyền thống, thanh lịch và đơn giản. Bề mặt giấy màu trắng sáng tự nhiên, độ xốp vừa phải giúp mực in hoặc chữ viết tay bám tốt, không bị nhòe. Đây là giải pháp tiết kiệm và phổ biến nhất cho các giao dịch hành chính hàng ngày.",
+      "use_cases": [
+        "Gửi thư từ, tài liệu mỏng",
+        "Gửi hóa đơn VAT, biên lai",
+        "Phát lương, thư báo nội bộ",
+        "Giao dịch hành chính cơ bản"
+      ]
+    },
+    "metadata": {
+      "category": "Phong bì",
+      "technical_specs": {
+        "dimensions": "12 x 22 cm",
+        "thickness_gsm": "80g/m2 - 100g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
+        "material": "Giấy Ford trắng (Giấy Ốp)",
+        "colors": "In offset 1 đến 4 màu (hoặc để trắng nguyên bản)"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tờ rơi A5 (Phổ thông)",
+      "detailed_description": "Ấn phẩm quảng cáo kích thước gọn nhẹ, tối ưu chi phí cho các chiến dịch phát hành số lượng lớn. Giấy có độ trắng cao, bắt màu in offset sắc nét, phù hợp cho việc truyền tải thông điệp ngắn gọn và hình ảnh trực quan sinh động.",
+      "use_cases": [
+        "Phát tay quảng cáo đại trà",
+        "Kẹp vào báo chí hoặc túi hàng",
+        "Thông báo chương trình khuyến mãi ngắn hạn",
+        "Giới thiệu sản phẩm mới tại cửa hàng"
+      ]
+    },
+    "metadata": {
+      "category": "Tờ rơi",
+      "technical_specs": {
+        "dimensions": "14.8 x 21 cm",
+        "thickness_gsm": "100g/m2 - 150g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 2000 tờ)",
+        "material": "Giấy Couche (C100, C120, C150)",
+        "colors": "In offset 4 màu, 2 mặt"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tờ rơi A4 (Kỹ thuật/Hội thảo)",
+      "detailed_description": "Ấn phẩm quảng cáo khổ lớn cung cấp không gian rộng rãi để trình bày thông số kỹ thuật chi tiết hoặc danh mục sản phẩm. Thường được sử dụng trong các môi trường chuyên nghiệp, đòi hỏi sự chỉn chu và đầy đủ về mặt thông tin.",
+      "use_cases": [
+        "Tờ hướng dẫn thông số kỹ thuật sản phẩm",
+        "Tài liệu phát tại hội thảo, hội chợ",
+        "Kẹp vào folder năng lực công ty",
+        "Bảng giá dịch vụ tổng thể"
+      ]
+    },
+    "metadata": {
+      "category": "Tờ rơi",
+      "technical_specs": {
+        "dimensions": "21 x 29.7 cm",
+        "thickness_gsm": "120g/m2 - 200g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
+        "material": "Giấy Couche hoặc Giấy Ford",
+        "colors": "In offset 4 màu, 2 mặt"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tờ gấp đôi (A4 trải - Gấp đôi A5)",
+      "detailed_description": "Sản phẩm được cấn 1 nếp giữa, tạo thành 4 trang nội dung riêng biệt giúp phân loại thông tin logic và chuyên nghiệp. Thiết kế này tạo cảm giác như một cuốn mini-catalogue, tăng tính trang trọng cho ấn phẩm.",
+      "use_cases": [
+        "Hồ sơ năng lực rút gọn (Mini Profile)",
+        "Menu nhà hàng, bảng giá dịch vụ cao cấp",
+        "Thiệp mời sự kiện có nội dung chương trình",
+        "Hướng dẫn sử dụng thiết bị y tế/điện tử"
+      ]
+    },
+    "metadata": {
+      "category": "Tờ gấp",
+      "technical_specs": {
+        "dimensions_unfolded": "21 x 29.7 cm",
+        "dimensions_finished": "14.8 x 21 cm",
+        "thickness_gsm": "150g/m2 - 250g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
+        "material": "Giấy Couche cán màng mờ/bóng",
+        "colors": "In offset 4 màu sắc nét"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tờ gấp ba (A4 trải - Gấp lồng/Z-fold)",
+      "detailed_description": "Quy cách gấp phổ biến nhất trong marketing, chia khổ giấy A4 thành 6 mặt nội dung nhỏ gọn. Thiết kế linh hoạt cho phép người dùng mở rộng thông tin dần dần hoặc bung tỏa toàn bộ hình ảnh trong một lần mở, tạo hiệu ứng thị giác tốt.",
+      "use_cases": [
+        "Brochure giới thiệu dự án bất động sản",
+        "Cẩm nang du lịch, bản đồ chỉ dẫn",
+        "Giới thiệu quy trình dịch vụ ngân hàng/bảo hiểm",
+        "Tờ quảng bá sản phẩm mỹ phẩm/dược phẩm"
+      ]
+    },
+    "metadata": {
+      "category": "Tờ gấp",
+      "technical_specs": {
+        "dimensions_unfolded": "21 x 29.7 cm",
+        "dimensions_finished": "10 x 21 cm",
+        "thickness_gsm": "120g/m2 - 150g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
+        "material": "Giấy Couche",
+        "colors": "In offset 4 màu sắc nét"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tờ gấp cửa sổ (Gate-fold)",
+      "detailed_description": "Ấn phẩm cao cấp với hai cánh bên gấp vào chính giữa như một cánh cửa, mang lại trải nghiệm 'mở hộp' đầy bất ngờ cho khách hàng. Đây là lựa chọn hàng đầu cho các sản phẩm sang trọng hoặc các thông điệp marketing mang tính khám phá.",
+      "use_cases": [
+        "Thư mời sự kiện VIP",
+        "Giới thiệu bộ sưu tập thời trang/nội thất mới",
+        "Ấn phẩm ra mắt xe hơi",
+        "Bản tin đặc biệt của doanh nghiệp"
+      ]
+    },
+    "metadata": {
+      "category": "Tờ gấp",
+      "technical_specs": {
+        "dimensions_unfolded": "42 x 20 cm (Hoặc tùy chỉnh)",
+        "dimensions_finished": "21 x 20 cm",
+        "thickness_gsm": "200g/m2 - 300g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 500 tờ)",
+        "material": "Giấy mỹ thuật hoặc Couche dày cán màng",
+        "colors": "In offset chất lượng cao, có thể ép kim/phủ UV"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Túi giấy Kraft cỡ nhỏ (Size S)",
+      "detailed_description": "Túi giấy kích thước nhỏ gọn, thiết kế tinh tế giúp tối ưu chi phí bao bì. Phù hợp cho các sản phẩm có trọng lượng nhẹ, mang lại cảm giác chỉn chu và vừa vặn khi trao tay khách hàng. Chất liệu Kraft thân thiện môi trường, có thể tùy biến mọi màu sắc theo nhận diện thương hiệu.",
+      "use_cases": [
+        "Đựng mỹ phẩm, nước hoa, tinh dầu",
+        "Đựng trang sức, phụ kiện thời trang nhỏ",
+        "Quà tặng sự kiện nhẹ (sổ tay, bút)",
+        "Đồ handmade, nến thơm"
+      ]
+    },
+    "metadata": {
+      "category": "Túi giấy",
+      "technical_specs": {
+        "dimensions_3d": "20 x 15 x 8 cm (Cao x Ngang x Hông)",
+        "thickness_gsm": "100g/m2 - 120g/m2",
+        "load_capacity": "Tối đa 1kg - 1.5kg",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
+        "material": "Giấy Kraft (Màu sắc linh hoạt theo yêu cầu)",
+        "colors": "In offset/flexo 1 đến 4 màu"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Túi giấy Kraft cỡ trung (Size M)",
+      "detailed_description": "Kích thước túi giấy 'quốc dân', được đặt gia công nhiều nhất tại xưởng nhờ tính đa dụng cực cao. Túi có tỷ lệ cân đối, không gian chứa đồ linh hoạt, đựng vừa vặn hầu hết các sản phẩm bán lẻ thông thường và tài liệu khổ A4, đồng thời vẫn đảm bảo khả năng chịu lực tốt.",
+      "use_cases": [
+        "Đựng quần áo, set đồ thời trang mùa hè",
+        "Đựng tài liệu hội thảo, catalogue A4",
+        "Sách, văn phòng phẩm",
+        "Hộp thực phẩm chức năng, bánh kẹo"
+      ]
+    },
+    "metadata": {
+      "category": "Túi giấy",
+      "technical_specs": {
+        "dimensions_3d": "30 x 20 x 10 cm (Cao x Ngang x Hông)",
+        "thickness_gsm": "120g/m2 - 150g/m2",
+        "load_capacity": "Tối đa 2kg - 3kg",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
+        "material": "Giấy Kraft (Màu sắc linh hoạt theo yêu cầu)",
+        "colors": "In offset/flexo 1 đến 4 màu"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Túi giấy Kraft cỡ lớn (Size L)",
+      "detailed_description": "Túi xách Kraft khổ lớn với không gian chứa đồ rộng rãi, được thiết kế chuyên biệt cho các mặt hàng cồng kềnh. Sử dụng định lượng giấy dày dặn kết hợp gia cố phần đáy và quai xách (lót thêm bìa cứng) để đảm bảo độ bền chặt và an toàn khi xách vật nặng.",
+      "use_cases": [
+        "Đựng áo khoác, quần áo mùa đông",
+        "Hộp giày dép",
+        "Hộp quà tặng Lễ/Tết, set quà doanh nghiệp lớn",
+        "Sản phẩm điện tử, gia dụng nhỏ"
+      ]
+    },
+    "metadata": {
+      "category": "Túi giấy",
+      "technical_specs": {
+        "dimensions_3d": "40 x 30 x 12 cm (Cao x Ngang x Hông)",
+        "thickness_gsm": "150g/m2 - 200g/m2",
+        "load_capacity": "Tối đa 3kg - 5kg",
+        "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
+        "material": "Giấy Kraft định lượng cao (Màu sắc linh hoạt theo yêu cầu)",
+        "colors": "In offset/flexo 1 đến 4 màu"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+{
+    "embedding_data": {
+      "product_name": "Tem Decal Giấy (Phổ thông)",
+      "detailed_description": "Tem nhãn chất liệu giấy tiêu chuẩn, giải pháp tối ưu chi phí nhất cho in ấn số lượng lớn. Lớp keo bám dính tốt trên các bề mặt khô ráo như bao bì giấy, thùng carton, hoặc chai lọ không yêu cầu bảo quản lạnh. Dễ dàng bế đứt nửa (die-cut) thành mọi hình dáng như tròn, vuông, elip theo thiết kế.",
+      "use_cases": [
+        "Tem nhãn phụ dán sản phẩm nhập khẩu",
+        "Tem mã vạch (barcode), QR code",
+        "Sticker logo dán niêm phong túi giấy, hộp giấy",
+        "Nhãn dán phân loại thùng carton xuất kho"
+      ]
+    },
+    "metadata": {
+      "category": "Tem nhãn",
+      "technical_specs": {
+        "dimensions": "Tùy chỉnh (Ví dụ: 3x3 cm, 5x5 cm, hoặc đường kính 4cm)",
+        "thickness_gsm": "70g/m2 - 90g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 10,000 tem)",
+        "material": "Decal giấy đế vàng hoặc đế trắng (Amazon, Khami)",
+        "colors": "In offset hoặc in kỹ thuật số 1 đến 4 màu"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tem Decal Nhựa PVC / Decal xi bạc",
+      "detailed_description": "Dòng tem nhãn công nghiệp cao cấp, đặc trưng bởi độ dai dẻo, xé không rách và khả năng chống nước tuyệt đối. Sản phẩm chịu được các điều kiện môi trường khắc nghiệt như kho lạnh, độ ẩm cao, hoặc ma sát cơ học. Bề mặt in thường được cán thêm màng bảo vệ để chống phai mực.",
+      "use_cases": [
+        "Tem dán sản phẩm đông lạnh, thủy hải sản",
+        "Tem thông số kỹ thuật dán trên máy móc, thiết bị",
+        "Nhãn dán chai lọ hóa mỹ phẩm, dầu gội",
+        "Decal dán ngoài trời, tem xe"
+      ]
+    },
+    "metadata": {
+      "category": "Tem nhãn",
+      "technical_specs": {
+        "dimensions": "Tùy chỉnh theo bản vẽ kỹ thuật",
+        "thickness_gsm": "50 - 80 micron (Đo theo độ dày màng nhựa)",
+        "quantity": "Theo yêu cầu (Tối thiểu: 5,000 tem)",
+        "material": "Decal nhựa sữa (PVC) hoặc Decal xi bạc",
+        "colors": "In UV hoặc Flexo bám mực cực tốt"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Tem Decal Vỡ (Tem Bảo hành)",
+      "detailed_description": "Loại tem niêm phong có tính chất cực giòn. Khi đã dán lên bề mặt, nếu có tác động cố tình bóc ra, tem sẽ lập tức vỡ vụn thành nhiều mảnh nhỏ và không thể tái sử dụng. Đây là dấu hiệu vật lý minh bạch nhất để kiểm chứng tính nguyên vẹn của sản phẩm chưa bị tháo dỡ.",
+      "use_cases": [
+        "Tem niêm phong ốc vít linh kiện điện tử",
+        "Tem bảo hành điện thoại, máy tính",
+        "Tem chống hàng giả, hàng nhái",
+        "Niêm phong mép hộp sản phẩm cao cấp"
+      ]
+    },
+    "metadata": {
+      "category": "Tem nhãn",
+      "technical_specs": {
+        "dimensions": "Kích thước rất nhỏ (Ví dụ: 1x1 cm, 1x2 cm, đường kính 1cm)",
+        "thickness_gsm": "Màng decal giòn mỏng chuyên dụng",
+        "quantity": "Theo yêu cầu (Tối thiểu: 10,000 tem)",
+        "material": "Decal vỡ (vỡ giòn hoặc vỡ dai tùy bề mặt dán)",
+        "colors": "In offset hoặc kỹ thuật số siêu nét (có thể in hoa văn chìm)"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Phiếu xuất kho / Phiếu thu (1 liên)",
+      "detailed_description": "Biểu mẫu ghi chép hành chính cơ bản, chỉ gồm 1 tờ duy nhất trên mỗi số thứ tự. Thường được gia công đóng thành cuốn có rãnh xé rết (răng cưa) ở mép để người dùng dễ dàng xé rời từng tờ khi sử dụng. Bề mặt giấy ăn mực tốt với các loại bút bi, bút mực thông thường.",
+      "use_cases": [
+        "Phiếu thu / chi nội bộ",
+        "Biên nhận giao hàng lẻ không cần đối chiếu",
+        "Phiếu order gọi món (loại không cần lưu bếp)",
+        "Vé gửi xe, vé vào cổng sự kiện"
+      ]
+    },
+    "metadata": {
+      "category": "Biểu mẫu - Hóa đơn",
+      "technical_specs": {
+        "dimensions": "A5 (14.8 x 21 cm) hoặc A4 (21 x 29.7 cm)",
+        "thickness_gsm": "60g/m2 - 70g/m2",
+        "quantity": "Theo yêu cầu (Tối thiểu: 50 cuốn - mỗi cuốn 100 tờ)",
+        "material": "Giấy Ford trắng (Giấy Ốp)",
+        "colors": "In offset 1 màu (Thường dùng Đỏ hoặc Xanh dương)"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Phiếu xuất kho / Hóa đơn bán lẻ (2 liên)",
+      "detailed_description": "Biểu mẫu thông minh giúp tiết kiệm thời gian ghi chép. Sử dụng vật liệu giấy Carbonless cao cấp, lực viết từ bút bi ở liên 1 (trắng) sẽ tự động in đè nội dung sao chép xuống liên 2 (hồng/vàng) mà không cần phải kê lót giấy than. Giúp hai bên lưu giữ thông tin đối chiếu chính xác.",
+      "use_cases": [
+        "Hóa đơn bán lẻ (Lưu 1 liên, giao khách 1 liên)",
+        "Phiếu xuất kho nội bộ kiêm vận chuyển",
+        "Biên bản bàn giao thiết bị, hàng hóa",
+        "Phiếu order nhà hàng (Lưu thu ngân và Giao bếp)"
+      ]
+    },
+    "metadata": {
+      "category": "Biểu mẫu - Hóa đơn",
+      "technical_specs": {
+        "dimensions": "A5 (14.8 x 21 cm) hoặc 13 x 19 cm",
+        "thickness_gsm": "50g/m2 - 55g/m2 (Quy chuẩn giấy Carbonless)",
+        "quantity": "Theo yêu cầu (Tối thiểu: 50 cuốn - mỗi cuốn 100 tờ/50 bộ)",
+        "material": "Giấy Carbonless (Liên 1: Trắng, Liên 2: Hồng hoặc Vàng)",
+        "colors": "In offset 1 đến 2 màu (Tùy chọn gia công: Cấn rãnh xé, Đóng số nhảy tự động)"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Phiếu xuất kho kiêm vận chuyển (3 liên)",
+      "detailed_description": "Biểu mẫu quản trị rủi ro chuyên nghiệp dành cho các doanh nghiệp có quy trình giao nhận nhiều bước. Gồm 3 liên riêng biệt, tự động sao chép nội dung từ liên 1 xuống liên 2 và 3. Đảm bảo số liệu minh bạch, đồng nhất giữa 3 phòng ban hoặc 3 chủ thể khác nhau trong một giao dịch.",
+      "use_cases": [
+        "Phiếu xuất kho quy mô lớn (Kế toán giữ liên 1, Kho giữ liên 2, Khách giữ liên 3)",
+        "Biên nhận cầm đồ, hợp đồng vay vốn ngắn gọn",
+        "Biên bản nghiệm thu công trình có 3 bên tham gia",
+        "Vận đơn chuyển phát nhanh"
+      ]
+    },
+    "metadata": {
+      "category": "Biểu mẫu - Hóa đơn",
+      "technical_specs": {
+        "dimensions": "A5 (14.8 x 21 cm) hoặc A4 (21 x 29.7 cm)",
+        "thickness_gsm": "50g/m2 - 55g/m2 (Quy chuẩn giấy Carbonless)",
+        "quantity": "Theo yêu cầu (Tối thiểu: 50 cuốn - mỗi cuốn 150 tờ/50 bộ)",
+        "material": "Giấy Carbonless (Liên 1: Trắng, Liên 2: Hồng, Liên 3: Xanh/Vàng)",
+        "colors": "In offset 1 đến 2 màu (Gia công mặc định: Đóng số nhảy tự động Serial Number)"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  },
+  {
+    "embedding_data": {
+      "product_name": "Card Visit Tiêu Chuẩn (Giấy Couche cán mờ)",
+      "detailed_description": "Dòng danh thiếp phổ thông và tối ưu chi phí nhất cho doanh nghiệp. In trên giấy định lượng dày dặn, được cán thêm một lớp màng nilon mờ ở cả 2 mặt giúp chống trầy xước, chống thấm nước nhẹ và giữ màu mực bền bỉ theo thời gian. Giải pháp hoàn hảo để in đồng loạt cho toàn bộ nhân viên.",
+      "use_cases": [
+        "Danh thiếp cá nhân cho nhân viên, quản lý",
+        "Thẻ tích điểm (nếu không cán màng mặt ghi chữ)",
+        "Thẻ bảo hành mini gọn nhẹ",
+        "Thẻ đính kèm sản phẩm (Tag quần áo, tag quà tặng)"
+      ]
+    },
+    "metadata": {
+      "category": "Danh thiếp - Name card",
+      "technical_specs": {
+        "dimensions": "9 x 5 cm hoặc 9 x 5.4 cm",
+        "thickness_gsm": "300g/m2 (C300)",
+        "quantity": "Theo yêu cầu (Tối thiểu: 5 hộp / 1 nội dung)",
+        "material": "Giấy Couche (Cán mờ 2 mặt)",
+        "colors": "In offset 4 màu sắc nét"
+      }
+    },
+    "generation_enhancers": {
+      "product_url": "",
+      "image_url": ""
+    }
+  }
+]
