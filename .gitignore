@@ -5,3 +5,4 @@ nginx.conf
 build/
 .vercel
 product_image/
+.DS_Store
