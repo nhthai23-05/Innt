@@ -22,7 +22,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -48,7 +48,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -63,7 +63,7 @@
       ]
     },
     "metadata": {
-      "category": "Ấn phẩm văn phòng",
+      "category": "Phong bì",
       "technical_specs": {
         "dimensions": "21 x 29.7 cm (Khổ A4 chuẩn)",
         "thickness_gsm": "80g/m2 - 120g/m2",
@@ -74,7 +74,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
     {
@@ -100,7 +100,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -126,7 +126,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -152,7 +152,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -179,7 +179,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -206,7 +206,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -233,7 +233,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -260,7 +260,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -287,7 +287,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -314,7 +314,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
 {
@@ -340,7 +340,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -366,7 +366,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -392,7 +392,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -418,7 +418,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -444,7 +444,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -470,7 +470,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   },
   {
@@ -496,7 +496,7 @@
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ""
+      "image_url": ["",""]
     }
   }
 ]
