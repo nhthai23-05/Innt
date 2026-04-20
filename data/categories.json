@@ -1,0 +1,58 @@
+{
+  "categories": [
+    {
+      "slug": "phong-bi",
+      "name_vi": "Phong bì",
+      "name_en": "Phong bì",
+      "description": "",
+      "product_count": 4
+    },
+    {
+      "slug": "to-gap",
+      "name_vi": "Tờ gấp",
+      "name_en": "Tờ gấp",
+      "description": "",
+      "product_count": 3
+    },
+    {
+      "slug": "tui-giay",
+      "name_vi": "Túi giấy",
+      "name_en": "Túi giấy",
+      "description": "",
+      "product_count": 3
+    },
+    {
+      "slug": "tem-nhan",
+      "name_vi": "Tem nhãn",
+      "name_en": "Tem nhãn",
+      "description": "",
+      "product_count": 3
+    },
+    {
+      "slug": "bieu-mau-hoa-don",
+      "name_vi": "Biểu mẫu - Hóa đơn",
+      "name_en": "Biểu mẫu - Hóa đơn",
+      "description": "",
+      "product_count": 3
+    },
+    {
+      "slug": "to-roi",
+      "name_vi": "Tờ rơi",
+      "name_en": "Tờ rơi",
+      "description": "",
+      "product_count": 2
+    },
+    {
+      "slug": "danh-thiep-name-card",
+      "name_vi": "Danh thiếp - Name card",
+      "name_en": "Danh thiếp - Name card",
+      "description": "",
+      "product_count": 1
+    }
+  ],
+  "metadata": {
+    "total_products": 19,
+    "total_categories": 7,
+    "created": "Phase 0.3"
+  }
+}

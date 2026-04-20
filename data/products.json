@@ -8,6 +8,9 @@
         "Gửi hóa đơn, hợp đồng nhỏ",
         "Gửi thư mời sự kiện, thiệp chúc mừng",
         "Tài liệu nội bộ doanh nghiệp"
+      ],
+      "finishing_options": [
+        "In offset 1 đến 4 màu"
       ]
     },
     "metadata": {
@@ -18,12 +21,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
         "material": "Giấy Ford (Ốp) hoặc Giấy Couche",
         "colors": "In offset 1 đến 4 màu"
-      }
+      },
+      "category_slug": "phong-bi"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546906/phong_b%C3%AC_3_y66dux.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/phong_b%C3%AC_4_jld7pq.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546906/phong_b%C3%AC_3_y66dux.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/phong_b%C3%AC_4_jld7pq.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "phong-bi-a5"
   },
   {
     "embedding_data": {
@@ -34,6 +43,10 @@
         "Đựng catalogue, brochure khổ lớn",
         "Gửi hợp đồng, chứng từ quan trọng",
         "Hồ sơ xin việc, chuyển phát nhanh"
+      ],
+      "finishing_options": [
+        "Dán",
+        "In offset 1 đến 4 màu"
       ]
     },
     "metadata": {
@@ -44,12 +57,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
         "material": "Giấy Kraft, Giấy Ford hoặc Giấy Duplex",
         "colors": "In offset 1 đến 4 màu"
-      }
+      },
+      "category_slug": "phong-bi"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546911/phong_b%C3%AC_2_qhfjfn.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546906/phong_b%C3%AC_1_zlvbwk.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546911/phong_b%C3%AC_2_qhfjfn.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546906/phong_b%C3%AC_1_zlvbwk.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "phong-bi-a4-phong-bi-ho-so"
   },
   {
     "embedding_data": {
@@ -60,6 +79,9 @@
         "Báo giá gửi khách hàng, đối tác",
         "Công văn, thông báo chính thức",
         "Thư ngỏ, thư cảm ơn"
+      ],
+      "finishing_options": [
+        "In offset 1 đến 4 màu sắc nét"
       ]
     },
     "metadata": {
@@ -70,14 +92,20 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
         "material": "Giấy Ford (Giấy Ốp)",
         "colors": "In offset 1 đến 4 màu sắc nét"
-      }
+      },
+      "category_slug": "phong-bi"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546926/ti%C3%AAu_%C4%91%E1%BB%81_th%C6%B0_1_uzjgz0.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/ti%C3%AAu_%C4%91%E1%BB%81_th%C6%B0_2_eurh4b.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546926/ti%C3%AAu_%C4%91%E1%BB%81_th%C6%B0_1_uzjgz0.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/ti%C3%AAu_%C4%91%E1%BB%81_th%C6%B0_2_eurh4b.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tieu-de-thu-letterhead"
   },
-    {
+  {
     "embedding_data": {
       "product_name": "Phong bì trắng (Phong bì tiêu chuẩn)",
       "detailed_description": "Phong bì trắng tiêu chuẩn với thiết kế nắp gập truyền thống, thanh lịch và đơn giản. Bề mặt giấy màu trắng sáng tự nhiên, độ xốp vừa phải giúp mực in hoặc chữ viết tay bám tốt, không bị nhòe. Đây là giải pháp tiết kiệm và phổ biến nhất cho các giao dịch hành chính hàng ngày.",
@@ -86,6 +114,9 @@
         "Gửi hóa đơn VAT, biên lai",
         "Phát lương, thư báo nội bộ",
         "Giao dịch hành chính cơ bản"
+      ],
+      "finishing_options": [
+        "In offset 1 đến 4 màu (hoặc để trắng nguyên bản)"
       ]
     },
     "metadata": {
@@ -96,12 +127,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
         "material": "Giấy Ford trắng (Giấy Ốp)",
         "colors": "In offset 1 đến 4 màu (hoặc để trắng nguyên bản)"
-      }
+      },
+      "category_slug": "phong-bi"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483335/phong_b%C3%AC_6_bmnsfp.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483386/phong_b%C3%AC_5_cbjgw2.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483335/phong_b%C3%AC_6_bmnsfp.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483386/phong_b%C3%AC_5_cbjgw2.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "phong-bi-trang-phong-bi-tieu-chuan"
   },
   {
     "embedding_data": {
@@ -112,6 +149,9 @@
         "Kẹp vào báo chí hoặc túi hàng",
         "Thông báo chương trình khuyến mãi ngắn hạn",
         "Giới thiệu sản phẩm mới tại cửa hàng"
+      ],
+      "finishing_options": [
+        "In offset 4 màu, 2 mặt"
       ]
     },
     "metadata": {
@@ -122,12 +162,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 2000 tờ)",
         "material": "Giấy Couche (C100, C120, C150)",
         "colors": "In offset 4 màu, 2 mặt"
-      }
+      },
+      "category_slug": "to-roi"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483539/t%E1%BB%9D_r%C6%A1i_10_ddjq32.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483636/t%E1%BB%9D_r%C6%A1i_11_q3a0py.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483539/t%E1%BB%9D_r%C6%A1i_10_ddjq32.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483636/t%E1%BB%9D_r%C6%A1i_11_q3a0py.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "to-roi-a5-pho-thong"
   },
   {
     "embedding_data": {
@@ -138,6 +184,9 @@
         "Tài liệu phát tại hội thảo, hội chợ",
         "Kẹp vào folder năng lực công ty",
         "Bảng giá dịch vụ tổng thể"
+      ],
+      "finishing_options": [
+        "In offset 4 màu, 2 mặt"
       ]
     },
     "metadata": {
@@ -148,12 +197,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
         "material": "Giấy Couche hoặc Giấy Ford",
         "colors": "In offset 4 màu, 2 mặt"
-      }
+      },
+      "category_slug": "to-roi"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/t%E1%BB%9D_r%C6%A1i_5_qsir3o.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482584/t%E1%BB%9D_r%C6%A1i_8_w2sebg.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/t%E1%BB%9D_r%C6%A1i_5_qsir3o.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482584/t%E1%BB%9D_r%C6%A1i_8_w2sebg.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "to-roi-a4-ky-thuathoi-thao"
   },
   {
     "embedding_data": {
@@ -164,6 +219,9 @@
         "Menu nhà hàng, bảng giá dịch vụ cao cấp",
         "Thiệp mời sự kiện có nội dung chương trình",
         "Hướng dẫn sử dụng thiết bị y tế/điện tử"
+      ],
+      "finishing_options": [
+        "In offset 4 màu sắc nét"
       ]
     },
     "metadata": {
@@ -175,12 +233,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
         "material": "Giấy Couche cán màng mờ/bóng",
         "colors": "In offset 4 màu sắc nét"
-      }
+      },
+      "category_slug": "to-gap"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/t%E1%BB%9D_r%C6%A1i_4_hloibx.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546921/t%E1%BB%9D_r%C6%A1i_2_rstulv.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/t%E1%BB%9D_r%C6%A1i_4_hloibx.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546921/t%E1%BB%9D_r%C6%A1i_2_rstulv.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "to-gap-doi-a4-trai-gap-doi-a5"
   },
   {
     "embedding_data": {
@@ -191,6 +255,9 @@
         "Cẩm nang du lịch, bản đồ chỉ dẫn",
         "Giới thiệu quy trình dịch vụ ngân hàng/bảo hiểm",
         "Tờ quảng bá sản phẩm mỹ phẩm/dược phẩm"
+      ],
+      "finishing_options": [
+        "In offset 4 màu sắc nét"
       ]
     },
     "metadata": {
@@ -202,12 +269,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 tờ)",
         "material": "Giấy Couche",
         "colors": "In offset 4 màu sắc nét"
-      }
+      },
+      "category_slug": "to-gap"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/t%E1%BB%9D_r%C6%A1i_3_llu51b.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482476/t%E1%BB%9D_r%C6%A1i_7_apoooa.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/t%E1%BB%9D_r%C6%A1i_3_llu51b.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482476/t%E1%BB%9D_r%C6%A1i_7_apoooa.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "to-gap-ba-a4-trai-gap-longz-fold"
   },
   {
     "embedding_data": {
@@ -218,6 +291,9 @@
         "Giới thiệu bộ sưu tập thời trang/nội thất mới",
         "Ấn phẩm ra mắt xe hơi",
         "Bản tin đặc biệt của doanh nghiệp"
+      ],
+      "finishing_options": [
+        "In offset chất lượng cao, có thể ép kim/phủ UV"
       ]
     },
     "metadata": {
@@ -229,12 +305,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 500 tờ)",
         "material": "Giấy mỹ thuật hoặc Couche dày cán màng",
         "colors": "In offset chất lượng cao, có thể ép kim/phủ UV"
-      }
+      },
+      "category_slug": "to-gap"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546921/t%E1%BB%9D_r%C6%A1i_1_wn6uhj.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482704/t%E1%BB%9D_r%C6%A1i_9_mbu7oo.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546921/t%E1%BB%9D_r%C6%A1i_1_wn6uhj.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482704/t%E1%BB%9D_r%C6%A1i_9_mbu7oo.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "to-gap-cua-so-gate-fold"
   },
   {
     "embedding_data": {
@@ -245,6 +327,9 @@
         "Đựng trang sức, phụ kiện thời trang nhỏ",
         "Quà tặng sự kiện nhẹ (sổ tay, bút)",
         "Đồ handmade, nến thơm"
+      ],
+      "finishing_options": [
+        "In offset/flexo 1 đến 4 màu"
       ]
     },
     "metadata": {
@@ -256,12 +341,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
         "material": "Giấy Kraft (Màu sắc linh hoạt theo yêu cầu)",
         "colors": "In offset/flexo 1 đến 4 màu"
-      }
+      },
+      "category_slug": "tui-giay"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546984/t%C3%BAi_h%E1%BB%99p_4_ynddqz.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546927/t%C3%BAi_h%E1%BB%99p_1_pnxfoq.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546984/t%C3%BAi_h%E1%BB%99p_4_ynddqz.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546927/t%C3%BAi_h%E1%BB%99p_1_pnxfoq.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tui-giay-kraft-co-nho-size-s"
   },
   {
     "embedding_data": {
@@ -272,6 +363,9 @@
         "Đựng tài liệu hội thảo, catalogue A4",
         "Sách, văn phòng phẩm",
         "Hộp thực phẩm chức năng, bánh kẹo"
+      ],
+      "finishing_options": [
+        "In offset/flexo 1 đến 4 màu"
       ]
     },
     "metadata": {
@@ -283,12 +377,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
         "material": "Giấy Kraft (Màu sắc linh hoạt theo yêu cầu)",
         "colors": "In offset/flexo 1 đến 4 màu"
-      }
+      },
+      "category_slug": "tui-giay"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480041/t%C3%BAi_h%E1%BB%99p_6_sjk9sg.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546969/t%C3%BAi_h%E1%BB%99p_3_fl2jas.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480041/t%C3%BAi_h%E1%BB%99p_6_sjk9sg.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546969/t%C3%BAi_h%E1%BB%99p_3_fl2jas.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tui-giay-kraft-co-trung-size-m"
   },
   {
     "embedding_data": {
@@ -299,6 +399,9 @@
         "Hộp giày dép",
         "Hộp quà tặng Lễ/Tết, set quà doanh nghiệp lớn",
         "Sản phẩm điện tử, gia dụng nhỏ"
+      ],
+      "finishing_options": [
+        "In offset/flexo 1 đến 4 màu"
       ]
     },
     "metadata": {
@@ -310,14 +413,20 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 1000 chiếc)",
         "material": "Giấy Kraft định lượng cao (Màu sắc linh hoạt theo yêu cầu)",
         "colors": "In offset/flexo 1 đến 4 màu"
-      }
+      },
+      "category_slug": "tui-giay"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546927/t%C3%BAi_h%E1%BB%99p_1_pnxfoq.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546929/t%C3%BAi_h%E1%BB%99p_2_oqbiot.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546927/t%C3%BAi_h%E1%BB%99p_1_pnxfoq.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546929/t%C3%BAi_h%E1%BB%99p_2_oqbiot.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tui-giay-kraft-co-lon-size-l"
   },
-{
+  {
     "embedding_data": {
       "product_name": "Tem Decal Giấy (Phổ thông)",
       "detailed_description": "Tem nhãn chất liệu giấy tiêu chuẩn, giải pháp tối ưu chi phí nhất cho in ấn số lượng lớn. Lớp keo bám dính tốt trên các bề mặt khô ráo như bao bì giấy, thùng carton, hoặc chai lọ không yêu cầu bảo quản lạnh. Dễ dàng bế đứt nửa (die-cut) thành mọi hình dáng như tròn, vuông, elip theo thiết kế.",
@@ -326,6 +435,10 @@
         "Tem mã vạch (barcode), QR code",
         "Sticker logo dán niêm phong túi giấy, hộp giấy",
         "Nhãn dán phân loại thùng carton xuất kho"
+      ],
+      "finishing_options": [
+        "Dán",
+        "In offset hoặc in kỹ thuật số 1 đến 4 màu"
       ]
     },
     "metadata": {
@@ -336,12 +449,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 10,000 tem)",
         "material": "Decal giấy đế vàng hoặc đế trắng (Amazon, Khami)",
         "colors": "In offset hoặc in kỹ thuật số 1 đến 4 màu"
-      }
+      },
+      "category_slug": "tem-nhan"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546911/tem_4_o1j3eh.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_1_loun2y.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546911/tem_4_o1j3eh.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_1_loun2y.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tem-decal-giay-pho-thong"
   },
   {
     "embedding_data": {
@@ -352,6 +471,9 @@
         "Tem thông số kỹ thuật dán trên máy móc, thiết bị",
         "Nhãn dán chai lọ hóa mỹ phẩm, dầu gội",
         "Decal dán ngoài trời, tem xe"
+      ],
+      "finishing_options": [
+        "In UV hoặc Flexo bám mực cực tốt"
       ]
     },
     "metadata": {
@@ -362,12 +484,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 5,000 tem)",
         "material": "Decal nhựa sữa (PVC) hoặc Decal xi bạc",
         "colors": "In UV hoặc Flexo bám mực cực tốt"
-      }
+      },
+      "category_slug": "tem-nhan"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_1_loun2y.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_2_yahyxv.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_1_loun2y.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_2_yahyxv.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tem-decal-nhua-pvc-decal-xi-bac"
   },
   {
     "embedding_data": {
@@ -378,6 +506,10 @@
         "Tem bảo hành điện thoại, máy tính",
         "Tem chống hàng giả, hàng nhái",
         "Niêm phong mép hộp sản phẩm cao cấp"
+      ],
+      "finishing_options": [
+        "Dán",
+        "In offset hoặc kỹ thuật số siêu nét (có thể in hoa văn chìm)"
       ]
     },
     "metadata": {
@@ -388,12 +520,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 10,000 tem)",
         "material": "Decal vỡ (vỡ giòn hoặc vỡ dai tùy bề mặt dán)",
         "colors": "In offset hoặc kỹ thuật số siêu nét (có thể in hoa văn chìm)"
-      }
+      },
+      "category_slug": "tem-nhan"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480544/tem_6_xjbwrm.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480546/tem_7_nlswgb.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480544/tem_6_xjbwrm.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480546/tem_7_nlswgb.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "tem-decal-vo-tem-bao-hanh"
   },
   {
     "embedding_data": {
@@ -404,6 +542,9 @@
         "Biên nhận giao hàng lẻ không cần đối chiếu",
         "Phiếu order gọi món (loại không cần lưu bếp)",
         "Vé gửi xe, vé vào cổng sự kiện"
+      ],
+      "finishing_options": [
+        "In offset 1 màu (Thường dùng Đỏ hoặc Xanh dương)"
       ]
     },
     "metadata": {
@@ -414,12 +555,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 50 cuốn - mỗi cuốn 100 tờ)",
         "material": "Giấy Ford trắng (Giấy Ốp)",
         "colors": "In offset 1 màu (Thường dùng Đỏ hoặc Xanh dương)"
-      }
+      },
+      "category_slug": "bieu-mau-hoa-don"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_1_hsvw10.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_6_cfjauf.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_1_hsvw10.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_6_cfjauf.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "phieu-xuat-kho-phieu-thu-1-lien"
   },
   {
     "embedding_data": {
@@ -430,6 +577,9 @@
         "Phiếu xuất kho nội bộ kiêm vận chuyển",
         "Biên bản bàn giao thiết bị, hàng hóa",
         "Phiếu order nhà hàng (Lưu thu ngân và Giao bếp)"
+      ],
+      "finishing_options": [
+        "In offset 1 đến 2 màu (Tùy chọn gia công: Cấn rãnh xé, Đóng số nhảy tự động)"
       ]
     },
     "metadata": {
@@ -440,12 +590,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 50 cuốn - mỗi cuốn 100 tờ/50 bộ)",
         "material": "Giấy Carbonless (Liên 1: Trắng, Liên 2: Hồng hoặc Vàng)",
         "colors": "In offset 1 đến 2 màu (Tùy chọn gia công: Cấn rãnh xé, Đóng số nhảy tự động)"
-      }
+      },
+      "category_slug": "bieu-mau-hoa-don"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_2_f9u0l2.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_3_io4hny.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_2_f9u0l2.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_3_io4hny.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "phieu-xuat-kho-hoa-don-ban-le-2-lien"
   },
   {
     "embedding_data": {
@@ -456,6 +612,9 @@
         "Biên nhận cầm đồ, hợp đồng vay vốn ngắn gọn",
         "Biên bản nghiệm thu công trình có 3 bên tham gia",
         "Vận đơn chuyển phát nhanh"
+      ],
+      "finishing_options": [
+        "In offset 1 đến 2 màu (Gia công mặc định: Đóng số nhảy tự động Serial Number)"
       ]
     },
     "metadata": {
@@ -466,12 +625,18 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 50 cuốn - mỗi cuốn 150 tờ/50 bộ)",
         "material": "Giấy Carbonless (Liên 1: Trắng, Liên 2: Hồng, Liên 3: Xanh/Vàng)",
         "colors": "In offset 1 đến 2 màu (Gia công mặc định: Đóng số nhảy tự động Serial Number)"
-      }
+      },
+      "category_slug": "bieu-mau-hoa-don"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_5_h9fqig.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480924/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_7_jom2xu.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_5_h9fqig.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480924/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_7_jom2xu.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "phieu-xuat-kho-kiem-van-chuyen-3-lien"
   },
   {
     "embedding_data": {
@@ -482,6 +647,10 @@
         "Thẻ tích điểm (nếu không cán màng mặt ghi chữ)",
         "Thẻ bảo hành mini gọn nhẹ",
         "Thẻ đính kèm sản phẩm (Tag quần áo, tag quà tặng)"
+      ],
+      "finishing_options": [
+        "Cán màng",
+        "In offset 4 màu sắc nét"
       ]
     },
     "metadata": {
@@ -492,11 +661,17 @@
         "quantity": "Theo yêu cầu (Tối thiểu: 5 hộp / 1 nội dung)",
         "material": "Giấy Couche (Cán mờ 2 mặt)",
         "colors": "In offset 4 màu sắc nét"
-      }
+      },
+      "category_slug": "danh-thiep-name-card"
     },
     "generation_enhancers": {
       "product_url": "",
-      "image_url": ["https://res.cloudinary.com/dt4zsrqho/image/upload/v1776481044/card_visit_1_lwnxzk.jpg","https://res.cloudinary.com/dt4zsrqho/image/upload/v1776481045/card_visit_2_lhneyk.jpg"]
-    }
+      "image_url": [
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776481044/card_visit_1_lwnxzk.jpg",
+        "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776481045/card_visit_2_lhneyk.jpg"
+      ],
+      "redirect_note": ""
+    },
+    "id": "card-visit-tieu-chuan-giay-couche-can-mo"
   }
 ]

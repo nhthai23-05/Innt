@@ -15,15 +15,16 @@ class Settings(BaseSettings):
     # LLM
     llm_provider: str = "gemini"  # "gemini" or "ollama"
     gemini_api_key: str = ""
-    gemini_model: str = "gemini-1.5-flash"
+    gemini_model: str = "gemini-2.5-flash"
     ollama_model: str = "qwen2.5:7b"
     ollama_base_url: str = "http://localhost:11434"
 
     # RAG pipeline
-    retrieval_strategy: str = "hybrid"  # "dense", "bm25", "hybrid"
+    # Phase 0.5 NOTE: Temporary defaults for Phase 1 baseline (will restore hybrid/reranking in Phase 6.6)
+    retrieval_strategy: str = "dense"  # "dense", "bm25", "hybrid" — Phase 1 uses dense only
     chunking_strategy: str = "document"  # "document", "field", "augmented"
-    use_reranking: bool = True
-    use_query_enhancement: bool = False
+    use_reranking: bool = False  # Phase 6.3 implements reranking
+    use_query_enhancement: bool = False  # Phase 6.5 implements HyDE
     query_enhancement_method: str = "hyde"  # "hyde", "rewrite", "expand"
     top_k: int = 5
 

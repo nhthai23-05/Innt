@@ -14,6 +14,10 @@
       "category": "Corporate Profile",
       "established_year": 2009,
       "employee_count": 15
+    },
+    "id": "tong-quan-doanh-nghiep-va-lich-su-hinh-thanh",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -31,6 +35,10 @@
       "category": "Production Capability",
       "technology": "In Offset 1-4 màu",
       "max_print_size": "A1"
+    },
+    "id": "nang-luc-san-xuat-va-quy-trinh-gia-cong-in-an",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -47,6 +55,10 @@
     "metadata": {
       "category": "Workflow & Timeline",
       "total_estimated_days": "5 - 10 ngày (Trung bình)"
+    },
+    "id": "thoi-gian-hoan-thanh-va-tien-do-giao-hang",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -61,6 +73,10 @@
     },
     "metadata": {
       "category": "Clients & Partners"
+    },
+    "id": "khach-hang-tieu-bieu-va-doi-tac-thuong-mai",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -75,9 +91,13 @@
     },
     "metadata": {
       "category": "Contact Information",
-      "address": "",
-      "hotline": "",
-      "email": ""
+      "address": "[TO_BE_FILLED: Company Address]",
+      "hotline": "[TO_BE_FILLED: Hotline Number]",
+      "email": "[TO_BE_FILLED: Email Address]"
+    },
+    "id": "thong-tin-lien-he-va-dia-chi",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   }
 ]
