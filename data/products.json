@@ -1,5 +1,6 @@
 [
   {
+    "id": "phong-bi-a5",
     "embedding_data": {
       "product_name": "Phong bì A5",
       "detailed_description": "Phong bì kích thước trung bình (chuẩn A5), thiết kế nắp gập an toàn giúp bảo mật nội dung bên trong. Bề mặt giấy mịn, bám mực tốt, phù hợp để in ấn logo và thông tin nhận diện thương hiệu công ty một cách sắc nét.",
@@ -31,10 +32,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/phong_b%C3%AC_4_jld7pq.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "phong-bi-a5"
+    }
   },
   {
+    "id": "phong-bi-a4-phong-bi-ho-so",
     "embedding_data": {
       "product_name": "Phong bì A4 (Phong bì hồ sơ)",
       "detailed_description": "Phong bì khổ lớn tiêu chuẩn, được thiết kế để đựng vừa vặn tài liệu A4 mà không cần phải gấp nếp, giúp bảo vệ form tài liệu nguyên vẹn. Đáy và mép được dán gia công chắc chắn, chịu được sức nặng của các tập hồ sơ dày.",
@@ -67,10 +68,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546906/phong_b%C3%AC_1_zlvbwk.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "phong-bi-a4-phong-bi-ho-so"
+    }
   },
   {
+    "id": "tieu-de-thu-letterhead",
     "embedding_data": {
       "product_name": "Tiêu đề thư (Letterhead)",
       "detailed_description": "Ấn phẩm văn phòng cốt lõi chứa logo, tên công ty và thông tin liên hệ được in sẵn ở phần đầu hoặc chân trang. Sản phẩm được thiết kế trên chất liệu giấy tiêu chuẩn, đảm bảo tương thích hoàn hảo với các loại máy in laser hoặc máy in phun văn phòng mà không bị nhòe mực.",
@@ -102,10 +103,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546922/ti%C3%AAu_%C4%91%E1%BB%81_th%C6%B0_2_eurh4b.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tieu-de-thu-letterhead"
+    }
   },
   {
+    "id": "phong-bi-trang-phong-bi-tieu-chuan",
     "embedding_data": {
       "product_name": "Phong bì trắng (Phong bì tiêu chuẩn)",
       "detailed_description": "Phong bì trắng tiêu chuẩn với thiết kế nắp gập truyền thống, thanh lịch và đơn giản. Bề mặt giấy màu trắng sáng tự nhiên, độ xốp vừa phải giúp mực in hoặc chữ viết tay bám tốt, không bị nhòe. Đây là giải pháp tiết kiệm và phổ biến nhất cho các giao dịch hành chính hàng ngày.",
@@ -137,10 +138,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483386/phong_b%C3%AC_5_cbjgw2.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "phong-bi-trang-phong-bi-tieu-chuan"
+    }
   },
   {
+    "id": "to-roi-a5-pho-thong",
     "embedding_data": {
       "product_name": "Tờ rơi A5 (Phổ thông)",
       "detailed_description": "Ấn phẩm quảng cáo kích thước gọn nhẹ, tối ưu chi phí cho các chiến dịch phát hành số lượng lớn. Giấy có độ trắng cao, bắt màu in offset sắc nét, phù hợp cho việc truyền tải thông điệp ngắn gọn và hình ảnh trực quan sinh động.",
@@ -172,10 +173,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776483636/t%E1%BB%9D_r%C6%A1i_11_q3a0py.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "to-roi-a5-pho-thong"
+    }
   },
   {
+    "id": "to-roi-a4-ky-thuathoi-thao",
     "embedding_data": {
       "product_name": "Tờ rơi A4 (Kỹ thuật/Hội thảo)",
       "detailed_description": "Ấn phẩm quảng cáo khổ lớn cung cấp không gian rộng rãi để trình bày thông số kỹ thuật chi tiết hoặc danh mục sản phẩm. Thường được sử dụng trong các môi trường chuyên nghiệp, đòi hỏi sự chỉn chu và đầy đủ về mặt thông tin.",
@@ -207,10 +208,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482584/t%E1%BB%9D_r%C6%A1i_8_w2sebg.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "to-roi-a4-ky-thuathoi-thao"
+    }
   },
   {
+    "id": "to-gap-doi-a4-trai-gap-doi-a5",
     "embedding_data": {
       "product_name": "Tờ gấp đôi (A4 trải - Gấp đôi A5)",
       "detailed_description": "Sản phẩm được cấn 1 nếp giữa, tạo thành 4 trang nội dung riêng biệt giúp phân loại thông tin logic và chuyên nghiệp. Thiết kế này tạo cảm giác như một cuốn mini-catalogue, tăng tính trang trọng cho ấn phẩm.",
@@ -243,10 +244,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546921/t%E1%BB%9D_r%C6%A1i_2_rstulv.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "to-gap-doi-a4-trai-gap-doi-a5"
+    }
   },
   {
+    "id": "to-gap-ba-a4-trai-gap-longz-fold",
     "embedding_data": {
       "product_name": "Tờ gấp ba (A4 trải - Gấp lồng/Z-fold)",
       "detailed_description": "Quy cách gấp phổ biến nhất trong marketing, chia khổ giấy A4 thành 6 mặt nội dung nhỏ gọn. Thiết kế linh hoạt cho phép người dùng mở rộng thông tin dần dần hoặc bung tỏa toàn bộ hình ảnh trong một lần mở, tạo hiệu ứng thị giác tốt.",
@@ -279,10 +280,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482476/t%E1%BB%9D_r%C6%A1i_7_apoooa.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "to-gap-ba-a4-trai-gap-longz-fold"
+    }
   },
   {
+    "id": "to-gap-cua-so-gate-fold",
     "embedding_data": {
       "product_name": "Tờ gấp cửa sổ (Gate-fold)",
       "detailed_description": "Ấn phẩm cao cấp với hai cánh bên gấp vào chính giữa như một cánh cửa, mang lại trải nghiệm 'mở hộp' đầy bất ngờ cho khách hàng. Đây là lựa chọn hàng đầu cho các sản phẩm sang trọng hoặc các thông điệp marketing mang tính khám phá.",
@@ -315,10 +316,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776482704/t%E1%BB%9D_r%C6%A1i_9_mbu7oo.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "to-gap-cua-so-gate-fold"
+    }
   },
   {
+    "id": "tui-giay-kraft-co-nho-size-s",
     "embedding_data": {
       "product_name": "Túi giấy Kraft cỡ nhỏ (Size S)",
       "detailed_description": "Túi giấy kích thước nhỏ gọn, thiết kế tinh tế giúp tối ưu chi phí bao bì. Phù hợp cho các sản phẩm có trọng lượng nhẹ, mang lại cảm giác chỉn chu và vừa vặn khi trao tay khách hàng. Chất liệu Kraft thân thiện môi trường, có thể tùy biến mọi màu sắc theo nhận diện thương hiệu.",
@@ -351,10 +352,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546927/t%C3%BAi_h%E1%BB%99p_1_pnxfoq.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tui-giay-kraft-co-nho-size-s"
+    }
   },
   {
+    "id": "tui-giay-kraft-co-trung-size-m",
     "embedding_data": {
       "product_name": "Túi giấy Kraft cỡ trung (Size M)",
       "detailed_description": "Kích thước túi giấy 'quốc dân', được đặt gia công nhiều nhất tại xưởng nhờ tính đa dụng cực cao. Túi có tỷ lệ cân đối, không gian chứa đồ linh hoạt, đựng vừa vặn hầu hết các sản phẩm bán lẻ thông thường và tài liệu khổ A4, đồng thời vẫn đảm bảo khả năng chịu lực tốt.",
@@ -387,10 +388,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546969/t%C3%BAi_h%E1%BB%99p_3_fl2jas.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tui-giay-kraft-co-trung-size-m"
+    }
   },
   {
+    "id": "tui-giay-kraft-co-lon-size-l",
     "embedding_data": {
       "product_name": "Túi giấy Kraft cỡ lớn (Size L)",
       "detailed_description": "Túi xách Kraft khổ lớn với không gian chứa đồ rộng rãi, được thiết kế chuyên biệt cho các mặt hàng cồng kềnh. Sử dụng định lượng giấy dày dặn kết hợp gia cố phần đáy và quai xách (lót thêm bìa cứng) để đảm bảo độ bền chặt và an toàn khi xách vật nặng.",
@@ -423,10 +424,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546929/t%C3%BAi_h%E1%BB%99p_2_oqbiot.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tui-giay-kraft-co-lon-size-l"
+    }
   },
   {
+    "id": "tem-decal-giay-pho-thong",
     "embedding_data": {
       "product_name": "Tem Decal Giấy (Phổ thông)",
       "detailed_description": "Tem nhãn chất liệu giấy tiêu chuẩn, giải pháp tối ưu chi phí nhất cho in ấn số lượng lớn. Lớp keo bám dính tốt trên các bề mặt khô ráo như bao bì giấy, thùng carton, hoặc chai lọ không yêu cầu bảo quản lạnh. Dễ dàng bế đứt nửa (die-cut) thành mọi hình dáng như tròn, vuông, elip theo thiết kế.",
@@ -459,10 +460,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_1_loun2y.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tem-decal-giay-pho-thong"
+    }
   },
   {
+    "id": "tem-decal-nhua-pvc-decal-xi-bac",
     "embedding_data": {
       "product_name": "Tem Decal Nhựa PVC / Decal xi bạc",
       "detailed_description": "Dòng tem nhãn công nghiệp cao cấp, đặc trưng bởi độ dai dẻo, xé không rách và khả năng chống nước tuyệt đối. Sản phẩm chịu được các điều kiện môi trường khắc nghiệt như kho lạnh, độ ẩm cao, hoặc ma sát cơ học. Bề mặt in thường được cán thêm màng bảo vệ để chống phai mực.",
@@ -494,10 +495,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/tem_2_yahyxv.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tem-decal-nhua-pvc-decal-xi-bac"
+    }
   },
   {
+    "id": "tem-decal-vo-tem-bao-hanh",
     "embedding_data": {
       "product_name": "Tem Decal Vỡ (Tem Bảo hành)",
       "detailed_description": "Loại tem niêm phong có tính chất cực giòn. Khi đã dán lên bề mặt, nếu có tác động cố tình bóc ra, tem sẽ lập tức vỡ vụn thành nhiều mảnh nhỏ và không thể tái sử dụng. Đây là dấu hiệu vật lý minh bạch nhất để kiểm chứng tính nguyên vẹn của sản phẩm chưa bị tháo dỡ.",
@@ -530,10 +531,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480546/tem_7_nlswgb.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "tem-decal-vo-tem-bao-hanh"
+    }
   },
   {
+    "id": "phieu-xuat-kho-phieu-thu-1-lien",
     "embedding_data": {
       "product_name": "Phiếu xuất kho / Phiếu thu (1 liên)",
       "detailed_description": "Biểu mẫu ghi chép hành chính cơ bản, chỉ gồm 1 tờ duy nhất trên mỗi số thứ tự. Thường được gia công đóng thành cuốn có rãnh xé rết (răng cưa) ở mép để người dùng dễ dàng xé rời từng tờ khi sử dụng. Bề mặt giấy ăn mực tốt với các loại bút bi, bút mực thông thường.",
@@ -565,10 +566,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546909/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_6_cfjauf.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "phieu-xuat-kho-phieu-thu-1-lien"
+    }
   },
   {
+    "id": "phieu-xuat-kho-hoa-don-ban-le-2-lien",
     "embedding_data": {
       "product_name": "Phiếu xuất kho / Hóa đơn bán lẻ (2 liên)",
       "detailed_description": "Biểu mẫu thông minh giúp tiết kiệm thời gian ghi chép. Sử dụng vật liệu giấy Carbonless cao cấp, lực viết từ bút bi ở liên 1 (trắng) sẽ tự động in đè nội dung sao chép xuống liên 2 (hồng/vàng) mà không cần phải kê lót giấy than. Giúp hai bên lưu giữ thông tin đối chiếu chính xác.",
@@ -600,10 +601,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1760546908/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_3_io4hny.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "phieu-xuat-kho-hoa-don-ban-le-2-lien"
+    }
   },
   {
+    "id": "phieu-xuat-kho-kiem-van-chuyen-3-lien",
     "embedding_data": {
       "product_name": "Phiếu xuất kho kiêm vận chuyển (3 liên)",
       "detailed_description": "Biểu mẫu quản trị rủi ro chuyên nghiệp dành cho các doanh nghiệp có quy trình giao nhận nhiều bước. Gồm 3 liên riêng biệt, tự động sao chép nội dung từ liên 1 xuống liên 2 và 3. Đảm bảo số liệu minh bạch, đồng nhất giữa 3 phòng ban hoặc 3 chủ thể khác nhau trong một giao dịch.",
@@ -635,10 +636,10 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776480924/s%E1%BB%95_kh%C3%A1m_h%C3%B3a_%C4%91%C6%A1n_7_jom2xu.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "phieu-xuat-kho-kiem-van-chuyen-3-lien"
+    }
   },
   {
+    "id": "card-visit-tieu-chuan-giay-couche-can-mo",
     "embedding_data": {
       "product_name": "Card Visit Tiêu Chuẩn (Giấy Couche cán mờ)",
       "detailed_description": "Dòng danh thiếp phổ thông và tối ưu chi phí nhất cho doanh nghiệp. In trên giấy định lượng dày dặn, được cán thêm một lớp màng nilon mờ ở cả 2 mặt giúp chống trầy xước, chống thấm nước nhẹ và giữ màu mực bền bỉ theo thời gian. Giải pháp hoàn hảo để in đồng loạt cho toàn bộ nhân viên.",
@@ -671,7 +672,6 @@
         "https://res.cloudinary.com/dt4zsrqho/image/upload/v1776481045/card_visit_2_lhneyk.jpg"
       ],
       "redirect_note": ""
-    },
-    "id": "card-visit-tieu-chuan-giay-couche-can-mo"
+    }
   }
 ]

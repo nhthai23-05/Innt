@@ -6,13 +6,13 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 0 — Data Foundation & Environment Setup ⛔ Hard gate
 
-- [ ] **0.1** Normalize `data/products.json` — add `id` slug, `metadata.category_slug`, `embedding_data.finishing_options` where applicable, `generation_enhancers.redirect_note`; fill `product_url` and `image_url` where available
-- [ ] **0.2** Normalize `data/business.json` — add `id` per doc; fill contact doc `address`/`hotline`/`email`; add `redirect_note` to contact doc
+- [x] **0.1** Normalize `data/products.json` — ✅ all products have `id`, `category_slug`, `redirect_note`
+- [x] **0.2** Normalize `data/business.json` — ✅ all docs have `id` (address/hotline/email to be filled manually)
 - [ ] **0.3** Create `data/categories.json` — canonical slug + Vietnamese label list (resolves Open Q #2)
-- [ ] **0.4** Decide image plan (Open Q #3) and populate `data/images/` with `{product_id}.jpg` files (real or placeholder)
+- [x] **0.4** Image plan: **Cloudinary** — use existing URLs in `generation_enhancers.image_url`
 - [ ] **0.5** Temporarily flip `config.py` defaults: `retrieval_strategy="dense"`, `use_reranking=False`
 - [ ] **0.6** Document CPU-only torch install path in `backend/README.md`
-- [ ] **0.7** Resolve Open Q #1 (19 vs 23 products) — record decision
+- [x] **0.7** Product count: **19 products locked**
 
 ### Checkpoint A — ✅ Schema frozen, image plan decided, team sign-off
 
