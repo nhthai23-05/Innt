@@ -8,10 +8,10 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 - [x] **0.1** Normalize `data/products.json` — ✅ all products have `id`, `category_slug`, `redirect_note`
 - [x] **0.2** Normalize `data/business.json` — ✅ all docs have `id` (address/hotline/email to be filled manually)
-- [ ] **0.3** Create `data/categories.json` — canonical slug + Vietnamese label list (resolves Open Q #2)
+- [x] **0.3** Create `data/categories.json` — canonical slug + Vietnamese label list (resolves Open Q #2)
 - [x] **0.4** Image plan: **Cloudinary** — use existing URLs in `generation_enhancers.image_url`
-- [ ] **0.5** Temporarily flip `config.py` defaults: `retrieval_strategy="dense"`, `use_reranking=False`
-- [ ] **0.6** Document CPU-only torch install path in `backend/README.md`
+- [x] **0.5** Temporarily flip `config.py` defaults: `retrieval_strategy="dense"`, `use_reranking=False`
+- [x] **0.6** Document CPU-only torch install path in `backend/README.md`
 - [x] **0.7** Product count: **19 products locked**
 
 ### Checkpoint A — ✅ Schema frozen, image plan decided, team sign-off
@@ -20,11 +20,11 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 1 — Naive RAG Walking Skeleton (CLI only)
 
-- [ ] **1.1** `app/indexing/indexer.py` — load JSON → ChromaDB with idempotent `--rebuild` flag (collection count = 24)
-- [ ] **1.2** `app/rag/embeddings.py` — sentence-transformers wrapper reading `settings.embedding_model`
-- [ ] **1.3** `app/rag/retrieval.py` — `DenseRetriever` only (bm25/hybrid stubbed); top-k against "phong bì A5" includes the product
-- [ ] **1.4** `app/rag/generation.py` — `GeminiGenerator` + Vietnamese system prompt that refuses pricing
-- [ ] **1.5** `app/rag/pipeline.py` — `RagPipeline.query()` orchestrator; `python -m app.rag.pipeline "..."` returns grounded answer
+- [x] **1.1** `app/indexing/indexer.py` — load JSON → ChromaDB with idempotent `--rebuild` flag (collection count = 24)
+- [x] **1.2** `app/rag/embeddings.py` — sentence-transformers wrapper reading `settings.embedding_model`
+- [x] **1.3** `app/rag/retrieval.py` — `DenseRetriever` only (bm25/hybrid stubbed); top-k against "phong bì A5" includes the product
+- [x] **1.4** `app/rag/generation.py` — `GeminiGenerator` + Vietnamese system prompt that refuses pricing
+- [x] **1.5** `app/rag/pipeline.py` — `RagPipeline.query()` orchestrator; `python -m app.rag.pipeline "..."` returns grounded answer
 
 ### Checkpoint B — ✅ 5-query manual smoke test passes (product / spec / vague / pricing / out-of-scope)
 
@@ -32,11 +32,11 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 2 — Evaluation Harness
 
-- [ ] **2.1** `backend/evaluation/test_set.json` — initial 20 Q&A pairs across 6 categories
-- [ ] **2.2** `evaluation/evaluate.py` — RAGAS runner (faithfulness, answer_relevancy, context_precision, context_recall)
-- [ ] **2.3** `evaluation/metrics.py` — latency, memory, redirect accuracy
-- [ ] **2.4** `evaluation/run_experiments.py` — YAML config → CSV runner with git SHA + timestamp header
-- [ ] **2.5** Run baseline; log as "Baseline (Naive RAG)" row of `experiments/results/cumulative_gains.csv`
+- [x] **2.1** `backend/evaluation/test_set.json` — initial 20 Q&A pairs across 6 categories
+- [x] **2.2** `evaluation/evaluate.py` — RAGAS runner (faithfulness, answer_relevancy, context_precision, context_recall)
+- [x] **2.3** `evaluation/metrics.py` — latency, memory, redirect accuracy
+- [x] **2.4** `evaluation/run_experiments.py` — experiment harness with yaml config + git SHA tracking
+- [x] **2.5** Run baseline; log as "Baseline (Naive RAG)" row of `experiments/results/cumulative_gains.csv`
 
 ### Checkpoint C — ✅ Baseline RAGAS numbers recorded; team reviews faithfulness/precision before proceeding
 

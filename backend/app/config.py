@@ -36,6 +36,7 @@ class Settings(BaseSettings):
     class Config:
         env_file = ".env"
         env_prefix = "RAG_"
+        extra = "ignore"   #can remove later when done
 
 
 settings = Settings()
