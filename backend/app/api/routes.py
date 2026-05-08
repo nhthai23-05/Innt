@@ -1,5 +1,4 @@
 """API routes for the RAG chatbot."""
-
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 from typing import Optional, Dict, Any
@@ -12,7 +11,6 @@ from app.rag.pipeline import RagPipeline
 from app.indexing.indexer import IndexBuilder
 
 logger = logging.getLogger(__name__)
-
 router = APIRouter(prefix="/api", tags=["RAG API"])
 
 # Global pipeline instance (can be reconfigured for experiments)
@@ -30,17 +28,11 @@ def get_pipeline() -> RagPipeline:
 @router.post("/chat", response_model=ChatResponse)
 async def chat(
     message: str = Form(..., description="User message"),
-    conversation_id: Optional[str] = Form(None),
-    image: Optional[UploadFile] = File(None),
+    conversation_id: Optional[str] = Form(None, description = "ID of chat session"),
+    image: Optional[UploadFile] = File(None, description = "uploaded product image"),
 ) -> Dict[str, Any]:
     """
-    Process a user message and return a grounded answer.
-    
-    - **message**: User's question in Vietnamese (required)
-    - **conversation_id**: Optional ID for multi-turn conversations
-    - **image**: Optional image file for multimodal queries (Phase 7)
-    
-    Returns ChatResponse with answer, sources, metadata.
+     
     """
     try:
         # Validate input
@@ -53,10 +45,15 @@ async def chat(
         
         # Get or create pipeline
         pipeline = get_pipeline()
-        
+        # logging before running the pipeline
+        logger.info(f"message : {message}, session ; {conversation_id}")
         # Query the pipeline
-        result = pipeline.query(message, conversation_id=conversation_id)
-        
+        # ===========/////////////////=================================== need change
+
+        result = pipeline.query(text = message, conversation_id=conversation_id)
+
+        logger.info(f"result of pipeline: {result}")
+        #===========////////////////////========================================
         return ChatResponse(**result)
     
     except HTTPException:
@@ -73,7 +70,6 @@ async def chat(
 async def get_config() -> Dict[str, Any]:
     """
     Get current RAG pipeline configuration.
-    
     Returns the current settings for retrieval strategy, reranking, etc.
     """
     try:

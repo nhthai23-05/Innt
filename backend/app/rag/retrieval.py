@@ -4,7 +4,8 @@ from typing import List, Tuple
 import chromadb
 from app.config import settings
 from app.rag.embeddings import Embedder
-
+import logging
+logger = logging.getLogger(__name__)
 
 class Retriever:
     """Base retriever interface."""
@@ -32,7 +33,10 @@ class DenseRetriever(Retriever):
             collection_name: ChromaDB collection name
         """
         self.embedder = Embedder()
-        self.client = chromadb.PersistentClient(path=settings.chroma_persist_dir)
+        self.client = chromadb.PersistentClient(path=settings.chroma_persist_dir) # chroma_persist_dir: str = "./chroma_db"
+        logger.info(f"[chromadb]client chromadb path :{settings.chroma_persist_dir}")
+        logger.info(f"[chromadb]collections list: {self.client.list_collections()}")
+        
         self.collection = self.client.get_collection(name=collection_name)
     
     def retrieve(self, query: str, top_k: int = 5) -> List[Tuple[dict, float]]:

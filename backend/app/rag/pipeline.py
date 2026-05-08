@@ -6,6 +6,10 @@ from app.config import settings
 from app.rag.retrieval import DenseRetriever
 from app.rag.generation import Generator
 
+# serve phase 3: api debugging (thắng)
+import logging
+logger = logging.getLogger(__name__)
+
 
 @dataclass
 class RagResponse:
@@ -36,14 +40,19 @@ class RagPipeline:
             use_query_enhancement: Override settings.use_query_enhancement
         """
         # Configuration (can be overridden per call for experiments)
-        self.retrieval_strategy = retrieval_strategy or settings.retrieval_strategy
-        self.top_k = top_k or settings.top_k
-        self.use_reranking = use_reranking if use_reranking is not None else settings.use_reranking
-        self.use_query_enhancement = use_query_enhancement if use_query_enhancement is not None else settings.use_query_enhancement
+        self.retrieval_strategy = retrieval_strategy or settings.retrieval_strategy # dense
+        self.top_k = top_k or settings.top_k #5
+        self.use_reranking = use_reranking if use_reranking is not None else settings.use_reranking #false
+        self.use_query_enhancement = use_query_enhancement if use_query_enhancement is not None else settings.use_query_enhancement #hyde
         
         # Initialize components
         self.retriever = self._init_retriever()
         self.generator = Generator()
+
+        logger.info(f"retrieval_strategy: {self.retrieval_strategy}")
+        logger.info(f"use_reranking: {self.use_reranking}")
+        
+
     
     def _init_retriever(self):
         """Initialize retriever based on strategy."""
@@ -71,8 +80,10 @@ class RagPipeline:
         intent = "general"  # Phase 6.4 will enhance this
         
         # Phase 6.5: Query enhancement (stub for Phase 1)
+
+        # phase 3: api, still use plain text from user
         enhanced_query = text  # Phase 6.5 will enhance with HyDE
-        
+        logger.info(f"query sau khi enhanced: {enhanced_query}")
         # Retrieve context documents
         retrieved_docs = self.retriever.retrieve(enhanced_query, top_k=self.top_k)
         
@@ -95,7 +106,7 @@ class RagPipeline:
         if not context_docs:
             answer = "Xin lỗi, tôi không tìm thấy thông tin liên quan để trả lời câu hỏi này. Vui lòng liên hệ công ty để được hỗ trợ trực tiếp."
             result = {
-                "answer": answer,
+                "response": answer,
                 "sources": [],
                 "redirect_to_zalo": True,
                 "metadata": {
@@ -105,14 +116,27 @@ class RagPipeline:
                 },
             }
         else:
+            """metadata will include these key - value:
+            - llm_name: str
+            - embedding_model: str
+            - retrieval_strategy: str
+            - retrieved_docs: list[str]
+            - chunking_strategy: str
+            - use_rerank: bool
+            - use_query_enhancement: bool
+            - top_l
+            - """
             answer = self.generator.generate(text, context_docs)
             result = {
-                "answer": answer,
+                "response": answer,
                 "sources": sources,
                 "redirect_to_zalo": False,
                 "metadata": {
-                    "strategy": self.retrieval_strategy,
+                    "llm_name":str(self.generator.model.model_name),
+                    "retrieval_strategy": self.retrieval_strategy,
                     "retrieved_docs": len(context_docs),
+                    "use_rerank": self.use_reranking,
+                    "use_query_enhancement": self.use_query_enhancement,
                     "intent": intent,
                     "top_k": self.top_k,
                 },

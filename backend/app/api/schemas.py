@@ -1,11 +1,13 @@
 """Request/Response schemas for the API."""
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from typing import Optional, List, Dict, Any
 
 
 class ChatRequest(BaseModel):
     """Request body for POST /api/chat."""
+
+    
     
     message: str = Field(
         ...,
