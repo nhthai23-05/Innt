@@ -14,6 +14,10 @@
       "category": "Corporate Profile",
       "established_year": 2009,
       "employee_count": 15
+    },
+    "id": "tong-quan-doanh-nghiep-va-lich-su-hinh-thanh",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -31,6 +35,10 @@
       "category": "Production Capability",
       "technology": "In Offset 1-4 màu",
       "max_print_size": "A1"
+    },
+    "id": "nang-luc-san-xuat-va-quy-trinh-gia-cong-in-an",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -47,6 +55,10 @@
     "metadata": {
       "category": "Workflow & Timeline",
       "total_estimated_days": "5 - 10 ngày (Trung bình)"
+    },
+    "id": "thoi-gian-hoan-thanh-va-tien-do-giao-hang",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -61,6 +73,10 @@
     },
     "metadata": {
       "category": "Clients & Partners"
+    },
+    "id": "khach-hang-tieu-bieu-va-doi-tac-thuong-mai",
+    "generation_enhancers": {
+      "redirect_note": ""
     }
   },
   {
@@ -75,9 +91,13 @@
     },
     "metadata": {
       "category": "Contact Information",
-      "address": "",
-      "hotline": "",
-      "email": ""
+      "address": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d658.5328339493915!2d105.88293104100552!3d20.98364573043702!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135aea2c420e57f%3A0x6972114b4de02b33!2sC%C3%B4ng%20ty%20TNHH%20in%20N%26T!5e0!3m2!1svi!2s!4v1762401257546!5m2!1svi!2s",
+      "hotline": "+84 0969232005",
+      "email": "innt1995@gmail.com"
+    },
+    "id": "thong-tin-lien-he-va-dia-chi",
+    "generation_enhancers": {
+      "redirect_note": "https://zalo.me/84867081781"
     }
   }
 ]

@@ -77,10 +77,10 @@ Everything downstream consumes normalized data. Schema must freeze here.
 | 0.1 | Normalize `data/products.json`: add `id` (slug), `metadata.category_slug`, `embedding_data.finishing_options` where applicable, `generation_enhancers.redirect_note` | Every product has all 6 fields; `id` is unique; slugs are ASCII kebab-case | `python -c "import json; d=json.load(open('data/products.json',encoding='utf-8')); assert all('id' in p and 'category_slug' in p['metadata'] for p in d); assert len({p['id'] for p in d})==len(d)"` |
 | 0.2 | Normalize `data/business.json`: add `id` per doc; fill contact doc's `address`/`hotline`/`email` (ask team for real values); add `redirect_note` to contact doc | All 5 docs have `id`; contact fields non-empty | Same JSON schema check |
 | 0.3 | Lock canonical category list in a `data/categories.json` (slug + Vietnamese label + English label if needed for URL) — resolves Open Question #2 | File exists; covers all 8 data categories; reviewed by team | Manual review |
-| 0.4 | Decide & document image plan (Open Question #3); populate `data/images/` placeholders named `{product_id}.jpg` if real images unavailable | Every product has at least one image file on disk | `ls data/images/ \| wc -l >= 19` |
+| 0.4 | **✅ DECISION: Cloudinary** — Use existing image URLs in `generation_enhancers.image_url` (no local file copies needed for Phase 1–6) | URLs present in all 19 products | Spot-check URLs work |
 | 0.5 | Temporarily flip `config.py` defaults to `retrieval_strategy="dense"` and `use_reranking=False` (these reference empty modules; Phase 6 will restore) | Defaults point only to modules that exist post-Phase 1 | Run `python -c "from app.config import settings; print(settings)"` with no errors |
 | 0.6 | Document CPU-only torch install in `backend/README.md` (e.g., `pip install torch --index-url https://download.pytorch.org/whl/cpu`) | Install note added | Visual |
-| 0.7 | Resolve Open Question #1 (19 vs 23 products) | Decision recorded in SPEC or a decision log; count is locked | Manual |
+| 0.7 | **✅ DECISION: 19 products** (not 23) — confirmed current `data/products.json` count | Count locked; schema frozen | No additions |
 
 **Checkpoint A** — Review with team. Schema frozen. Image plan decided. No further data-shape changes after this.
 
