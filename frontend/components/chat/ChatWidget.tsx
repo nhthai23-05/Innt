@@ -77,28 +77,33 @@ export default function ChatWidget() {
             flexDirection: 'column' // Xếp theo chiều dọc: Header -> Chat -> Input
           }}
         >
-          {/* --- HEADER --- */}
-          <div 
-            className="bg-[#E62026] p-5 text-white flex items-center justify-center relative" 
-            style={{ flexShrink: 0, minHeight: '70px' }} 
-          >
-            <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center border border-white/30 shrink-0">
-                <Sparkles size={18} />
-              </div>
-              <span className="font-bold text-base tracking-wide">
-                INNT AI Assistant
-              </span>
-            </div>
-
-            {/* Nút X được đặt absolute để không chiếm không gian, giúp chữ căn giữa tuyệt đối */}
-            <button 
-              onClick={() => setOpen(false)} 
-              className="absolute right-4 top-1/2 -translate-y-1/2 hover:bg-white/10 p-2 rounded-full cursor-pointer transition-colors"
-            >
-              <X size={20} />
-            </button>
-          </div>
+          {/* --- HEADER: CĂN GIỮA + CHỮ IN ĐẬM --- */}
+<div 
+  className="bg-[#E62026] p-5 text-white flex items-center justify-center relative" 
+  style={{ flexShrink: 0, minHeight: '70px' }} 
+>
+  <div className="flex items-center gap-3">
+    <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center border border-white/30 shrink-0">
+      <Sparkles size={18} />
+    </div>
+<span 
+  style={{ 
+    fontWeight: 700,      
+    fontSize: '18px',    
+    letterSpacing: '-0.5px' 
+  }}
+  className="text-white"
+>
+  INNT AI Assistant
+</span>
+  </div>
+  <button 
+    onClick={() => setOpen(false)} 
+    className="absolute right-4 top-1/2 -translate-y-1/2 hover:bg-white/10 p-2 rounded-full cursor-pointer transition-colors"
+  >
+    <X size={20} />
+  </button>
+</div>
 
           {/* --- VÙNG CHAT: PHẦN DUY NHẤT ĐƯỢC PHÉP CUỘN --- */}
           <div 
