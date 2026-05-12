@@ -1,489 +1,170 @@
 import { useEffect, useRef, useState } from 'react'
-import {
-  MessageCircle,
-  SendHorizonal,
-  X,
-  Sparkles,
-} from 'lucide-react'
+import { MessageCircle, SendHorizonal, X, Sparkles } from 'lucide-react'
 
 interface ChatMessage {
-  id: string
-  role: 'user' | 'assistant'
-  content: string
-  timestamp: Date
+  id: string;
+  role: string;
+  content: string;
+  timestamp: string;
 }
 
 export default function ChatWidget() {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
-
-  const [messages, setMessages] = useState<
-    ChatMessage[]
-  >([
+  const [input, setInput] = useState('')
+  const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      id: crypto.randomUUID(),
+      id: '1',
       role: 'assistant',
-      content:
-        'Hello 👋 Welcome to INNT. I’m your AI assistant and I can help you explore products, printing solutions, and packaging services.',
-      timestamp: new Date(),
+      content: 'Hello 👋 Welcome to INNT. I’m your AI assistant...',
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     },
   ])
 
-  const [input, setInput] = useState('')
-
-  const messagesEndRef =
-    useRef<HTMLDivElement | null>(null)
+  const messagesEndRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({
-      behavior: 'smooth',
-    })
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, loading])
 
-  const handleSend = async () => {
-    if (!input.trim() || loading) return
+  const handleSend = () => {
+    const trimmedInput = input.trim()
+    if (!trimmedInput) return
 
     const userMessage: ChatMessage = {
-      id: crypto.randomUUID(),
+      id: Date.now().toString(),
       role: 'user',
-      content: input,
-      timestamp: new Date(),
+      content: trimmedInput,
+      timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
     }
 
     setMessages((prev) => [...prev, userMessage])
-
-    const currentInput = input
-
     setInput('')
+    setLoading(true)
 
-    try {
-      setLoading(true)
-
-      // FAKE AI RESPONSE
-      // Replace with your backend API later
-
-      await new Promise((resolve) =>
-        setTimeout(resolve, 1200)
-      )
-
-      const assistantMessage: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content:
-          'Thank you for your message. Our AI assistant is currently connected successfully to the frontend UI.',
-        timestamp: new Date(),
-      }
-
+    setTimeout(() => {
       setMessages((prev) => [
         ...prev,
-        assistantMessage,
+        {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: 'Tôi đang xử lý yêu cầu của bạn... Vui lòng đợi giây lát.',
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        },
       ])
-    } catch (error) {
-      const errorMessage: ChatMessage = {
-        id: crypto.randomUUID(),
-        role: 'assistant',
-        content:
-          'Something went wrong. Please try again.',
-        timestamp: new Date(),
-      }
-
-      setMessages((prev) => [
-        ...prev,
-        errorMessage,
-      ])
-    } finally {
       setLoading(false)
-    }
+    }, 1000)
   }
 
   return (
     <>
-      {/* Floating Button */}
       {!open && (
-        <button
-          onClick={() => setOpen(true)}
-          className="
-            fixed
-            bottom-6
-            right-6
-            z-[9999]
-
-            w-16
-            h-16
-
-            rounded-full
-
-            bg-gradient-to-br
-            from-[#E62026]
-            to-[#b31217]
-
-            shadow-[0_20px_50px_rgba(230,32,38,0.35)]
-
-            flex
-            items-center
-            justify-center
-
-            text-white
-
-            transition-all
-            duration-300
-
-            hover:scale-105
-            hover:shadow-[0_25px_60px_rgba(230,32,38,0.45)]
-          "
-        >
+        <button onClick={() => setOpen(true)} className="fixed bottom-6 right-6 z-[9999] w-14 h-14 rounded-full bg-[#E62026] shadow-2xl flex items-center justify-center text-white hover:scale-110 transition-transform">
           <MessageCircle size={28} />
         </button>
       )}
 
-      {/* Chat Container */}
       {open && (
-        <div
-          className="
-            fixed
-            bottom-6
-            right-6
-            z-[9999]
-
-            flex
-            flex-col
-
-            overflow-hidden
-
-            rounded-[32px]
-
-            border
-            border-white/20
-
-            bg-white/80
-            backdrop-blur-2xl
-
-            shadow-[0_20px_80px_rgba(0,0,0,0.18)]
-
-            transition-all
-            duration-300
-
-            w-[320px]
-            h-[720px]
-
-            max-md:w-full
-            max-md:h-full
-            max-md:bottom-0
-            max-md:right-0
-            max-md:rounded-none
-          "
+        <div 
+          className="fixed bottom-6 right-6 z-[9999] flex flex-col bg-white shadow-[0_10px_40px_rgba(0,0,0,0.2)] border border-gray-100 animate-in fade-in slide-in-from-bottom-5 duration-300"
+          style={{
+            width: '400px',         
+            height: '600px',        // 1. CHIỀU CAO CỐ ĐỊNH CHO KHUNG TỔNG
+            maxHeight: 'calc(100vh - 40px)', 
+            borderRadius: '24px',   
+            overflow: 'hidden',     
+            display: 'flex',        
+            flexDirection: 'column' // Xếp theo chiều dọc: Header -> Chat -> Input
+          }}
         >
-          {/* Header */}
-          <div
-            className="
-              relative
-
-              px-5
-              py-4
-
-              bg-gradient-to-r
-              from-[#E62026]
-              via-[#d11b20]
-              to-[#b31217]
-
-              text-white
-
-              flex
-              items-center
-              justify-between
-            "
+          {/* --- HEADER --- */}
+          <div 
+            className="bg-[#E62026] p-5 text-white flex items-center justify-center relative" 
+            style={{ flexShrink: 0, minHeight: '70px' }} 
           >
-            {/* Glow */}
-            <div
-              className="
-                absolute
-                inset-0
-                bg-white/10
-                backdrop-blur-xl
-              "
-            />
-
-            {/* Left */}
-            <div className="relative flex items-center gap-3">
-              {/* Avatar */}
-              <div
-                className="
-                  w-12
-                  h-12
-
-                  rounded-full
-
-                  bg-white/20
-                  border
-                  border-white/30
-
-                  flex
-                  items-center
-                  justify-center
-
-                  backdrop-blur-xl
-                "
-              >
-                <Sparkles size={22} />
+            <div className="flex items-center gap-3">
+              <div className="w-9 h-9 rounded-full bg-white/20 flex items-center justify-center border border-white/30 shrink-0">
+                <Sparkles size={18} />
               </div>
-
-              <div>
-                <h2 className="font-semibold text-[16px]">
-                  INNT AI Assistant
-                </h2>
-
-                <div className="flex items-center gap-2 mt-1">
-                  <div
-                    className="
-                      w-2
-                      h-2
-                      rounded-full
-                      bg-green-400
-                    "
-                  />
-
-                  <p className="text-xs text-red-100">
-                    Online now
-                  </p>
-                </div>
-              </div>
+              <span className="font-bold text-base tracking-wide">
+                INNT AI Assistant
+              </span>
             </div>
 
-            {/* Close */}
-            <button
-              onClick={() => setOpen(false)}
-              className="
-                relative
-
-                w-10
-                h-10
-
-                rounded-full
-
-                flex
-                items-center
-                justify-center
-
-                hover:bg-white/15
-
-                transition
-              "
+            {/* Nút X được đặt absolute để không chiếm không gian, giúp chữ căn giữa tuyệt đối */}
+            <button 
+              onClick={() => setOpen(false)} 
+              className="absolute right-4 top-1/2 -translate-y-1/2 hover:bg-white/10 p-2 rounded-full cursor-pointer transition-colors"
             >
-              <X size={22} />
+              <X size={20} />
             </button>
           </div>
 
-          {/* Messages */}
-          <div
-            className="
-              flex-1
-              overflow-y-auto
-
-              px-4
-              py-5
-
-              space-y-4
-
-              bg-gradient-to-b
-              from-[#fafafa]
-              to-[#f3f4f6]
-            "
+          {/* --- VÙNG CHAT: PHẦN DUY NHẤT ĐƯỢC PHÉP CUỘN --- */}
+          <div 
+            className="flex-1 overflow-y-auto p-4 bg-[#fcfcfc] custom-scrollbar" 
+            style={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              gap: '15px',
+              minHeight: 0, // QUAN TRỌNG: Để thanh cuộn hoạt động trong Flexbox
+              overflowY: 'auto' // HIỆN THANH CUỘN KHI TIN NHẮN DÀI
+            }}
           >
-            {messages.map((message) => {
-              const isUser =
-                message.role === 'user'
-
+            {messages.map((m) => {
+              const isUser = m.role === 'user'
               return (
-                <div
-                  key={message.id}
-                  className={`flex ${
-                    isUser
-                      ? 'justify-end'
-                      : 'justify-start'
-                  }`}
+                <div 
+                  key={m.id} 
+                  className="w-full flex" 
+                  style={{ justifyContent: isUser ? 'flex-end' : 'flex-start' }} // TIN NHẮN NGƯỜI DÙNG SANG PHẢI
                 >
-                  <div
-                    className={`
-                      max-w-[85%]
-
-                      px-4
-                      py-3
-
-                      rounded-2xl
-
-                      text-[14px]
-                      leading-relaxed
-
-                      whitespace-pre-wrap
-
-                      shadow-sm
-
-                      transition-all
-                      duration-300
-
-                      ${
-                        isUser
-                          ? `
-                            bg-[#E62026]
-                            text-white
-                            rounded-br-md
-                            shadow-[0_8px_25px_rgba(230,32,38,0.25)]
-                          `
-                          : `
-                            bg-white
-                            text-gray-800
-                            rounded-bl-md
-                            border
-                            border-gray-100
-                          `
-                      }
-                    `}
+                  <div 
+                    className="flex flex-col" 
+                    style={{ maxWidth: '85%', alignItems: isUser ? 'flex-end' : 'flex-start' }}
                   >
-                    <p>{message.content}</p>
-
                     <div
-                      className={`
-                        text-[11px]
-                        mt-2
-
-                        ${
-                          isUser
-                            ? 'text-red-100'
-                            : 'text-gray-400'
-                        }
-                      `}
+                      style={{
+                        backgroundColor: isUser ? '#E62026' : '#FFFFFF', 
+                        color: isUser ? '#FFFFFF' : '#333333',
+                        borderRadius: isUser ? '18px 18px 2px 18px' : '18px 18px 18px 2px', 
+                        padding: '10px 16px',
+                        fontSize: '14px',
+                        boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
+                        border: isUser ? 'none' : '1px solid #E5E7EB',
+                      }}
                     >
-                      {message.timestamp.toLocaleTimeString(
-                        [],
-                        {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        }
-                      )}
+                      {m.content}
                     </div>
+                    <span style={{ fontSize: '10px', color: '#9ca3af', marginTop: '4px' }}>
+                      {m.timestamp}
+                    </span>
                   </div>
                 </div>
               )
             })}
-
-            {/* Typing Indicator */}
-            {loading && (
-              <div className="flex justify-start">
-                <div
-                  className="
-                    bg-white
-
-                    border
-                    border-gray-100
-
-                    px-4
-                    py-3
-
-                    rounded-2xl
-                    rounded-bl-md
-
-                    shadow-sm
-                  "
-                >
-                  <div className="flex gap-1">
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce"></div>
-
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-100"></div>
-
-                    <div className="w-2 h-2 rounded-full bg-gray-400 animate-bounce delay-200"></div>
-                  </div>
-                </div>
-              </div>
-            )}
-
+            {loading && <div className="text-[10px] text-gray-400 italic px-2">AI đang trả lời...</div>}
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
-          <div
-            className="
-              p-4
-
-              border-t
-              border-gray-100
-
-              bg-white/70
-              backdrop-blur-xl
-            "
+          {/* --- THANH NHẬP LIỆU: KHÓA CHẶT Ở ĐÁY (flex-shrink-0) --- */}
+          <div 
+            className="p-4 bg-white border-t border-gray-100 z-20"
+            style={{ flexShrink: 0 }} // ĐẢM BẢO KHÔNG BỊ TRÔI THEO TIN NHẮN
           >
-            <div
-              className="
-                flex
-                items-center
-                gap-3
-
-                bg-white
-
-                border
-                border-gray-200
-
-                rounded-full
-
-                px-3
-                py-2
-
-                shadow-sm
-              "
+            <div 
+              className="flex items-center gap-2 bg-[#F3F4F6] px-4 py-1 border border-transparent focus-within:border-gray-200 focus-within:bg-white transition-all"
+              style={{ borderRadius: '30px' }} 
             >
               <input
                 value={input}
-                onChange={(e) =>
-                  setInput(e.target.value)
-                }
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleSend()
-                  }
-                }}
-                placeholder="Ask something..."
-                className="
-                  flex-1
-
-                  bg-transparent
-
-                  px-2
-
-                  text-sm
-
-                  outline-none
-                "
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                placeholder="Nhập câu hỏi..."
+                className="flex-1 bg-transparent border-none outline-none text-sm py-3 text-gray-700"
               />
-
-              <button
-                onClick={handleSend}
-                disabled={loading}
-                className="
-                  w-11
-                  h-11
-
-                  rounded-full
-
-                  bg-gradient-to-br
-                  from-[#E62026]
-                  to-[#b31217]
-
-                  text-white
-
-                  flex
-                  items-center
-                  justify-center
-
-                  shadow-lg
-
-                  transition-all
-                  duration-300
-
-                  hover:scale-105
-
-                  disabled:opacity-50
-                "
-              >
-                <SendHorizonal size={18} />
+              <button onClick={handleSend} className="text-[#E62026] hover:scale-110 transition-transform p-1">
+                <SendHorizonal size={22} />
               </button>
             </div>
           </div>
