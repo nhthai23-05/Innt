@@ -107,7 +107,8 @@ def run_evaluation(
             latency_ms = (time.time() - start_time) * 1000
             
             # Extract answer and contexts from result dict
-            answer = result.get("answer", "")
+            # NOTE: pipeline.query() returns the answer under "response" (matches ChatResponse schema)
+            answer = result.get("response", result.get("answer", ""))
             sources = result.get("sources", [])
             
             # contexts are the source document names

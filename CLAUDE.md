@@ -29,7 +29,7 @@ Full specification: `SPEC.md`
 │   ├── evaluation/         #   RAGAS metrics + experiment runner
 │   └── experiments/        #   Configs (YAML) and results (CSV/JSON)
 ├── data/                   # Shared knowledge base (source of truth)
-│   ├── products.json       #   23 products with embedding_data + metadata
+│   ├── products.json       #   19 products with embedding_data + metadata
 │   ├── business.json       #   5 company info documents
 │   └── images/             #   Product reference images (for CLIP)
 ├── report/                 # LaTeX report
@@ -73,7 +73,7 @@ docker compose up
 | File | Purpose |
 |------|---------|
 | `SPEC.md` | Full project specification — architecture, experiments, timeline |
-| `data/products.json` | 23 printing products with embedding_data + metadata (Vietnamese) |
+| `data/products.json` | 19 printing products with embedding_data + metadata (Vietnamese) |
 | `data/business.json` | 5 company info documents (Vietnamese) |
 | `backend/app/config.py` | All RAG pipeline settings (embedding model, LLM, retrieval strategy) |
 | `backend/app/rag/pipeline.py` | RAG orchestrator — configurable for experiments |

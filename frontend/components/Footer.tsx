@@ -1,17 +1,14 @@
+import { Link } from 'react-router-dom';
 import { MapPin, Mail, Phone } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
-interface FooterProps {
-  onNavigate: (page: string) => void;
-}
-
-export function Footer({ onNavigate }: FooterProps) {
+export function Footer() {
   const quickLinks = [
-    { id: 'home', label: 'Trang chủ' },
-    { id: 'about', label: 'Giới thiệu' },
-    { id: 'products', label: 'Sản phẩm' },
-    { id: 'process', label: 'Quy trình' },
-    { id: 'contact', label: 'Liên hệ' },
+    { path: '/', label: 'Trang chủ' },
+    { path: '/about', label: 'Giới thiệu' },
+    { path: '/products', label: 'Sản phẩm' },
+    { path: '/process', label: 'Quy trình' },
+    { path: '/contact', label: 'Liên hệ' },
   ];
 
   return (
@@ -28,7 +25,7 @@ export function Footer({ onNavigate }: FooterProps) {
               />
             </div>
             <p className="text-gray-300 mb-4">
-              Giải pháp sản xuất & in ấn bao bì tùy chỉnh hàng đầu tại Việt Nam. 
+              Giải pháp sản xuất & in ấn bao bì tùy chỉnh hàng đầu tại Việt Nam.
               Chất lượng cao, giao hàng đúng hẹn, dịch vụ chuyên nghiệp.
             </p>
           </div>
@@ -38,13 +35,13 @@ export function Footer({ onNavigate }: FooterProps) {
             <h3 className="text-white mb-4">Liên kết nhanh</h3>
             <ul className="space-y-2">
               {quickLinks.map((link) => (
-                <li key={link.id}>
-                  <button
-                    onClick={() => onNavigate(link.id)}
+                <li key={link.path}>
+                  <Link
+                    to={link.path}
                     className="text-gray-300 hover:text-[#E62026] transition-colors"
                   >
                     {link.label}
-                  </button>
+                  </Link>
                 </li>
               ))}
             </ul>

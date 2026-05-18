@@ -1,10 +1,7 @@
+import { useNavigate } from 'react-router-dom';
 import { Target, Users, Trophy, Heart } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
-
-interface AboutPageProps {
-  onNavigate: (page: string) => void;
-}
 
 const values = [
   {
@@ -35,7 +32,8 @@ const milestones = [
   { year: '2025', title: 'Hơn 500 khách hàng', description: 'Phục vụ hơn 500 doanh nghiệp trên toàn quốc' },
 ];
 
-export function AboutPage({ onNavigate }: AboutPageProps) {
+export function AboutPage() {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
@@ -153,7 +151,7 @@ export function AboutPage({ onNavigate }: AboutPageProps) {
             Hãy để Công ty In N&T đồng hành cùng bạn tạo nên những sản phẩm bao bì độc đáo và chất lượng.
           </p>
           <Button
-            onClick={() => onNavigate('contact')}
+            onClick={() => navigate('/contact')}
             variant="outline"
             className="bg-white text-[#E62026] border-white hover:bg-gray-100"
           >

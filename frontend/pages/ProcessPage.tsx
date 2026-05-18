@@ -1,9 +1,6 @@
+import { useNavigate } from 'react-router-dom';
 import { FileText, MessageSquare, Palette, Factory, CheckCircle } from 'lucide-react';
 import { Button } from '../components/ui/button';
-
-interface ProcessPageProps {
-  onNavigate: (page: string) => void;
-}
 
 const steps = [
   {
@@ -63,7 +60,8 @@ const steps = [
   },
 ];
 
-export function ProcessPage({ onNavigate }: ProcessPageProps) {
+export function ProcessPage() {
+  const navigate = useNavigate();
   return (
     <div>
       {/* Hero Section */}
@@ -161,7 +159,7 @@ export function ProcessPage({ onNavigate }: ProcessPageProps) {
             Liên hệ với chúng tôi để được tư vấn chi tiết và nhận báo giá chính xác nhất.
           </p>
           <Button
-            onClick={() => onNavigate('contact')}
+            onClick={() => navigate('/contact')}
             variant="outline"
             className="bg-white text-[#E62026] border-white hover:bg-gray-100"
           >

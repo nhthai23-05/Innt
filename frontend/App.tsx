@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { StickyContactButton } from './components/StickyContactButton';
@@ -9,43 +10,36 @@ import { ProductDetailPage } from './pages/ProductDetailPage';
 import { ProcessPage } from './pages/ProcessPage';
 import { ContactPage } from './pages/ContactPage';
 
-type Page = 'home' | 'about' | 'products' | 'product-detail' | 'process' | 'contact';
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, [pathname]);
+  return null;
+}
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('home');
-  const [categoryId, setCategoryId] = useState<string>('boxes');
-
-  const handleNavigate = (page: string, categoryIdParam?: string) => {
-    setCurrentPage(page as Page);
-    if (categoryIdParam) {
-      setCategoryId(categoryIdParam);
-    }
-    // Scroll to top when navigating
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  // Scroll to top on initial load
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
   return (
-    <div className="min-h-screen flex flex-col bg-white">
-      <Header currentPage={currentPage} onNavigate={handleNavigate} />
-      
-      <main className="flex-1">
-        {currentPage === 'home' && <HomePage onNavigate={handleNavigate} />}
-        {currentPage === 'about' && <AboutPage onNavigate={handleNavigate} />}
-        {currentPage === 'products' && <ProductsPage onNavigate={handleNavigate} />}
-        {currentPage === 'product-detail' && (
-          <ProductDetailPage categoryId={categoryId} onNavigate={handleNavigate} />
-        )}
-        {currentPage === 'process' && <ProcessPage onNavigate={handleNavigate} />}
-        {currentPage === 'contact' && <ContactPage onNavigate={handleNavigate} />}
-      </main>
+    <BrowserRouter>
+      <ScrollToTop />
+      <div className="min-h-screen flex flex-col bg-white">
+        <Header />
 
-      <Footer onNavigate={handleNavigate} />
-      <StickyContactButton />
-    </div>
+        <main className="flex-1">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/products" element={<ProductsPage />} />
+            <Route path="/products/:slug" element={<ProductDetailPage />} />
+            <Route path="/process" element={<ProcessPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="*" element={<HomePage />} />
+          </Routes>
+        </main>
+
+        <Footer />
+        <StickyContactButton />
+      </div>
+    </BrowserRouter>
   );
 }

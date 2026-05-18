@@ -1,33 +1,18 @@
+import { useMemo } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle, Sparkles, Award, Clock } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { ProductCard } from '../components/ProductCard';
 import { ImageWithFallback } from '../components/figma/ImageWithFallback';
+import { getAllProducts, getPrimaryImage } from '../services/productData';
 
-interface HomePageProps {
-  onNavigate: (page: string, categoryId?: string) => void;
-}
-
-const featuredProducts = [
-  {
-    id: 'boxes',
-    title: 'Sản xuất Hộp cứng cao cấp',
-    image: 'https://images.unsplash.com/photo-1602177719868-98d27643bf99?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBwYWNrYWdpbmclMjBib3hlc3xlbnwxfHx8fDE3NjIzNTQ2MDR8MA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'notebooks',
-    title: 'In ấn Sổ tay & Catalogue',
-    image: 'https://images.unsplash.com/photo-1758608631036-7a2370684905?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxub3RlYm9vayUyMHByaW50aW5nfGVufDF8fHx8MTc2MjM1NDYwNHww&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'envelopes',
-    title: 'Phong bì & Túi giấy cao cấp',
-    image: 'https://images.unsplash.com/photo-1627618998627-70a92a874cc2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwYXBlciUyMGVudmVsb3BlJTIwcHJlbWl1bXxlbnwxfHx8fDE3NjIzNTQ2MDV8MA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
-  {
-    id: 'bags',
-    title: 'Túi giấy & Bao bì quà tặng',
-    image: 'https://images.unsplash.com/photo-1673257042269-439bef5e9002?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnaWZ0JTIwYmFnJTIwcGFwZXJ8ZW58MXx8fHwxNzYyMzU0NjA1fDA&ixlib=rb-4.1.0&q=80&w=1080',
-  },
+// Hand-picked product IDs to feature on the home page (one per top category).
+// Falls back to first product of each category if any ID is missing.
+const FEATURED_PRODUCT_IDS = [
+  'phong-bi-a4-phong-bi-ho-so',
+  'to-gap-ba-a4-trai-gap-longz-fold',
+  'tui-giay-kraft-co-trung-size-m',
+  'card-visit-tieu-chuan-giay-couche-can-mo',
 ];
 
 const whyChooseUs = [
@@ -71,7 +56,28 @@ const testimonials = [
   },
 ];
 
-export function HomePage({ onNavigate }: HomePageProps) {
+export function HomePage() {
+  const navigate = useNavigate();
+
+  const featured = useMemo(() => {
+    const all = getAllProducts();
+    const byId = new Map(all.map((p) => [p.id, p]));
+    const picked = FEATURED_PRODUCT_IDS.map((id) => byId.get(id)).filter(
+      (p): p is NonNullable<typeof p> => Boolean(p),
+    );
+    // Fill remaining slots if any IDs missed
+    if (picked.length < 4) {
+      const seenSlugs = new Set(picked.map((p) => p.metadata.category_slug));
+      for (const product of all) {
+        if (picked.length >= 4) break;
+        if (seenSlugs.has(product.metadata.category_slug)) continue;
+        picked.push(product);
+        seenSlugs.add(product.metadata.category_slug);
+      }
+    }
+    return picked.slice(0, 4);
+  }, []);
+
   return (
     <div>
       {/* Hero Section */}
@@ -83,20 +89,20 @@ export function HomePage({ onNavigate }: HomePageProps) {
                 Giải pháp Sản xuất & In ấn Bao bì Hàng đầu
               </h1>
               <p className="text-[#374151] mb-8">
-                Công ty In N&T - Đối tác tin cậy của hơn 500 doanh nghiệp trên toàn quốc. 
-                Chuyên cung cấp giải pháp bao bì cao cấp với chất lượng quốc tế, 
+                Công ty In N&T - Đối tác tin cậy của hơn 500 doanh nghiệp trên toàn quốc.
+                Chuyên cung cấp giải pháp bao bì cao cấp với chất lượng quốc tế,
                 giá thành cạnh tranh và dịch vụ chuyên nghiệp.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button
-                  onClick={() => onNavigate('contact')}
+                  onClick={() => navigate('/contact')}
                   className="bg-[#E62026] hover:bg-[#c71d23] text-white"
                 >
                   Yêu cầu Báo giá
                   <ArrowRight className="ml-2" size={20} />
                 </Button>
                 <Button
-                  onClick={() => onNavigate('products')}
+                  onClick={() => navigate('/products')}
                   variant="outline"
                   className="border-[#E62026] text-[#E62026] hover:bg-[#E62026] hover:text-white"
                 >
@@ -129,15 +135,15 @@ export function HomePage({ onNavigate }: HomePageProps) {
             <div className="order-1 md:order-2">
               <h2 className="text-[#1F2937] mb-4">Về Công ty In N&T</h2>
               <p className="text-[#374151] mb-4">
-                Với gần 30 năm kinh nghiệm trong ngành sản xuất và in ấn bao bì, 
+                Với gần 30 năm kinh nghiệm trong ngành sản xuất và in ấn bao bì,
                 Công ty In N&T tự hào là đối tác tin cậy của nhiều thương hiệu tại Việt Nam.
               </p>
               <p className="text-[#374151] mb-6">
-                Chúng tôi không chỉ sản xuất bao bì, mà còn tạo ra những giải pháp đóng gói 
+                Chúng tôi không chỉ sản xuất bao bì, mà còn tạo ra những giải pháp đóng gói
                 giúp nâng tầm thương hiệu và tạo ấn tượng tốt với khách hàng của bạn.
               </p>
               <Button
-                onClick={() => onNavigate('about')}
+                onClick={() => navigate('/about')}
                 variant="outline"
                 className="border-[#E62026] text-[#E62026] hover:bg-[#E62026] hover:text-white"
               >
@@ -159,18 +165,22 @@ export function HomePage({ onNavigate }: HomePageProps) {
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
-            {featuredProducts.map((product) => (
-              <ProductCard
+            {featured.map((product) => (
+              <Link
                 key={product.id}
-                title={product.title}
-                image={product.image}
-                onClick={() => onNavigate('product-detail', product.id)}
-              />
+                to={`/products/${product.metadata.category_slug}#${product.id}`}
+              >
+                <ProductCard
+                  title={product.embedding_data.product_name}
+                  image={getPrimaryImage(product) || ''}
+                  onClick={() => navigate(`/products/${product.metadata.category_slug}#${product.id}`)}
+                />
+              </Link>
             ))}
           </div>
           <div className="text-center mt-12">
             <Button
-              onClick={() => onNavigate('products')}
+              onClick={() => navigate('/products')}
               className="bg-[#E62026] hover:bg-[#c71d23] text-white"
             >
               Xem tất cả sản phẩm

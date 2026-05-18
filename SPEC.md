@@ -12,7 +12,7 @@
 
 Build a Retrieval-Augmented Generation (RAG) chatbot embedded in the innt.vn website that:
 
-1. **Answers product inquiries** about 23 printing/packaging products using natural Vietnamese conversation
+1. **Answers product inquiries** about 19 printing/packaging products using natural Vietnamese conversation
 2. **Accepts both text and image input** — users can upload a photo of a printed product and the chatbot identifies matching products/services
 3. **Provides accurate technical consultations** (specs, materials, use cases, production timelines, company info)
 4. **Redirects to human contact** (Zalo) when queries require pricing details or custom consultation beyond available knowledge
@@ -139,7 +139,7 @@ User Image → CLIP ViT Encode → Cosine Similarity vs Product Image Embeddings
 
 ### 3.1 Products Data (`data/products.json`)
 
-**Current state**: Good structure with `embedding_data`, `metadata`, and `generation_enhancers`. 23 products across 7 categories.
+**Current state**: Good structure with `embedding_data`, `metadata`, and `generation_enhancers`. 19 products across 7 categories.
 
 **Recommended improvements**:
 
@@ -199,11 +199,11 @@ At indexing time, the JSON files are processed into documents for the vector sto
 
 | Strategy | Description | When to use |
 |----------|-------------|-------------|
-| **Document-level** | Each product/business doc = 1 chunk | Baseline. Best for small catalogs (23 products) |
+| **Document-level** | Each product/business doc = 1 chunk | Baseline. Best for small catalogs (19 products) |
 | **Field-level** | Split: description, use_cases, specs as separate chunks, linked by product ID | When you want fine-grained retrieval |
 | **Augmented** | Product description + related business context (e.g., production timeline) merged | When queries span product + business info |
 
-With only 23 products + 5 business docs, **document-level chunking is the recommended default** — the entire corpus fits comfortably in any vector store, and keeping full product context in each chunk avoids information loss. Field-level chunking is worth testing as an experiment to measure whether granularity helps or hurts retrieval precision.
+With only 19 products + 5 business docs, **document-level chunking is the recommended default** — the entire corpus fits comfortably in any vector store, and keeping full product context in each chunk avoids information loss. Field-level chunking is worth testing as an experiment to measure whether granularity helps or hurts retrieval precision.
 
 ---
 
@@ -294,10 +294,10 @@ Compare document segmentation approaches.
 
 | Strategy | Chunks per product | Total chunks (approx) |
 |----------|-------------------|----------------------|
-| **Document-level** | 1 (full product) | ~28 (23 products + 5 business) |
-| **Field-level** | 3 (description, use_cases, specs) | ~74 (23×3 + 5×1) |
-| **Augmented** | 1 (product + related business context) | ~28 |
-| **Overlapping** | 2 (full + category-grouped summary) | ~35 |
+| **Document-level** | 1 (full product) | 24 (19 products + 5 business) |
+| **Field-level** | 3 (description, use_cases, specs) | 62 (19×3 + 5×1) |
+| **Augmented** | 1 (product + related business context) | 24 |
+| **Overlapping** | 2 (full + category-grouped summary) | 43 |
 
 **Metrics**: Retrieval precision, context relevancy, answer accuracy
 
@@ -533,7 +533,7 @@ A floating chat widget embedded on all pages of innt.vn:
 │   └── .env.example
 │
 ├── data/                             # Shared knowledge base (source of truth)
-│   ├── products.json                 #   23 products with embedding_data + metadata
+│   ├── products.json                 #   19 products with embedding_data + metadata
 │   ├── business.json                 #   5 company info documents
 │   └── images/                       #   Product reference images (for CLIP)
 │

@@ -87,7 +87,7 @@ uvicorn app.main:app --reload --port 8000
 │   ├── experiments/            #   Configs & results
 │   └── tests/
 ├── data/                       # Shared knowledge base
-│   ├── products.json           #   Product catalog (23 products)
+│   ├── products.json           #   Product catalog (19 products)
 │   ├── business.json           #   Company info (5 documents)
 │   └── images/                 #   Product reference images (for CLIP)
 ├── report/                     # LaTeX report
@@ -97,7 +97,7 @@ uvicorn app.main:app --reload --port 8000
 
 ## Data
 
-- **data/products.json** — 23 printing products across 7 categories (envelopes, flyers, folded materials, paper bags, labels, forms, business cards)
+- **data/products.json** — 19 printing products across 7 categories (phong bì, tờ rơi, tờ gấp, túi giấy, tem nhãn, biểu mẫu - hóa đơn, danh thiếp - name card)
 - **data/business.json** — 5 company documents (overview, production capability, delivery timeline, key clients, contact info)
 
 All content is in Vietnamese. Pricing is intentionally excluded (business-sensitive — users are redirected to Zalo for quotes).

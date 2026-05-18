@@ -1,11 +1,10 @@
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
 import { Button } from '../components/ui/button';
 
-interface ContactPageProps {
-  onNavigate: (page: string) => void;
-}
+const DEFAULT_ZALO_LINK = 'https://zalo.me/84867081781';
 
-export function ContactPage({ onNavigate }: ContactPageProps) {
+export function ContactPage() {
+  const zaloLink = (import.meta.env.VITE_ZALO_LINK as string | undefined) || DEFAULT_ZALO_LINK;
 
   return (
     <div>
@@ -113,14 +112,14 @@ export function ContactPage({ onNavigate }: ContactPageProps) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
-                onClick={() => window.open('https://zalo.me/84867081781')}
+                onClick={() => window.open(zaloLink, '_blank', 'noopener,noreferrer')}
                 className="bg-[#E62026] hover:bg-[#c71d23] text-white"
               >
                 <Phone className="mr-2" size={20} />
                 Gọi ngay
               </Button>
               <Button
-                onClick={() => window.open('https://zalo.me/84867081781', '_blank')}
+                onClick={() => window.open(zaloLink, '_blank', 'noopener,noreferrer')}
                 variant="outline"
                 className="border-[#E62026] text-[#E62026] hover:bg-[#E62026] hover:text-white"
               >

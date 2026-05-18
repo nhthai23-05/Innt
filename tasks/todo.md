@@ -38,17 +38,17 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 - [x] **2.4** `evaluation/run_experiments.py` — experiment harness with yaml config + git SHA tracking
 - [x] **2.5** Run baseline; log as "Baseline (Naive RAG)" row of `experiments/results/cumulative_gains.csv`
 
-### Checkpoint C — ✅ Baseline RAGAS numbers recorded; team reviews faithfulness/precision before proceeding
+### Checkpoint C — ⚠️ RE-OPEN: original baseline run hit the `evaluate.py` answer/response key bug. Fix landed 2026-05-18. Re-run per `tasks/PHASE2_RERUN.md` before trusting the cumulative gains chart.
 
 ---
 
 ## Phase 3 — HTTP API
 
-- [ ] **3.1** `app/api/schemas.py` — `ChatRequest` + `ChatResponse` pydantic models (SPEC §8.1)
-- [ ] **3.2** `app/api/routes.py` — `POST /api/chat` (text-only; image accepted but ignored for now)
-- [ ] **3.3** `GET /api/config` + `POST /api/config` (non-persistent override for experiments)
-- [ ] **3.4** `POST /api/index/rebuild` → calls indexer, returns collection size
-- [ ] **3.5** Wire routers into `app/main.py`; endpoints visible at `/docs`
+- [x] **3.1** `app/api/schemas.py` — `ChatRequest` + `ChatResponse` pydantic models (SPEC §8.1)
+- [x] **3.2** `app/api/routes.py` — `POST /api/chat` (text-only; image accepted but ignored for now)
+- [x] **3.3** `GET /api/config` + `POST /api/config` (non-persistent override for experiments)
+- [x] **3.4** `POST /api/index/rebuild` → calls indexer, returns collection size
+- [x] **3.5** Wire routers into `app/main.py`; endpoints visible at `/docs`
 
 ### Checkpoint D — ✅ curl /api/chat returns grounded JSON; OpenAPI docs render
 
@@ -69,13 +69,13 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 5 — Website Product Wiring *(parallel with 1–4 after Phase 0)*
 
-- [ ] **5.1** `frontend/types/product.ts` — TS mirror of normalized products.json schema
-- [ ] **5.2** `frontend/services/productData.ts` — import + `getByCategory`, `getById`, `searchText`
-- [ ] **5.3** Rewrite `pages/ProductsPage.tsx` — category cards from `categories.json` + product grid + search + filter
-- [ ] **5.4** Rewrite `pages/ProductDetailPage.tsx` — consume `productData`; delete all hardcoded object literals
-- [ ] **5.5** Update `App.tsx` routing — canonical slugs, no legacy English IDs
-- [ ] **5.6** Replace Zalo placeholder with `VITE_ZALO_LINK` env var across chat + sticky button + contact page
-- [ ] **5.7** Render `image_url` via `ImageWithFallback`; graceful fallback for broken URLs
+- [x] **5.1** `frontend/types/product.ts` — TS mirror of normalized products.json schema
+- [x] **5.2** `frontend/services/productData.ts` — `getAllProducts`, `getCategoryBySlug`, `getProductsByCategory`, `getProductById`, `searchProducts`, `getPrimaryImage`
+- [x] **5.3** Rewrite `pages/ProductsPage.tsx` — category cards from `categories.json` + product grid + Vietnamese search + category filter chips + empty state
+- [x] **5.4** Rewrite `pages/ProductDetailPage.tsx` — consume `productData.getProductsByCategory(slug)`; renders gallery + use cases + technical specs + finishing options per product; supports `#product-id` deep linking from ProductsPage
+- [x] **5.5** Adopted `react-router-dom` v7: routes are `/`, `/about`, `/products`, `/products/:slug`, `/process`, `/contact`; `Header`/`Footer` use `<Link>`; pages use `useNavigate`. Legacy English IDs (boxes/notebooks/...) deleted.
+- [x] **5.6** Zalo link sourced from `VITE_ZALO_LINK` in `StickyContactButton` and `ContactPage` (with default fallback); `.env.example` documents the var
+- [x] **5.7** All product images rendered via `ImageWithFallback` (svg error placeholder on broken URLs)
 
 ### Checkpoint F — ✅ All 19 products visible and filterable; no hardcoded strings in `pages/`
 
@@ -132,6 +132,16 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 ### Checkpoint J — ✅ Final submission delivered
 
 ---
+
+## Verification Notes — 2026-05-18
+
+- **Phase 1 verified**: 8 RAG modules + indexer + chunker all real (~1080 LOC). `app/rag/pipeline.py:RagPipeline.query()` returns `{response, sources, redirect_to_zalo, metadata, conversation_id?}`.
+- **Phase 2 verified**: 20-pair test set across 7 categories. RAGAS + custom metrics + YAML runner all present.
+  - 🐛 **Fixed bug**: `evaluation/evaluate.py:110` was reading `result.get("answer", "")` but the pipeline returns `response`; baseline evals were running on empty strings. Now reads `response` with `answer` fallback.
+  - ⚠️ **Open**: `experiments/results/cumulative_gains.csv` is not in the repo — the Phase 2.5 baseline run needs to be re-executed against the fixed evaluator to populate Checkpoint C honestly.
+- **Phase 3 verified**: All 4 endpoints wired (`/api/chat`, `/api/config` GET+POST, `/api/index/rebuild`, `/api/health`). CORS configured. 11 pydantic schema tests pass.
+- **Phase 4 NOT done**: `frontend/components/chat/`, `frontend/services/` (chat API), `frontend/types/` (chat types) were empty — Phase 4 is still pending. Owner of the frontend chat widget needs to pick it up.
+- **Phase 5 done**: `npm run build` clean; dev server boots all 3 routes (`/`, `/products`, `/products/phong-bi`) → 200.
 
 ## Cross-cutting Reminders
 
