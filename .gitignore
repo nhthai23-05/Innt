@@ -3,6 +3,7 @@ node_modules/
 .vite/
 build/
 .vercel
+.vscode
 
 ## Python / Backend
 __pycache__/
