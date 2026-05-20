@@ -1,7 +1,8 @@
 """LLM-powered generation module."""
 
 from typing import List
-import google.generativeai as genai
+from google import genai
+from google.genai import types
 from app.config import settings
 
 
@@ -44,11 +45,7 @@ class Generator:
         self.provider = provider or settings.llm_provider
         
         if self.provider == "gemini":
-            genai.configure(api_key=settings.gemini_api_key)
-            self.model = genai.GenerativeModel(
-                model_name=settings.gemini_model,
-                system_instruction=VIETNAMESE_SYSTEM_PROMPT,
-            )
+            self.client = genai.Client(api_key=settings.gemini_api_key)
         elif self.provider == "ollama":
             # Will implement in Phase 1.4 or later
             raise NotImplementedError("Ollama integration not yet implemented")
@@ -102,9 +99,11 @@ class Generator:
         
         # Generate response
         try:
-            response = self.model.generate_content(
-                prompt,
-                generation_config=genai.types.GenerationConfig(
+            response = self.client.models.generate_content(
+                model=settings.gemini_model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    system_instruction=VIETNAMESE_SYSTEM_PROMPT,
                     max_output_tokens=max_tokens,
                     temperature=0.7,
                 ),

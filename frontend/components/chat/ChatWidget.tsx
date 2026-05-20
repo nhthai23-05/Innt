@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
 import { MessageCircle, SendHorizonal, X, Sparkles } from 'lucide-react'
+import { sendMessage as apiSendMessage } from '../../services/chatService'
 
 interface ChatMessage {
   id: string;
   role: string;
   content: string;
   timestamp: string;
+  sources?: string[];
 }
 
 export default function ChatWidget() {
@@ -27,9 +29,9 @@ export default function ChatWidget() {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages, loading])
 
-  const handleSend = () => {
+  const handleSend = async () => {
     const trimmedInput = input.trim()
-    if (!trimmedInput) return
+    if (!trimmedInput || loading) return
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
@@ -42,18 +44,31 @@ export default function ChatWidget() {
     setInput('')
     setLoading(true)
 
-    setTimeout(() => {
+    try {
+      const data = await apiSendMessage(trimmedInput)
       setMessages((prev) => [
         ...prev,
         {
           id: (Date.now() + 1).toString(),
           role: 'assistant',
-          content: 'Tôi đang xử lý yêu cầu của bạn... Vui lòng đợi giây lát.',
+          content: data.response,
+          timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+          sources: data.sources?.length ? data.sources : undefined,
+        },
+      ])
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: (Date.now() + 1).toString(),
+          role: 'assistant',
+          content: 'Xin lỗi, không thể kết nối đến server. Vui lòng thử lại sau.',
           timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
         },
       ])
+    } finally {
       setLoading(false)
-    }, 1000)
+    }
   }
 
   return (
@@ -130,9 +145,9 @@ export default function ChatWidget() {
                   >
                     <div
                       style={{
-                        backgroundColor: isUser ? '#E62026' : '#FFFFFF', 
+                        backgroundColor: isUser ? '#E62026' : '#FFFFFF',
                         color: isUser ? '#FFFFFF' : '#333333',
-                        borderRadius: isUser ? '18px 18px 2px 18px' : '18px 18px 18px 2px', 
+                        borderRadius: isUser ? '18px 18px 2px 18px' : '18px 18px 18px 2px',
                         padding: '10px 16px',
                         fontSize: '14px',
                         boxShadow: '0 1px 2px rgba(0,0,0,0.05)',
@@ -141,6 +156,25 @@ export default function ChatWidget() {
                     >
                       {m.content}
                     </div>
+                    {!isUser && m.sources && m.sources.length > 0 && (
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {m.sources.map((src, i) => (
+                          <span
+                            key={i}
+                            style={{
+                              fontSize: '10px',
+                              padding: '2px 8px',
+                              borderRadius: '99px',
+                              backgroundColor: '#FEF2F2',
+                              color: '#E62026',
+                              border: '1px solid #FECACA',
+                            }}
+                          >
+                            📄 {src}
+                          </span>
+                        ))}
+                      </div>
+                    )}
                     <span style={{ fontSize: '10px', color: '#9ca3af', marginTop: '4px' }}>
                       {m.timestamp}
                     </span>

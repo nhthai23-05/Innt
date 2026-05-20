@@ -14,4 +14,7 @@ export interface ChatRequest {
 
 export interface ChatResponse {
   response: string
+  sources: string[]
+  redirect_to_zalo: boolean
+  conversation_id?: string
 }
