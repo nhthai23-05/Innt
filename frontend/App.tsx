@@ -2,13 +2,13 @@ import { useEffect } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { StickyContactButton } from './components/StickyContactButton';
 import { HomePage } from './pages/HomePage';
 import { AboutPage } from './pages/AboutPage';
 import { ProductsPage } from './pages/ProductsPage';
 import { ProductDetailPage } from './pages/ProductDetailPage';
 import { ProcessPage } from './pages/ProcessPage';
 import { ContactPage } from './pages/ContactPage';
+import ChatWidget from './components/chat/ChatWidget';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -38,7 +38,7 @@ export default function App() {
         </main>
 
         <Footer />
-        <StickyContactButton />
+        <ChatWidget />
       </div>
     </BrowserRouter>
   );

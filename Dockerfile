@@ -1,22 +1,23 @@
-FROM node:18-alpine
+FROM node:18-alpine AS builder
 
-# Set work directory
 WORKDIR /app
 
-# Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Use npm install (not npm ci) so npm resolves platform-specific native
+# binaries (e.g. @rollup/rollup-linux-x64-musl) for the Alpine environment.
+RUN npm install
 
-# Copy project files
 COPY . .
 
-# Build the application
 RUN npm run build
 
-# Expose port
+# --- production stage ---
+FROM nginx:alpine
+
+COPY --from=builder /app/build /usr/share/nginx/html
+COPY nginx.conf /etc/nginx/nginx.conf
+
 EXPOSE 3000
 
-# Run the application
-CMD ["npm", "start"]
+CMD ["nginx", "-g", "daemon off;"]

@@ -56,12 +56,12 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 4 — Frontend Chat Widget *(can start with mocked API during Phase 1)*
 
-- [ ] **4.1** `frontend/types/chat.ts` — `ChatMessage`, `ChatApiRequest`, `ChatApiResponse`, `Source` types
-- [ ] **4.2** `frontend/services/chatApi.ts` — `sendMessage()` using native `fetch`; reads `VITE_API_BASE_URL`; sonner toast on error
-- [ ] **4.3** `frontend/components/chat/ChatWidget.tsx` — floating panel, `bg-[#E62026]`, shadcn `ScrollArea`, typing indicator
-- [ ] **4.4** Wire `ChatWidget` into `App.tsx` (replace `StickyContactButton` FAB slot)
-- [ ] **4.5** `frontend/.env.example` — `VITE_API_BASE_URL=http://localhost:8000`
-- [ ] **4.6** Error + empty states; image upload button **disabled** with tooltip "Đang phát triển"
+- [x] **4.1** `frontend/types/chat.ts` — `ChatMessage`, `ChatApiRequest`, `ChatApiResponse`, `Source` types
+- [x] **4.2** `frontend/services/chatApi.ts` — `sendMessage()` using native `fetch`; reads `VITE_API_BASE_URL`; sonner toast on error
+- [x] **4.3** `frontend/components/chat/ChatWidget.tsx` — floating panel, `bg-[#E62026]`, shadcn `ScrollArea`, typing indicator
+- [x] **4.4** Wire `ChatWidget` into `App.tsx` (replace `StickyContactButton` FAB slot)
+- [x] **4.5** `frontend/.env.example` — `VITE_API_BASE_URL=http://localhost:8000`
+- [x] **4.6** Error + empty states; image upload button **disabled** with tooltip "Đang phát triển"
 
 ### Checkpoint E — ✅ Vietnamese query in browser → grounded answer with source chips visible
 

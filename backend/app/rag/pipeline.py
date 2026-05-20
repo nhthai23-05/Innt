@@ -132,7 +132,7 @@ class RagPipeline:
                 "sources": sources,
                 "redirect_to_zalo": False,
                 "metadata": {
-                    "llm_name":str(self.generator.model.model_name),
+                    "llm_name": settings.gemini_model,
                     "retrieval_strategy": self.retrieval_strategy,
                     "retrieved_docs": len(context_docs),
                     "use_rerank": self.use_reranking,

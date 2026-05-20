@@ -41,3 +41,4 @@ report/*.blg
 report/*.pdf
 report/*.synctex.gz
 
+package-lock.json
