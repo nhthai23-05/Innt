@@ -84,24 +84,21 @@ export function ProductsPage() {
 
           {/* Search + filter controls */}
           <div className="max-w-3xl mx-auto mb-8 space-y-4">
-            <div className="relative">
-              <Search
-                size={20}
-                className="absolute left-4 top-1/2 -translate-y-1/2 text-[#9CA3AF]"
-              />
+            <div className="flex items-center bg-white border border-[#E5E7EB] rounded-lg focus-within:border-[#E62026] focus-within:ring-2 focus-within:ring-[#E62026]/20">
+              <Search size={20} className="ml-4 shrink-0 text-[#9CA3AF]" />
               <input
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Tìm sản phẩm theo tên, mô tả, công dụng…"
-                className="w-full pl-12 pr-12 py-3 rounded-lg bg-white border border-[#E5E7EB] focus:outline-none focus:border-[#E62026] focus:ring-2 focus:ring-[#E62026]/20"
+                className="flex-1 pl-4 pr-3 py-3 bg-transparent outline-none text-[#1F2937] placeholder:text-[#9CA3AF]"
                 aria-label="Tìm kiếm sản phẩm"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-[#9CA3AF] hover:text-[#374151]"
+                  className="mr-3 p-1 text-[#9CA3AF] hover:text-[#374151]"
                   aria-label="Xóa từ khóa tìm kiếm"
                 >
                   <X size={18} />
@@ -109,14 +106,14 @@ export function ProductsPage() {
               )}
             </div>
 
-            <div className="flex flex-wrap gap-2 justify-center">
+            <div className="flex gap-2 overflow-x-auto pb-1 pl-[10px]">
               <button
                 type="button"
                 onClick={() => setActiveCategory('all')}
-                className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                className={`shrink-0 px-4 py-2 rounded-full text-sm transition-colors ${
                   activeCategory === 'all'
                     ? 'bg-[#E62026] text-white'
-                    : 'bg-white text-[#374151] border border-[#E5E7EB] hover:border-[#E62026] hover:text-[#E62026]'
+                    : 'bg-white text-[#374151] border border-[#D1D5DB] hover:border-[#E62026] hover:text-[#E62026]'
                 }`}
               >
                 Tất cả
@@ -126,10 +123,10 @@ export function ProductsPage() {
                   key={category.slug}
                   type="button"
                   onClick={() => setActiveCategory(category.slug)}
-                  className={`px-4 py-2 rounded-full text-sm transition-colors ${
+                  className={`shrink-0 px-4 py-2 rounded-full text-sm whitespace-nowrap transition-colors ${
                     activeCategory === category.slug
                       ? 'bg-[#E62026] text-white'
-                      : 'bg-white text-[#374151] border border-[#E5E7EB] hover:border-[#E62026] hover:text-[#E62026]'
+                      : 'bg-white text-[#374151] border border-[#D1D5DB] hover:border-[#E62026] hover:text-[#E62026]'
                   }`}
                 >
                   {category.name_vi}
