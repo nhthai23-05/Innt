@@ -108,6 +108,7 @@ class RagPipeline:
             result = {
                 "response": answer,
                 "sources": [],
+                "retrieved_contents": [],
                 "redirect_to_zalo": True,
                 "metadata": {
                     "strategy": self.retrieval_strategy,
@@ -130,6 +131,7 @@ class RagPipeline:
             result = {
                 "response": answer,
                 "sources": sources,
+                "retrieved_contents": [doc["content"] for doc in context_docs],
                 "redirect_to_zalo": False,
                 "metadata": {
                     "llm_name": settings.gemini_model,

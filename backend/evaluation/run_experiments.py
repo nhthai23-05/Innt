@@ -55,28 +55,30 @@ def run_experiment(
     name: str,
     config: Dict[str, Any],
     test_set_path: Path,
+    limit: int = None,
 ) -> Dict[str, Any]:
     """
     Run a single experiment with given config.
-    
+
     Args:
         name: Experiment name
         config: Configuration dict with RAG pipeline parameters
         test_set_path: Path to test_set.json
-        
+        limit: Optional max number of test cases to run
+
     Returns:
         Result dict with metrics and metadata
     """
     print(f"\n{'='*80}")
     print(f"Running Experiment: {name}")
     print(f"{'='*80}")
-    
+
     start_time = datetime.now()
     git_info = get_git_info()
-    
+
     try:
-        # Run evaluation with current config
-        df_results = run_evaluation(test_set_path)
+        # Run evaluation — pass config so pipeline uses experiment-specific overrides
+        df_results = run_evaluation(test_set_path, pipeline_config=config, limit=limit)
         
         # Calculate RAGAS metrics
         print_summary(df_results)
@@ -129,34 +131,36 @@ def run_experiment_suite(
     config_dir: Path,
     test_set_path: Path,
     output_csv: Path,
+    limit: int = None,
 ) -> pd.DataFrame:
     """
     Run all experiments from config directory.
-    
+
     Args:
         config_dir: Directory containing YAML config files
         test_set_path: Path to test_set.json
         output_csv: Path to output cumulative_gains.csv
-        
+        limit: Optional max number of test cases per experiment
+
     Returns:
         DataFrame with all results
     """
     results = []
-    
+
     # Discover config files
     config_files = sorted(config_dir.glob("*.yaml"))
     print(f"\nFound {len(config_files)} experiment configs in {config_dir}")
-    
+
     if len(config_files) == 0:
         print("No experiment configs found. Create YAML files in experiments/configs/")
         return pd.DataFrame()
-    
+
     # Run each experiment
     for config_file in config_files:
         try:
             config = load_experiment_config(config_file)
             name = config_file.stem  # filename without extension
-            result = run_experiment(name, config, test_set_path)
+            result = run_experiment(name, config, test_set_path, limit=limit)
             results.append(result)
         except Exception as e:
             print(f"Failed to load config {config_file}: {e}")
@@ -192,33 +196,35 @@ def record_baseline(
     test_set_path: Path,
     config_dir: Path,
     output_csv: Path,
+    limit: int = None,
 ) -> pd.DataFrame:
     """
     Record Phase 1 baseline (Naive RAG) to cumulative_gains.csv.
-    
+
     Args:
         test_set_path: Path to test_set.json
         config_dir: Directory containing configs
         output_csv: Path to cumulative_gains.csv
-        
+        limit: Optional max number of test cases
+
     Returns:
         DataFrame with baseline result
     """
     print("\n" + "="*80)
     print("PHASE 2.5: Recording Baseline (Naive RAG)")
     print("="*80)
-    
+
     baseline_config = config_dir / "baseline_naive_rag.yaml"
-    
+
     if not baseline_config.exists():
         print(f"❌ Baseline config not found: {baseline_config}")
         return pd.DataFrame()
-    
+
     # Load baseline config
     config = load_experiment_config(baseline_config)
-    
+
     # Run baseline experiment
-    result = run_experiment("Baseline (Naive RAG)", config, test_set_path)
+    result = run_experiment("Baseline (Naive RAG)", config, test_set_path, limit=limit)
     
     # Convert to DataFrame
     df_baseline = pd.DataFrame([result])
@@ -251,18 +257,22 @@ def record_baseline(
         print(f"\nExperiment: {row['experiment_name']}")
         print(f"Timestamp: {row['timestamp']}")
         print(f"Git SHA: {row['git_sha']}")
-        print(f"\nRAGAS Metrics:")
-        print(f"  Faithfulness:........ {row['faithfulness_mean']:.4f} ± {row['faithfulness_std']:.4f}")
-        print(f"  Answer Relevancy:... {row['answer_relevancy_mean']:.4f} ± {row['answer_relevancy_std']:.4f}")
-        print(f"  Context Precision:.. {row['context_precision_mean']:.4f}")
-        print(f"  Context Recall:..... {row['context_recall_mean']:.4f}")
-        print(f"\nCustom Metrics:")
-        print(f"  Latency (mean):...... {row['latency_mean_ms']:.2f} ms")
-        print(f"  Latency (p95):...... {row['latency_p95_ms']:.2f} ms")
-        print(f"  Redirect Accuracy:.. {row['redirect_accuracy']:.2%}")
-        print(f"  Source Coverage:.... {row['source_coverage']:.2%}")
-        print(f"  Product Match Acc:.. {row['product_match_accuracy']:.2%}")
-        print(f"\nCheckpoint C: ✅ READY")
+        if row.get("status") == "failed":
+            print(f"\n❌ Experiment failed: {row.get('error', 'unknown error')}")
+            print(f"\nCheckpoint C: ⛔ BLOCKED — re-run after fixing the error above")
+        else:
+            print(f"\nRAGAS Metrics:")
+            print(f"  Faithfulness:........ {row['faithfulness_mean']:.4f} ± {row['faithfulness_std']:.4f}")
+            print(f"  Answer Relevancy:... {row['answer_relevancy_mean']:.4f} ± {row['answer_relevancy_std']:.4f}")
+            print(f"  Context Precision:.. {row['context_precision_mean']:.4f}")
+            print(f"  Context Recall:..... {row['context_recall_mean']:.4f}")
+            print(f"\nCustom Metrics:")
+            print(f"  Latency (mean):...... {row['latency_mean_ms']:.2f} ms")
+            print(f"  Latency (p95):...... {row['latency_p95_ms']:.2f} ms")
+            print(f"  Redirect Accuracy:.. {row['redirect_accuracy']:.2%}")
+            print(f"  Source Coverage:.... {row['source_coverage']:.2%}")
+            print(f"  Product Match Acc:.. {row['product_match_accuracy']:.2%}")
+            print(f"\nCheckpoint C: ✅ READY")
     
     return df_results
 
@@ -272,21 +282,29 @@ if __name__ == "__main__":
     test_set_path = Path(__file__).parent / "test_set.json"
     config_dir = Path(__file__).parent.parent / "experiments" / "configs"
     output_csv = Path(__file__).parent.parent / "experiments" / "results" / "cumulative_gains.csv"
-    
+
     # Create directories if needed
     config_dir.mkdir(parents=True, exist_ok=True)
     output_csv.parent.mkdir(parents=True, exist_ok=True)
-    
-    import sys
-    
+
+    # Parse --limit N from args (e.g. python -m evaluation.run_experiments baseline --limit 10)
+    limit = None
+    args = sys.argv[1:]
+    if "--limit" in args:
+        idx = args.index("--limit")
+        limit = int(args[idx + 1])
+        args = [a for i, a in enumerate(args) if i != idx and i != idx + 1]
+    if limit:
+        print(f"⚠️  Limit mode: running first {limit} test cases only")
+
     # Check if running Phase 2.5 (record baseline)
-    if len(sys.argv) > 1 and sys.argv[1] == "baseline":
+    if args and args[0] == "baseline":
         print("RAG Baseline Recording (Phase 2.5)")
-        df_results = record_baseline(test_set_path, config_dir, output_csv)
+        df_results = record_baseline(test_set_path, config_dir, output_csv, limit=limit)
     else:
         # Run all experiments
         print("RAG Experiment Suite Runner")
-        df_results = run_experiment_suite(config_dir, test_set_path, output_csv)
+        df_results = run_experiment_suite(config_dir, test_set_path, output_csv, limit=limit)
     
     if len(df_results) > 0:
         print(f"\n📊 Total experiments: {len(df_results)}")

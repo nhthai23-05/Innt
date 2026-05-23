@@ -16,15 +16,13 @@ from pathlib import Path
 from typing import Any, Dict, List
 
 import pandas as pd
-from ragas import evaluate
+from ragas import evaluate, RunConfig
 from ragas.metrics import (
     faithfulness,
     answer_relevancy,
     context_precision,
     context_recall,
 )
-from ragas.llms import llm_factory
-from google import genai
 from datasets import Dataset
 
 # Add backend to path
@@ -44,52 +42,51 @@ def prepare_ragas_dataset(
     predictions: List[Dict[str, Any]],
 ) -> Dataset:
     """
-    Convert predictions to RAGAS-compatible Dataset.
-    
-    Each sample needs:
-    - question: str
-    - answer: str
-    - contexts: List[str]
-    - ground_truths: List[str]
-    - reference: List[str]  (for context_precision, context_recall)
+    Convert predictions to RAGAS-compatible Dataset (RAGAS 0.4.x API).
+
+    Each SingleTurnSample needs:
+    - user_input: str
+    - response: str
+    - retrieved_contexts: List[str]
+    - reference: str  (ground truth answer — NOT passage IDs)
     """
-    samples = []
-    for pred in predictions:
-        samples.append({
-            "question": pred["query"],
-            "answer": pred["answer"],
-            "contexts": pred["contexts"],
-            "ground_truths": [pred["ground_truth"]],  # RAGAS expects list
-            "reference": pred.get("relevant_passages", []),  # For context metrics
-        })
     return Dataset.from_dict({
-        "question": [s["question"] for s in samples],
-        "answer": [s["answer"] for s in samples],
-        "contexts": [s["contexts"] for s in samples],
-        "ground_truths": [s["ground_truths"] for s in samples],
-        "reference": [s["reference"] for s in samples],
+        "user_input": [p["query"] for p in predictions],
+        "response": [p["answer"] for p in predictions],
+        "retrieved_contexts": [p["contexts"] for p in predictions],
+        "reference": [p["ground_truth"] for p in predictions],
     })
 
 
 def run_evaluation(
     test_set_path: Path,
+    pipeline_config: dict = None,
+    limit: int = None,
 ) -> pd.DataFrame:
     """
     Run RAGAS evaluation on test set.
-    
+
     Args:
         test_set_path: Path to test_set.json
-        
+        pipeline_config: Optional dict from experiment YAML to override pipeline defaults
+        limit: Optional max number of test cases to run (for quick testing)
+
     Returns:
         DataFrame with results per query
     """
     # Load test set
     test_cases = load_test_set(test_set_path)
+    if limit:
+        test_cases = test_cases[:limit]
     print(f"Loaded {len(test_cases)} test cases from {test_set_path}")
-    
-    # Initialize pipeline
-    pipeline = RagPipeline()
-    print(f"Initialized RAG pipeline")
+
+    # Initialize pipeline — apply overrides from experiment config if provided
+    cfg = pipeline_config or {}
+    pipeline = RagPipeline(
+        top_k=cfg.get("top_k"),
+        retrieval_strategy=cfg.get("retrieval_strategy"),
+    )
+    print(f"Initialized RAG pipeline (top_k={pipeline.top_k}, strategy={pipeline.retrieval_strategy})")
     
     predictions = []
     print("\n--- Running queries ---")
@@ -109,10 +106,10 @@ def run_evaluation(
             # Extract answer and contexts from result dict
             # NOTE: pipeline.query() returns the answer under "response" (matches ChatResponse schema)
             answer = result.get("response", result.get("answer", ""))
-            sources = result.get("sources", [])
-            
-            # contexts are the source document names
-            contexts = sources if sources else []
+            # Use actual document text (not source names) so RAGAS can verify claims.
+            # Truncate each context to avoid single-prompt token limit on faithfulness/context_precision.
+            _MAX = 800
+            contexts = [c[:_MAX] for c in result.get("retrieved_contents", [])]
             
             predictions.append({
                 "query_id": query_id,
@@ -149,21 +146,37 @@ def run_evaluation(
     
     # Set API key in environment
     os.environ["GOOGLE_API_KEY"] = settings.gemini_api_key
-    
-    # Create Gemini client
-    client = genai.Client(api_key=settings.gemini_api_key)
-    
-    # Create LLM adapter for RAGAS
-    ragas_llm = llm_factory(
-        settings.gemini_model,
-        provider="google",
-        client=client
+
+    # Route through Gemini's OpenAI-compatible endpoint — uses RAGAS's OpenAI adapter (proper async,
+    # no instructor safety-settings bug that caused 18-min-per-item slowdown with google provider).
+    from openai import OpenAI as _OpenAI
+    from ragas.llms import llm_factory
+    _openai_client = _OpenAI(
+        api_key=settings.gemini_api_key,
+        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
     )
-    
+    ragas_llm = llm_factory("gemini-2.5-flash-lite", provider="openai", client=_openai_client)
+
+    # Local embeddings via sentence-transformers (no API quota).
+    # Simple duck-typing wrapper: RAGAS only calls embed_query / embed_documents.
+    from sentence_transformers import SentenceTransformer as _ST
+    _st_model = _ST("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+
+    class _LocalEmbeddings:
+        def embed_query(self, text: str) -> list:
+            return _st_model.encode(text, convert_to_numpy=True).tolist()
+        def embed_documents(self, texts: list) -> list:
+            return _st_model.encode(texts, convert_to_numpy=True).tolist()
+
+    ragas_embeddings = _LocalEmbeddings()
+
     # Prepare dataset for RAGAS
     dataset = prepare_ragas_dataset(predictions)
-    
-    # Run evaluation with Gemini LLM
+
+    # Increase timeout to handle slow Gemini responses; default is too short for some metric calls.
+    run_config = RunConfig(timeout=300, max_retries=5, max_wait=60)
+
+    # Run evaluation — pass embeddings explicitly to prevent RAGAS from auto-creating GoogleEmbeddings
     results = evaluate(
         dataset=dataset,
         metrics=[
@@ -173,6 +186,8 @@ def run_evaluation(
             context_recall,
         ],
         llm=ragas_llm,
+        embeddings=ragas_embeddings,
+        run_config=run_config,
     )
     
     # Convert RAGAS results to DataFrame
