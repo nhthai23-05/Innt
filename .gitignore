@@ -26,6 +26,7 @@ backend/.env
 ## Misc
 nginx.conf
 product_image/
+backend/.cache/
 
 ## Experiment outputs (large files)
 backend/experiments/results/*.csv

@@ -1,0 +1,8 @@
+# Phase 6.1 — BM25 Sparse Retrieval
+# Measures sparse-only baseline vs dense baseline
+
+retrieval_strategy: bm25
+embedding_model: bkai-foundation-models/vietnamese-bi-encoder
+use_reranking: false
+use_query_enhancement: false
+top_k: 5

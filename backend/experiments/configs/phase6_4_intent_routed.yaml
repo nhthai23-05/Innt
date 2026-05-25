@@ -1,0 +1,11 @@
+# Phase 6.4 — Intent Routing + Hybrid + Reranking
+# Adds intent classification; pricing queries redirect to Zalo (100% redirect accuracy target)
+# Note: intent routing is always active when pipeline runs; this config matches phase6_3 settings
+# but is run after intent.py is wired in, so cumulative gains row reflects routing correctness.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+embedding_model: bkai-foundation-models/vietnamese-bi-encoder
+use_reranking: true
+use_query_enhancement: false
+top_k: 5

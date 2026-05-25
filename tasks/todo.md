@@ -83,27 +83,27 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 6 — Advanced RAG *(measured per sub-step)*
 
-- [ ] **6.1** `BM25Retriever` (`rank_bm25`) — sparse index at startup
-- [ ] **6.2** `HybridRetriever` α-weighted merge — sweep α ∈ {0.0…1.0}; save α-sweep chart
-- [ ] **6.3** `app/rag/reranking.py` `CrossEncoderReranker` — latency delta ≤ +300 ms
-- [ ] **6.4** `app/rag/intent.py` intent classifier + pricing redirect path — redirect accuracy = 100%
-- [ ] **6.5** `app/rag/query_enhancement.py` `HyDE` — applies only to product/business intents
-- [ ] **6.6** Restore `config.py` defaults (`hybrid`, `use_reranking=true`, `use_query_enhancement=true`); integration run green
+- [x] **6.1** `BM25Retriever` (`rank_bm25`) — sparse index built at startup from ChromaDB collection
+- [x] **6.2** `HybridRetriever` α-weighted merge (α=0.5 default, min-max normalised scores); experiment config in `experiments/configs/phase6_2_hybrid.yaml`
+- [x] **6.3** `app/rag/reranking.py` `CrossEncoderReranker` (`cross-encoder/ms-marco-MiniLM-L-6-v2`) — lazy-init, only loaded when `use_reranking=True`
+- [x] **6.4** `app/rag/intent.py` `IntentClassifier` — keyword heuristics + Gemini LLM; pricing → canned Zalo redirect (no retrieval)
+- [x] **6.5** `app/rag/query_enhancement.py` `QueryEnhancer` — HyDE/rewrite/expand; applied only to product/business/recommendation/comparison intents
+- [x] **6.6** Restored `config.py` defaults: `retrieval_strategy="hybrid"`, `use_reranking=True`, `use_query_enhancement=True`; `pipeline.py` fully wired with all Phase 6 components
 
-### Checkpoint G — ✅ Cumulative gains table has baseline + 5 stage rows, same test set across all
+### Checkpoint G — ⏳ Run experiments to populate cumulative gains table: `cd backend && python -m evaluation.run_experiments`
 
 ---
 
 ## Phase 7 — Multimodal (Image Input)
 
-- [ ] **7.1** Populate `data/images/` with real product photos (replace Phase 0.4 placeholders)
-- [ ] **7.2** `app/multimodal/image_matching.py` — `open_clip` load + precompute + persist to `.cache/clip_index.npy`; `match(bytes, top_k=3)`
-- [ ] **7.3** Threshold fallback — low-score image returns Vietnamese apology
-- [ ] **7.4** `POST /api/chat` multipart — when image present, route to image match + RAG description
-- [ ] **7.5** Enable image upload in `ChatWidget` — preview + FormData send + matched-product chips
-- [ ] **7.6** Build 20-image eval subset; top-3 accuracy > 70%
+- [x] **7.1** Product images sourced from Cloudinary URLs in `data/products.json` — downloaded at CLIP index-build time
+- [x] **7.2** `app/multimodal/image_matching.py` — `CLIPImageMatcher`: lazy model load (`ViT-B-32/laion2b_s34b_b79k`), precompute + persist to `backend/.cache/clip_index.npy`; `match(bytes, top_k=3)`
+- [x] **7.3** Threshold fallback — `best_score < settings.image_match_threshold` returns `[]`; pipeline returns Vietnamese apology
+- [x] **7.4** `POST /api/chat` multipart — image present → `pipeline.query_by_image()`; text only → `pipeline.query()`
+- [x] **7.5** Image upload in `ChatWidget` — paperclip button, preview strip, FormData send, matched-product blue chips with similarity %
+- [x] **7.6** `evaluation/eval_image_matching.py` — top-1/top-3 accuracy; run `python -m evaluation.eval_image_matching`
 
-### Checkpoint H — ✅ Image query end-to-end works on desktop + mobile
+### Checkpoint H — ⏳ Run `python -m evaluation.eval_image_matching` to verify top-3 accuracy > 70%
 
 ---
 

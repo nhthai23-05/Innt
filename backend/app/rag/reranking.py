@@ -1,29 +1,53 @@
 """Cross-encoder reranking (Phase 6.3)."""
 
 from typing import List, Tuple
+import logging
+
+logger = logging.getLogger(__name__)
 
 
-class Reranker:
-    """Rerank retrieved documents by relevance (Phase 6.3)."""
-    
-    def __init__(self):
-        """Initialize reranker (stub for Phase 6.3)."""
-        raise NotImplementedError("Reranker implemented in Phase 6.3")
-    
+class CrossEncoderReranker:
+    """Rerank retrieved documents using a cross-encoder model.
+
+    Uses cross-encoder/ms-marco-MiniLM-L-6-v2 (lightweight, fast).
+    Latency target: <= +300ms over base retrieval.
+    """
+
+    def __init__(self, model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"):
+        from sentence_transformers import CrossEncoder
+
+        self.model = CrossEncoder(model_name)
+        logger.info(f"[Reranker] Loaded {model_name}")
+
     def rerank(
         self,
         query: str,
         documents: List[Tuple[dict, float]],
         top_k: int = 5,
     ) -> List[Tuple[dict, float]]:
-        """Rerank documents by relevance to query.
-        
+        """Score (query, doc) pairs and return top-k sorted by cross-encoder score.
+
         Args:
-            query: User query in Vietnamese
-            documents: List of (document, score) tuples from retriever
-            top_k: Keep top-k documents
-            
+            query: Vietnamese user query
+            documents: List of (document_dict, retriever_score) tuples
+            top_k: Keep top-k after reranking
+
         Returns:
-            List of (document, reranked_score) tuples
+            List of (document_dict, reranker_score) tuples, sorted descending
         """
-        raise NotImplementedError("Phase 6.3")
+        if not documents:
+            return documents
+
+        pairs = [(query, doc["content"]) for doc, _ in documents]
+        scores = self.model.predict(pairs)
+
+        reranked = sorted(
+            zip([doc for doc, _ in documents], scores.tolist()),
+            key=lambda x: x[1],
+            reverse=True,
+        )
+        return reranked[:top_k]
+
+
+# Backward-compatible alias
+Reranker = CrossEncoderReranker

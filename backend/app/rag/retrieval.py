@@ -7,90 +7,118 @@ from app.rag.embeddings import Embedder
 import logging
 logger = logging.getLogger(__name__)
 
+
+def _tokenize_vi(text: str) -> List[str]:
+    """Whitespace tokenizer for Vietnamese BM25 indexing."""
+    return text.lower().split()
+
+
 class Retriever:
     """Base retriever interface."""
-    
+
     def retrieve(self, query: str, top_k: int = 5) -> List[Tuple[dict, float]]:
-        """Retrieve top-k documents for a query.
-        
-        Args:
-            query: Vietnamese query text
-            top_k: Number of results to return
-            
-        Returns:
-            List of (document_dict, relevance_score) tuples
-        """
         raise NotImplementedError
 
 
 class DenseRetriever(Retriever):
     """Dense retrieval using semantic embeddings."""
-    
+
     def __init__(self, collection_name: str = "documents"):
-        """Initialize dense retriever.
-        
-        Args:
-            collection_name: ChromaDB collection name
-        """
         self.embedder = Embedder()
-        self.client = chromadb.PersistentClient(path=settings.chroma_persist_dir) # chroma_persist_dir: str = "./chroma_db"
-        logger.info(f"[chromadb]client chromadb path :{settings.chroma_persist_dir}")
-        logger.info(f"[chromadb]collections list: {self.client.list_collections()}")
-        
+        self.client = chromadb.PersistentClient(path=settings.chroma_persist_dir)
+        logger.info(f"[chromadb] path: {settings.chroma_persist_dir}")
+        logger.info(f"[chromadb] collections: {self.client.list_collections()}")
         self.collection = self.client.get_collection(name=collection_name)
-    
+
     def retrieve(self, query: str, top_k: int = 5) -> List[Tuple[dict, float]]:
-        """Retrieve top-k documents using semantic similarity.
-        
-        Args:
-            query: Vietnamese query text
-            top_k: Number of results to return
-            
-        Returns:
-            List of (document_dict, relevance_score) tuples
-        """
-        # Embed the query
         query_embedding = self.embedder.embed_single(query)
-        
-        # Query ChromaDB
         results = self.collection.query(
             query_embeddings=[query_embedding.tolist()],
             n_results=top_k,
-            include=["documents", "metadatas", "distances"]
+            include=["documents", "metadatas", "distances"],
         )
-        
-        # Convert distances to similarity scores (Note: ChromaDB cosine distance, not similarity)
-        # Cosine distance = 1 - cosine_similarity, so we need to convert back
         documents = results.get("documents", [[]])[0]
         metadatas = results.get("metadatas", [[]])[0]
         distances = results.get("distances", [[]])[0]
-        
-        # Convert distance to similarity (cosine similarity = 1 - distance)
         similarities = [1 - d for d in distances]
-        
-        # Build result tuples
         retrieved = []
         for doc, metadata, score in zip(documents, metadatas, similarities):
-            doc_dict = {
-                "content": doc,
-                "metadata": metadata,
-            }
-            retrieved.append((doc_dict, score))
-        
+            retrieved.append(({"content": doc, "metadata": metadata}, score))
         return retrieved
 
 
 class BM25Retriever(Retriever):
     """Sparse retrieval using BM25 algorithm (Phase 6.1)."""
-    
-    def __init__(self):
-        """Initialize BM25 retriever (stub for Phase 6.1)."""
-        raise NotImplementedError("BM25Retriever implemented in Phase 6.1")
+
+    def __init__(self, collection_name: str = "documents"):
+        from rank_bm25 import BM25Okapi
+
+        client = chromadb.PersistentClient(path=settings.chroma_persist_dir)
+        collection = client.get_collection(name=collection_name)
+
+        data = collection.get(include=["documents", "metadatas"])
+        raw_docs = data.get("documents") or []
+        raw_meta = data.get("metadatas") or []
+
+        self._docs: List[dict] = [
+            {"content": doc, "metadata": meta}
+            for doc, meta in zip(raw_docs, raw_meta)
+        ]
+        tokenized = [_tokenize_vi(doc) for doc in raw_docs]
+        self._bm25 = BM25Okapi(tokenized)
+        logger.info(f"[BM25] Built index over {len(self._docs)} documents")
+
+    def retrieve(self, query: str, top_k: int = 5) -> List[Tuple[dict, float]]:
+        tokens = _tokenize_vi(query)
+        scores = self._bm25.get_scores(tokens)
+        scored = sorted(
+            zip(scores, self._docs), key=lambda x: x[0], reverse=True
+        )[:top_k]
+        return [(doc, float(score)) for score, doc in scored]
 
 
 class HybridRetriever(Retriever):
-    """Hybrid retrieval combining dense and sparse (Phase 6.2)."""
-    
-    def __init__(self):
-        """Initialize hybrid retriever (stub for Phase 6.2)."""
-        raise NotImplementedError("HybridRetriever implemented in Phase 6.2")
+    """Hybrid retrieval: alpha * dense + (1-alpha) * BM25 (Phase 6.2).
+
+    Scores from each retriever are min-max normalised to [0, 1] before merging.
+    alpha=0 → pure BM25, alpha=1 → pure dense.
+    """
+
+    def __init__(self, alpha: float = 0.5, collection_name: str = "documents"):
+        self.alpha = alpha
+        self.dense = DenseRetriever(collection_name=collection_name)
+        self.bm25 = BM25Retriever(collection_name=collection_name)
+        logger.info(f"[Hybrid] alpha={alpha}")
+
+    @staticmethod
+    def _normalize(scores: List[float]) -> List[float]:
+        if not scores:
+            return scores
+        lo, hi = min(scores), max(scores)
+        if hi == lo:
+            return [1.0] * len(scores)
+        return [(s - lo) / (hi - lo) for s in scores]
+
+    def retrieve(self, query: str, top_k: int = 5) -> List[Tuple[dict, float]]:
+        fetch_k = max(top_k * 3, 20)
+
+        dense_results = self.dense.retrieve(query, top_k=fetch_k)
+        bm25_results = self.bm25.retrieve(query, top_k=fetch_k)
+
+        dense_scores = {r[0]["content"]: r[1] for r in dense_results}
+        bm25_scores = {r[0]["content"]: r[1] for r in bm25_results}
+        doc_map = {r[0]["content"]: r[0] for r in dense_results + bm25_results}
+
+        all_contents = list(doc_map.keys())
+        d_raw = [dense_scores.get(c, 0.0) for c in all_contents]
+        b_raw = [bm25_scores.get(c, 0.0) for c in all_contents]
+
+        d_norm = self._normalize(d_raw)
+        b_norm = self._normalize(b_raw)
+
+        merged = [
+            (doc_map[c], self.alpha * d + (1 - self.alpha) * b)
+            for c, d, b in zip(all_contents, d_norm, b_norm)
+        ]
+        merged.sort(key=lambda x: x[1], reverse=True)
+        return merged[:top_k]

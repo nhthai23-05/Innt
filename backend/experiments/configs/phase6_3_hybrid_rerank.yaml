@@ -1,0 +1,9 @@
+# Phase 6.3 — Hybrid + CrossEncoder Reranking
+# Measures reranking gain on top of hybrid retrieval
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+embedding_model: bkai-foundation-models/vietnamese-bi-encoder
+use_reranking: true
+use_query_enhancement: false
+top_k: 5

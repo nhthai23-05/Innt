@@ -1,0 +1,11 @@
+# Phase 6.5 — Full Advanced Pipeline (HyDE + Intent + Hybrid + Reranking)
+# Adds HyDE query enhancement on top of phase6_4 config
+# Applied only to product/business/recommendation/comparison intents
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+embedding_model: bkai-foundation-models/vietnamese-bi-encoder
+use_reranking: true
+use_query_enhancement: true
+query_enhancement_method: hyde
+top_k: 5

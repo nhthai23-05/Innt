@@ -1,0 +1,10 @@
+# Phase 6.2 — Hybrid Retrieval (alpha=0.5)
+# alpha * dense + (1-alpha) * BM25, scores normalised to [0,1]
+# Sweep alpha in {0.0, 0.1, ..., 1.0} to find optimal; record best here
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+embedding_model: bkai-foundation-models/vietnamese-bi-encoder
+use_reranking: false
+use_query_enhancement: false
+top_k: 5

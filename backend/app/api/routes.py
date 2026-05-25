@@ -1,4 +1,5 @@
 """API routes for the RAG chatbot."""
+import asyncio
 from fastapi import APIRouter, HTTPException, UploadFile, File, Form
 from fastapi.responses import JSONResponse
 from typing import Optional, Dict, Any
@@ -39,18 +40,27 @@ async def chat(
         if not message or not message.strip():
             raise HTTPException(status_code=400, detail="Message cannot be empty")
         
-        # For Phase 1, ignore image (Phase 7 will handle it)
-        if image:
-            logger.info(f"Received image upload (ignored in Phase 1): {image.filename}")
-        
         # Get or create pipeline
         pipeline = get_pipeline()
-        # logging before running the pipeline
-        logger.info(f"message : {message}, session ; {conversation_id}")
-        # Query the pipeline
-        # ===========/////////////////=================================== need change
+        logger.info(f"message={message!r} conversation_id={conversation_id} has_image={image is not None}")
 
-        result = pipeline.query(text = message, conversation_id=conversation_id)
+        if image:
+            image_bytes = await image.read()
+            loop = asyncio.get_event_loop()
+            result = await loop.run_in_executor(
+                None,
+                lambda: pipeline.query_by_image(
+                    image_bytes=image_bytes,
+                    text=message,
+                    conversation_id=conversation_id,
+                ),
+            )
+        else:
+            loop = asyncio.get_event_loop()
+            result = await loop.run_in_executor(
+                None,
+                lambda: pipeline.query(text=message, conversation_id=conversation_id),
+            )
 
         logger.info(f"result of pipeline: {result}")
         #===========////////////////////========================================

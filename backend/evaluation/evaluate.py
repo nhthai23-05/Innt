@@ -85,8 +85,12 @@ def run_evaluation(
     pipeline = RagPipeline(
         top_k=cfg.get("top_k"),
         retrieval_strategy=cfg.get("retrieval_strategy"),
+        use_reranking=cfg.get("use_reranking"),
+        use_query_enhancement=cfg.get("use_query_enhancement"),
+        query_enhancement_method=cfg.get("query_enhancement_method"),
+        hybrid_alpha=cfg.get("hybrid_alpha"),
     )
-    print(f"Initialized RAG pipeline (top_k={pipeline.top_k}, strategy={pipeline.retrieval_strategy})")
+    print(f"Initialized RAG pipeline (top_k={pipeline.top_k}, strategy={pipeline.retrieval_strategy}, rerank={pipeline.use_reranking}, enhance={pipeline.use_query_enhancement})")
     
     predictions = []
     print("\n--- Running queries ---")

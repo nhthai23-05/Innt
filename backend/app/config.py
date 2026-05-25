@@ -20,11 +20,10 @@ class Settings(BaseSettings):
     ollama_base_url: str = "http://localhost:11434"
 
     # RAG pipeline
-    # Phase 0.5 NOTE: Temporary defaults for Phase 1 baseline (will restore hybrid/reranking in Phase 6.6)
-    retrieval_strategy: str = "dense"  # "dense", "bm25", "hybrid" — Phase 1 uses dense only
+    retrieval_strategy: str = "hybrid"  # "dense", "bm25", "hybrid"
     chunking_strategy: str = "document"  # "document", "field", "augmented"
-    use_reranking: bool = False  # Phase 6.3 implements reranking
-    use_query_enhancement: bool = False  # Phase 6.5 implements HyDE
+    use_reranking: bool = True
+    use_query_enhancement: bool = True
     query_enhancement_method: str = "hyde"  # "hyde", "rewrite", "expand"
     top_k: int = 5
 
