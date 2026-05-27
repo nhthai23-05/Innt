@@ -1,0 +1,7 @@
+# Experiment 6 — Architecture A: Naive RAG
+# Dense only, no enhancement, no reranking.
+
+retrieval_strategy: dense
+use_reranking: false
+use_query_enhancement: false
+top_k: 5

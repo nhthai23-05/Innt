@@ -1,0 +1,11 @@
+# Experiment 6 — Architecture C: Agentic RAG
+# Full pipeline: intent routing + hybrid + rerank + HyDE + Gemini 2.5 Flash.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+use_reranking: true
+use_query_enhancement: true
+query_enhancement_method: hyde
+top_k: 5
+llm_provider: gemini
+llm_model: gemini-2.5-flash

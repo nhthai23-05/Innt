@@ -111,11 +111,56 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 - [ ] **8.1** Experiment 1 — embedding model comparison (4 candidates) → retrieval metrics table + chart
 - [ ] **8.2** Experiment 3 — retrieval strategies → RAGAS comparison
-- [ ] **8.3** Experiment 2 — LLM comparison (Gemini 1.5 / 2.0 / Llama / Qwen / Vistral) → RAGAS + latency + memory
+- [ ] **8.3** Experiment 2 — LLM comparison (Gemini flash-lite vs Qwen2.5 Ollama) → RAGAS + latency
 - [ ] **8.4** Experiment 5 — query enhancement (none / HyDE / rewrite / expand) → recall delta per category
 - [ ] **8.5** Experiment 4 — chunking strategies → RAGAS
 - [ ] **8.6** Experiment 6 — Architectures A/B/C end-to-end + human eval (3 × 20 responses)
 - [ ] **8.7** Consolidate: cumulative-gains line chart + Pareto plots + trade-off writeup
+
+### Phase 8 Run Guide
+
+**Prerequisite:** `backend/.env` phải có `RAG_GEMINI_API_KEY` và `RAG_GEMINI_MODEL=gemini-2.5-flash-lite`
+
+**Config structure** (`backend/experiments/configs/`):
+```
+cumulative_gains/        ← Phase 6 progression (6 bước)
+exp2_llm/                ← LLM: gemini-flashlite, qwen25-ollama
+exp3_retrieval/          ← Retrieval: dense / bm25 / hybrid  (controlled)
+exp5_query_enhancement/  ← Enhancement: none / hyde / rewrite / expand  (controlled)
+exp6_architecture/       ← Arch A (naive) / B (advanced) / C (agentic)
+```
+
+**Chạy từng experiment** (kết quả ghi vào `experiments/results/<name>.csv`):
+```bash
+cd backend
+python -m evaluation.run_experiments --config-dir exp3_retrieval
+python -m evaluation.run_experiments --config-dir exp5_query_enhancement
+python -m evaluation.run_experiments --config-dir exp2_llm
+python -m evaluation.run_experiments --config-dir exp6_architecture
+python -m evaluation.run_experiments --config-dir cumulative_gains
+```
+
+**Chạy toàn bộ** (tất cả subfolder → `cumulative_gains.csv`):
+```bash
+python -m evaluation.run_experiments
+```
+
+**Exp 1 — Embedding models** (chạy riêng vì rebuild index cho mỗi model):
+```bash
+python -m evaluation.eval_embedding_models
+# Sau khi xong, rebuild lại index với model mặc định:
+python -m app.indexing.indexer --rebuild
+```
+
+**Tạo biểu đồ** (sau khi có đủ CSV):
+```bash
+python experiments/plot_results.py
+```
+
+**Quick test** (3 câu/config, kiểm tra không lỗi trước khi chạy full):
+```bash
+python -m evaluation.run_experiments --config-dir exp3_retrieval --limit 3
+```
 
 ### Checkpoint I — ✅ All experiment CSVs present; gains table complete; figures ready for report
 

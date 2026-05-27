@@ -1,0 +1,9 @@
+# Experiment 5 — Query Enhancement: Query Expansion
+# Fixed: hybrid+rerank. Variable: query enhancement = expand.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+use_reranking: true
+use_query_enhancement: true
+query_enhancement_method: expand
+top_k: 5

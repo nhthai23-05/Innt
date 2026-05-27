@@ -1,0 +1,9 @@
+# Experiment 5 — Query Enhancement: HyDE
+# Fixed: hybrid+rerank. Variable: query enhancement = HyDE.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+use_reranking: true
+use_query_enhancement: true
+query_enhancement_method: hyde
+top_k: 5

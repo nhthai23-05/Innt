@@ -85,11 +85,21 @@ class IntentClassifier:
                     temperature=0.0,
                 ),
             )
-            label = response.text.strip().lower()
+            raw = (response.text or "").strip().lower()
+            # Normalize truncated labels the LLM sometimes emits
+            _aliases = {
+                "recommend": "recommendation",
+                "out_of": "out_of_scope",
+                "out": "out_of_scope",
+            }
+            label = _aliases.get(raw, raw)
             try:
                 intent = QueryIntent(label)
             except ValueError:
-                logger.warning(f"[Intent] Unknown label '{label}', defaulting to product")
+                if label:
+                    logger.warning(f"[Intent] Unknown label '{label}', defaulting to product")
+                else:
+                    logger.debug("[Intent] Empty label (safety filter?), defaulting to product")
                 intent = QueryIntent.PRODUCT
             logger.debug(f"[Intent] LLM → {intent}")
             return intent

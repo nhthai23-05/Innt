@@ -1,8 +1,6 @@
 """LLM-powered generation module."""
 
 from typing import List
-from google import genai
-from google.genai import types
 from app.config import settings
 
 
@@ -35,52 +33,38 @@ Hãy thân thiện, chuyên nghiệp, và tập trung vào việc giúp đỡ kh
 
 class Generator:
     """LLM-powered response generator."""
-    
-    def __init__(self, provider: str | None = None):
-        """Initialize generator.
-        
-        Args:
-            provider: "gemini" or "ollama". If None, uses settings.llm_provider
-        """
+
+    def __init__(self, provider: str | None = None, model: str | None = None):
         self.provider = provider or settings.llm_provider
-        
+
         if self.provider == "gemini":
-            self.client = genai.Client(api_key=settings.gemini_api_key)
+            from google import genai
+            self.model_name = model or settings.gemini_model
+            self._client = genai.Client(api_key=settings.gemini_api_key)
         elif self.provider == "ollama":
-            # Will implement in Phase 1.4 or later
-            raise NotImplementedError("Ollama integration not yet implemented")
+            from openai import OpenAI as _OpenAI
+            self.model_name = model or settings.ollama_model
+            self._client = _OpenAI(
+                api_key="ollama",
+                base_url=f"{settings.ollama_base_url}/v1",
+            )
         else:
             raise ValueError(f"Unknown LLM provider: {self.provider}")
-    
+
     def generate(
         self,
         query: str,
         context_docs: List[dict],
         max_tokens: int = 500,
     ) -> str:
-        """Generate a response grounded in the provided context.
-        
-        Args:
-            query: Vietnamese user query
-            context_docs: List of retrieved documents (from retriever)
-            max_tokens: Maximum tokens in response
-            
-        Returns:
-            Generated Vietnamese response
-        """
-        # Build context string from documents
+        """Generate a Vietnamese response grounded in the provided context."""
         context_parts = []
         for i, doc in enumerate(context_docs, 1):
             content = doc.get("content", "")
-            metadata = doc.get("metadata", {})
-            context_parts.append(f"""
-[Tài liệu {i}]
-{content}
-""")
-        
+            context_parts.append(f"\n[Tài liệu {i}]\n{content}\n")
+
         context_str = "\n".join(context_parts)
-        
-        # Build the prompt
+
         prompt = f"""Dựa vào các tài liệu sau đây, hãy trả lời câu hỏi của khách hàng một cách chính xác và hữu ích.
 
 **TÀI LIỆU THAM CHIẾU:**
@@ -96,21 +80,32 @@ class Generator:
 - Nếu không có thông tin, hãy nói rõ
 - Gợi ý khách hàng liên hệ công ty để báo giá/tư vấn thêm nếu cần
 """
-        
-        # Generate response
+
         try:
-            response = self.client.models.generate_content(
-                model=settings.gemini_model,
-                contents=prompt,
-                config=types.GenerateContentConfig(
-                    system_instruction=VIETNAMESE_SYSTEM_PROMPT,
-                    max_output_tokens=max_tokens,
+            if self.provider == "gemini":
+                from google.genai import types
+                response = self._client.models.generate_content(
+                    model=self.model_name,
+                    contents=prompt,
+                    config=types.GenerateContentConfig(
+                        system_instruction=VIETNAMESE_SYSTEM_PROMPT,
+                        max_output_tokens=max_tokens,
+                        temperature=0.7,
+                    ),
+                )
+                return response.text
+            else:  # ollama via OpenAI-compatible API
+                response = self._client.chat.completions.create(
+                    model=self.model_name,
+                    messages=[
+                        {"role": "system", "content": VIETNAMESE_SYSTEM_PROMPT},
+                        {"role": "user", "content": prompt},
+                    ],
+                    max_tokens=max_tokens,
                     temperature=0.7,
-                ),
-            )
-            return response.text
+                )
+                return response.choices[0].message.content
         except Exception as e:
-            # Fallback error response in Vietnamese
             return f"Xin lỗi, tôi gặp lỗi khi xử lý yêu cầu của bạn: {str(e)}. Vui lòng liên hệ công ty để được hỗ trợ trực tiếp."
     
     def redirect_to_zalo(self) -> dict:

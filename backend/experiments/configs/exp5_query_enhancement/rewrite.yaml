@@ -1,0 +1,9 @@
+# Experiment 5 — Query Enhancement: Query Rewriting
+# Fixed: hybrid+rerank. Variable: query enhancement = rewrite.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+use_reranking: true
+use_query_enhancement: true
+query_enhancement_method: rewrite
+top_k: 5

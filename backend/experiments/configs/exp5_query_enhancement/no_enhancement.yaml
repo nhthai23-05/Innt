@@ -1,0 +1,8 @@
+# Experiment 5 — Query Enhancement: No Enhancement (control)
+# Fixed: hybrid+rerank. Variable: query enhancement = disabled.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+use_reranking: true
+use_query_enhancement: false
+top_k: 5

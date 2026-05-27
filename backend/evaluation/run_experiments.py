@@ -132,6 +132,8 @@ def run_experiment_suite(
     test_set_path: Path,
     output_csv: Path,
     limit: int = None,
+    recursive: bool = False,
+    start_from: str = None,
 ) -> pd.DataFrame:
     """
     Run all experiments from config directory.
@@ -139,16 +141,25 @@ def run_experiment_suite(
     Args:
         config_dir: Directory containing YAML config files
         test_set_path: Path to test_set.json
-        output_csv: Path to output cumulative_gains.csv
+        output_csv: Path to output CSV
         limit: Optional max number of test cases per experiment
+        recursive: Search all subdirectories when True (used for root config_dir)
+        start_from: Skip configs whose stem sorts before this value (e.g. "05_intent_routed")
 
     Returns:
         DataFrame with all results
     """
     results = []
 
-    # Discover config files
-    config_files = sorted(config_dir.glob("*.yaml"))
+    # Recursive scan for root dir; flat scan for a specific experiment subfolder
+    if recursive:
+        config_files = sorted(config_dir.rglob("*.yaml"))
+    else:
+        config_files = sorted(config_dir.glob("*.yaml"))
+
+    if start_from:
+        config_files = [f for f in config_files if f.stem >= start_from]
+        print(f"⏩ Skipping configs before '{start_from}' ({len(config_files)} remaining)")
     print(f"\nFound {len(config_files)} experiment configs in {config_dir}")
 
     if len(config_files) == 0:
@@ -287,9 +298,10 @@ if __name__ == "__main__":
     config_dir.mkdir(parents=True, exist_ok=True)
     output_csv.parent.mkdir(parents=True, exist_ok=True)
 
-    # Parse --limit N from args (e.g. python -m evaluation.run_experiments baseline --limit 10)
-    limit = None
     args = sys.argv[1:]
+
+    # --limit N
+    limit = None
     if "--limit" in args:
         idx = args.index("--limit")
         limit = int(args[idx + 1])
@@ -297,15 +309,58 @@ if __name__ == "__main__":
     if limit:
         print(f"⚠️  Limit mode: running first {limit} test cases only")
 
+    # --start-from <stem>  (e.g. --start-from 05_intent_routed)
+    start_from = None
+    if "--start-from" in args:
+        idx = args.index("--start-from")
+        start_from = args[idx + 1]
+        args = [a for i, a in enumerate(args) if i != idx and i != idx + 1]
+        print(f"⏩ Starting from config: '{start_from}'")
+
+    # --config-dir <subdir|all>  (e.g. --config-dir exp3_retrieval  or  --config-dir all)
+    target_dir = config_dir
+    recursive = True
+    run_all_subdirs = False
+    if "--config-dir" in args:
+        idx = args.index("--config-dir")
+        sub = args[idx + 1]
+        args = [a for i, a in enumerate(args) if i != idx and i != idx + 1]
+        if sub == "all":
+            run_all_subdirs = True
+        else:
+            target_dir = config_dir / sub
+            output_csv = output_csv.parent / f"{target_dir.name}.csv"
+            recursive = False
+            if not target_dir.exists():
+                print(f"❌ Config dir not found: {target_dir}")
+                print(f"Available: {[d.name for d in config_dir.iterdir() if d.is_dir()]}")
+                sys.exit(1)
+
     # Check if running Phase 2.5 (record baseline)
     if args and args[0] == "baseline":
         print("RAG Baseline Recording (Phase 2.5)")
         df_results = record_baseline(test_set_path, config_dir, output_csv, limit=limit)
+    elif run_all_subdirs:
+        # Run each subfolder separately, each saved to its own CSV
+        subdirs = sorted(d for d in config_dir.iterdir() if d.is_dir())
+        print(f"RAG Experiment Suite Runner — all subdirs ({len(subdirs)} found)")
+        all_results = []
+        for subdir in subdirs:
+            sub_csv = output_csv.parent / f"{subdir.name}.csv"
+            print(f"\n{'#'*80}")
+            print(f"# Subfolder: {subdir.name}  →  {sub_csv.name}")
+            print(f"{'#'*80}")
+            df_sub = run_experiment_suite(subdir, test_set_path, sub_csv, limit=limit, recursive=False, start_from=start_from)
+            all_results.append(df_sub)
+        df_results = pd.concat(all_results, ignore_index=True) if all_results else pd.DataFrame()
+        if len(df_results) > 0:
+            print(f"\n📊 Total experiments across all subdirs: {len(df_results)}")
+            print(f"📁 Individual CSVs saved in: {output_csv.parent}")
     else:
-        # Run all experiments
         print("RAG Experiment Suite Runner")
-        df_results = run_experiment_suite(config_dir, test_set_path, output_csv, limit=limit)
-    
-    if len(df_results) > 0:
-        print(f"\n📊 Total experiments: {len(df_results)}")
-        print(f"📁 Results: {output_csv}")
+        df_results = run_experiment_suite(
+            target_dir, test_set_path, output_csv, limit=limit, recursive=recursive, start_from=start_from
+        )
+        if len(df_results) > 0:
+            print(f"\n📊 Total experiments: {len(df_results)}")
+            print(f"📁 Results: {output_csv}")

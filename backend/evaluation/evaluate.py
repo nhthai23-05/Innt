@@ -89,6 +89,8 @@ def run_evaluation(
         use_query_enhancement=cfg.get("use_query_enhancement"),
         query_enhancement_method=cfg.get("query_enhancement_method"),
         hybrid_alpha=cfg.get("hybrid_alpha"),
+        llm_model=cfg.get("llm_model"),
+        llm_provider=cfg.get("llm_provider"),
     )
     print(f"Initialized RAG pipeline (top_k={pipeline.top_k}, strategy={pipeline.retrieval_strategy}, rerank={pipeline.use_reranking}, enhance={pipeline.use_query_enhancement})")
     
@@ -141,6 +143,10 @@ def run_evaluation(
             })
     
     print(f"\n--- Running RAGAS metrics on {len(predictions)} predictions ---")
+
+    # Allow nested event loops in script context (fixes "coroutine was never awaited" in RAGAS executor)
+    import nest_asyncio as _nest
+    _nest.apply()
     
     # Initialize Gemini LLM for RAGAS (new google.genai approach)
     from app.config import settings
@@ -151,15 +157,22 @@ def run_evaluation(
     # Set API key in environment
     os.environ["GOOGLE_API_KEY"] = settings.gemini_api_key
 
-    # Route through Gemini's OpenAI-compatible endpoint — uses RAGAS's OpenAI adapter (proper async,
-    # no instructor safety-settings bug that caused 18-min-per-item slowdown with google provider).
-    from openai import OpenAI as _OpenAI
+    # RAGAS 0.4.3 uses InstructorLLM internally (not LangchainLLMWrapper).
+    # Metrics call llm.agenerate(prompt, response_model) — LangchainLLMWrapper is missing this method,
+    # causing "coroutine never awaited" + TimeoutError. llm_factory returns proper InstructorLLM.
+    # AsyncOpenAI ensures the async path works correctly end-to-end.
+    from openai import AsyncOpenAI as _AsyncOpenAI
     from ragas.llms import llm_factory
-    _openai_client = _OpenAI(
+    _async_client = _AsyncOpenAI(
         api_key=settings.gemini_api_key,
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        timeout=350.0,
     )
-    ragas_llm = llm_factory("gemini-2.5-flash-lite", provider="openai", client=_openai_client)
+    # max_tokens=4096: InstructorModelArgs defaults to 1024 — too low for faithfulness JSON statements.
+    # Passed via **kwargs → merged into InstructorLLM.model_args → forwarded in agenerate().
+    ragas_llm = llm_factory("gemini-2.5-flash-lite", client=_async_client, max_tokens=4096)
+    # Note: instructor's default max_retries=1 in create() — no patching needed.
+    # Earlier patch caused "got multiple values for keyword argument 'max_retries'" conflict.
 
     # Local embeddings via sentence-transformers (no API quota).
     # Simple duck-typing wrapper: RAGAS only calls embed_query / embed_documents.
@@ -177,8 +190,10 @@ def run_evaluation(
     # Prepare dataset for RAGAS
     dataset = prepare_ragas_dataset(predictions)
 
-    # Increase timeout to handle slow Gemini responses; default is too short for some metric calls.
-    run_config = RunConfig(timeout=300, max_retries=5, max_wait=60)
+    # timeout=600s: wraps the ENTIRE metric evaluation (faithfulness can make 10+ sub-LLM-calls
+    # for statement extraction + per-statement NLI verification). 300s was too tight for long answers.
+    # asyncio.wait_for(timeout=N) at ragas/metrics/base.py:481 is the source of TimeoutError.
+    run_config = RunConfig(timeout=600, max_retries=2, max_wait=30, max_workers=5)
 
     # Run evaluation — pass embeddings explicitly to prevent RAGAS from auto-creating GoogleEmbeddings
     results = evaluate(

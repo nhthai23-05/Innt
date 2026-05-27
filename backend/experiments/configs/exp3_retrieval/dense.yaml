@@ -1,0 +1,7 @@
+# Experiment 3 — Retrieval Strategy: Dense only (control)
+# Fixed: no reranking, no enhancement, top_k=5. Variable: retrieval_strategy.
+
+retrieval_strategy: dense
+use_reranking: false
+use_query_enhancement: false
+top_k: 5

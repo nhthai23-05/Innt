@@ -48,6 +48,8 @@ class RagPipeline:
         use_query_enhancement: Optional[bool] = None,
         query_enhancement_method: Optional[str] = None,
         hybrid_alpha: Optional[float] = None,
+        llm_model: Optional[str] = None,
+        llm_provider: Optional[str] = None,
     ):
         self.retrieval_strategy = retrieval_strategy or settings.retrieval_strategy
         self.top_k = top_k or settings.top_k
@@ -60,7 +62,7 @@ class RagPipeline:
         self.hybrid_alpha = hybrid_alpha if hybrid_alpha is not None else 0.5
 
         self.retriever = self._init_retriever()
-        self.generator = Generator()
+        self.generator = Generator(provider=llm_provider, model=llm_model)
         self.intent_classifier = IntentClassifier()
         self.reranker = CrossEncoderReranker() if self.use_reranking else None
         self.query_enhancer = (

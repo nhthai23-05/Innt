@@ -1,0 +1,11 @@
+# Experiment 2 — LLM Comparison: Gemini 2.5 Flash Lite
+# Fixed: full pipeline (hybrid+rerank+hyde). Variable: LLM model.
+
+retrieval_strategy: hybrid
+hybrid_alpha: 0.5
+use_reranking: true
+use_query_enhancement: true
+query_enhancement_method: hyde
+top_k: 5
+llm_provider: gemini
+llm_model: gemini-2.5-flash-lite
