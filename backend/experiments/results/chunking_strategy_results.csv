@@ -1,0 +1,3 @@
+chunking_strategy,faithfulness,answer_relevancy,context_precision,context_recall,latency_mean_ms,n_queries,status
+document,0.4965,0.361,0.4458,0.65,3359.2,20,success
+field,0.4525,0.2945,0.3123,0.5,3348.2,20,success

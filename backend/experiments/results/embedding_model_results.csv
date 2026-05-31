@@ -1,0 +1,4 @@
+embedding_model,faithfulness,answer_relevancy,context_precision,context_recall,latency_mean_ms,n_queries,status
+bkai-foundation-models/vietnamese-bi-encoder,0.4567,0.3273,0.4458,0.65,3320.9,20,success
+intfloat/multilingual-e5-base,0.4325,0.3383,0.475,0.6,3630.7,20,success
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,0.4125,0.2373,0.3273,0.575,4417.2,20,success

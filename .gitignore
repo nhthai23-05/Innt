@@ -28,10 +28,6 @@ nginx.conf
 product_image/
 backend/.cache/
 
-## Experiment outputs (large files)
-backend/experiments/results/*.csv
-backend/experiments/results/*.png
-
 ## LaTeX build artifacts
 report/*.aux
 report/*.log

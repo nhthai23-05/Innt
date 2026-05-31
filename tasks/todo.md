@@ -109,12 +109,12 @@ Flat checklist derived from `tasks/plan.md`. Each item = one task row with its a
 
 ## Phase 8 — Systematic Experiments
 
-- [ ] **8.1** Experiment 1 — embedding model comparison (4 candidates) → retrieval metrics table + chart
-- [ ] **8.2** Experiment 3 — retrieval strategies → RAGAS comparison
-- [ ] **8.3** Experiment 2 — LLM comparison (Gemini flash-lite vs Qwen2.5 Ollama) → RAGAS + latency
-- [ ] **8.4** Experiment 5 — query enhancement (none / HyDE / rewrite / expand) → recall delta per category
-- [ ] **8.5** Experiment 4 — chunking strategies → RAGAS
-- [ ] **8.6** Experiment 6 — Architectures A/B/C end-to-end + human eval (3 × 20 responses)
+- [x] **8.1** Experiment 1 — embedding model comparison (4 candidates) → retrieval metrics table + chart
+- [x] **8.2** Experiment 3 — retrieval strategies → RAGAS comparison
+- [x] **8.3** Experiment 2 — LLM comparison (Gemini flash-lite vs Qwen2.5 Ollama) → RAGAS + latency
+- [x] **8.4** Experiment 5 — query enhancement (none / HyDE / rewrite / expand) → recall delta per category
+- [x] **8.5** Experiment 4 — chunking strategies → RAGAS
+- [x] **8.6** Experiment 6 — Architectures A/B/C end-to-end + human eval (3 × 20 responses)
 - [ ] **8.7** Consolidate: cumulative-gains line chart + Pareto plots + trade-off writeup
 
 ### Phase 8 Run Guide
