@@ -1,0 +1,224 @@
+{
+  "_description": "Ground truth Q&A pairs for RAG evaluation. Each member contributes 15-20 pairs.",
+  "test_cases": [
+    {
+      "id": "q001",
+      "category": "phong-bi",
+      "query": "Phong bì A5 có kích thước bao nhiêu?",
+      "query_type": "product_spec",
+      "expected_product": "phong-bi-a5",
+      "relevant_passages": ["phong-bi-a5"],
+      "expected_answer_snippet": "16 x 23 cm",
+      "ground_truth": "Phong bì A5 có kích thước 16 x 23 cm, thiết kế nắp gập an toàn. Bề mặt giấy mịn, bám mực tốt, phù hợp để in logo công ty."
+    },
+    {
+      "id": "q002",
+      "category": "phong-bi",
+      "query": "Tôi muốn gửi hợp đồng nhỏ, nên dùng phong bì gì?",
+      "query_type": "vague",
+      "expected_product": "phong-bi-a5",
+      "relevant_passages": ["phong-bi-a5"],
+      "expected_answer_snippet": "phong bì A5",
+      "ground_truth": "Phong bì A5 phù hợp để gửi hợp đồng nhỏ. Nó được thiết kế để đựng các tài liệu vừa khổ với nắp gập an toàn bảo mật nội dung."
+    },
+    {
+      "id": "q003",
+      "category": "phong-bi",
+      "query": "Giá phong bì bao nhiêu?",
+      "query_type": "pricing",
+      "expected_product": null,
+      "relevant_passages": [],
+      "expected_answer_snippet": "không thể cung cấp giá",
+      "ground_truth": "Xin lỗi, tôi không thể cung cấp thông tin giá. Vui lòng liên hệ trực tiếp với chúng tôi để được báo giá chi tiết."
+    },
+    {
+      "id": "q004",
+      "category": "to-gap",
+      "query": "Tờ gấp là gì?",
+      "query_type": "vague",
+      "expected_product": "to-gap-a5",
+      "relevant_passages": ["to-gap-a5"],
+      "expected_answer_snippet": "tờ gấp",
+      "ground_truth": "Tờ gấp là sản phẩm in ấn được thiết kế để gấp lại, giúp tăng tính tương tác và dễ bảo quản. Phù hợp cho các tài liệu quảng cáo, hướng dẫn sử dụng."
+    },
+    {
+      "id": "q005",
+      "category": "to-gap",
+      "query": "Để in tờ quảng cáo 3 cánh nên dùng sản phẩm nào?",
+      "query_type": "product_matching",
+      "expected_product": "to-gap-3-canh",
+      "relevant_passages": ["to-gap-3-canh"],
+      "expected_answer_snippet": "tờ gấp 3 cánh",
+      "ground_truth": "Tờ gấp 3 cánh là sản phẩm tối ưu để in tài liệu quảng cáo. Được gấp thành 3 phần, dễ cầm nắm, tiết kiệm không gian."
+    },
+    {
+      "id": "q006",
+      "category": "to-gap",
+      "query": "Tờ gấp in được bao nhiêu màu?",
+      "query_type": "product_spec",
+      "expected_product": "to-gap-a5",
+      "relevant_passages": ["to-gap-a5"],
+      "expected_answer_snippet": "in offset 1 đến 4 màu",
+      "ground_truth": "Tờ gấp có thể in offset từ 1 đến 4 màu tùy theo yêu cầu thiết kế của bạn."
+    },
+    {
+      "id": "q007",
+      "category": "tui-giay",
+      "query": "Túi giấy được làm từ vật liệu gì?",
+      "query_type": "product_spec",
+      "expected_product": "tui-giay-kraft",
+      "relevant_passages": ["tui-giay-kraft"],
+      "expected_answer_snippet": "giấy Kraft",
+      "ground_truth": "Túi giấy thường được làm từ giấy Kraft, có độ bền cao, tính thân thiện với môi trường, phù hợp cho các cửa hàng bán lẻ."
+    },
+    {
+      "id": "q008",
+      "category": "tui-giay",
+      "query": "Tôi cần túi đựng hàng cho cửa hàng bán sách, nên chọn loại nào?",
+      "query_type": "vague",
+      "expected_product": "tui-giay-kraft",
+      "relevant_passages": ["tui-giay-kraft"],
+      "expected_answer_snippet": "túi giấy Kraft",
+      "ground_truth": "Túi giấy Kraft với quai gấp hoặc quai dây thích hợp để đựng hàng cho cửa hàng bán sách. Nó có độ bền tốt, in được logo thương hiệu."
+    },
+    {
+      "id": "q009",
+      "category": "tui-giay",
+      "query": "Kích thước túi giấy tối đa là bao nhiêu?",
+      "query_type": "product_spec",
+      "expected_product": "tui-giay-kraft",
+      "relevant_passages": ["tui-giay-kraft"],
+      "expected_answer_snippet": "theo yêu cầu",
+      "ground_truth": "Kích thước túi giấy được thiết kế theo yêu cầu của khách hàng, từ nhỏ đến lớn, với tối thiểu đơn hàng thông thường."
+    },
+    {
+      "id": "q010",
+      "category": "tem-nhan",
+      "query": "Tem nhãn dùng để làm gì?",
+      "query_type": "vague",
+      "expected_product": "tem-nhan-giay",
+      "relevant_passages": ["tem-nhan-giay"],
+      "expected_answer_snippet": "tem nhãn",
+      "ground_truth": "Tem nhãn được dùng để dán trên sản phẩm, đựng hàng hoặc tài liệu để nhận diện, bảo vệ thương hiệu và thông tin sản phẩm."
+    },
+    {
+      "id": "q011",
+      "category": "tem-nhan",
+      "query": "Tem nhãn có thể cắt theo hình dạng tùy ý không?",
+      "query_type": "product_spec",
+      "expected_product": "tem-nhan-giay",
+      "relevant_passages": ["tem-nhan-giay"],
+      "expected_answer_snippet": "cắt theo yêu cầu",
+      "ground_truth": "Tem nhãn có thể được cắt theo các hình dạng tùy ý (tròn, vuông, hình động vật, v.v.) tùy theo yêu cầu thiết kế của khách hàng."
+    },
+    {
+      "id": "q012",
+      "category": "tem-nhan",
+      "query": "Tôi muốn in tem nhãn bóng gương để dán các sản phẩm cao cấp, có thể làm được không?",
+      "query_type": "vague",
+      "expected_product": "tem-nhan-bong-guong",
+      "relevant_passages": ["tem-nhan-bong-guong"],
+      "expected_answer_snippet": "tem nhãn bóng gương",
+      "ground_truth": "Có, chúng tôi cung cấp tem nhãn với hoàn thiện bóng gương, tạo hiệu ứng bóng bẩy, cao cấp, phù hợp cho sản phẩm premium."
+    },
+    {
+      "id": "q013",
+      "category": "bieu-mau-hoa-don",
+      "query": "Biểu mẫu hóa đơn cần những thông tin gì?",
+      "query_type": "vague",
+      "expected_product": "bieu-mau-hoa-don-a4",
+      "relevant_passages": ["bieu-mau-hoa-don-a4"],
+      "expected_answer_snippet": "biểu mẫu hóa đơn",
+      "ground_truth": "Biểu mẫu hóa đơn cần các thông tin: số hóa đơn, ngày phát hành, tên công ty, địa chỉ, số tài khoản ngân hàng, bảng chi tiết sản phẩm/dịch vụ, tổng tiền."
+    },
+    {
+      "id": "q014",
+      "category": "bieu-mau-hoa-don",
+      "query": "Hóa đơn A4 có kích thước bao nhiêu?",
+      "query_type": "product_spec",
+      "expected_product": "bieu-mau-hoa-don-a4",
+      "relevant_passages": ["bieu-mau-hoa-don-a4"],
+      "expected_answer_snippet": "21 x 29.7 cm",
+      "ground_truth": "Hóa đơn A4 có kích thước chuẩn 21 x 29.7 cm, phù hợp để in các hóa đơn chi tiết với nhiều dòng thông tin sản phẩm."
+    },
+    {
+      "id": "q015",
+      "category": "bieu-mau-hoa-don",
+      "query": "Tôi cần in hóa đơn với 2 bản (Original và Copy), có thể làm không?",
+      "query_type": "product_spec",
+      "expected_product": "bieu-mau-hoa-don-a4",
+      "relevant_passages": ["bieu-mau-hoa-don-a4"],
+      "expected_answer_snippet": "2 bản",
+      "ground_truth": "Có, chúng tôi có thể in hóa đơn với 2 bản (Original và Copy) hoặc nhiều bản hơn, sử dụng giấy than để tự động in bản copy."
+    },
+    {
+      "id": "q016",
+      "category": "to-roi",
+      "query": "Tờ rơi là gì?",
+      "query_type": "vague",
+      "expected_product": "to-roi-a5",
+      "relevant_passages": ["to-roi-a5"],
+      "expected_answer_snippet": "tờ rơi",
+      "ground_truth": "Tờ rơi là tài liệu quảng cáo khổ nhỏ, thường chỉ in 1 mặt, dễ cầm tay, phù hợp để phát trực tiếp cho khách hàng tại sự kiện hoặc công khai."
+    },
+    {
+      "id": "q017",
+      "category": "to-roi",
+      "query": "Tôi muốn quảng cáo sự kiện với tờ rơi nhỏ, kích thước nào tốt?",
+      "query_type": "vague",
+      "expected_product": "to-roi-a6",
+      "relevant_passages": ["to-roi-a6"],
+      "expected_answer_snippet": "tờ rơi A6 hoặc A5",
+      "ground_truth": "Tờ rơi A6 (10.5 x 14.8 cm) hoặc A5 (14.8 x 21 cm) rất phù hợp để quảng cáo sự kiện, dễ cầm nắm, chi phí in thấp."
+    },
+    {
+      "id": "q018",
+      "category": "danh-thiep",
+      "query": "Name card là gì?",
+      "query_type": "vague",
+      "expected_product": "danh-thiep-name-card",
+      "relevant_passages": ["danh-thiep-name-card"],
+      "expected_answer_snippet": "danh thiếp, name card",
+      "ground_truth": "Danh thiếp (Name card) là tấm giấy nhỏ ghi thông tin cá nhân hoặc công ty, thường dùng để trao đổi tiếp xúc kinh doanh, gặp gỡ chuyên nghiệp."
+    },
+    {
+      "id": "q019",
+      "category": "danh-thiep",
+      "query": "Kích thước danh thiếp tiêu chuẩn là gì?",
+      "query_type": "product_spec",
+      "expected_product": "danh-thiep-name-card",
+      "relevant_passages": ["danh-thiep-name-card"],
+      "expected_answer_snippet": "9 x 5.4 cm",
+      "ground_truth": "Danh thiếp có kích thước tiêu chuẩn là 9 x 5.4 cm (hoặc 10 x 5.5 cm), dễ bảo quản trong ví, phù hợp tiêu chuẩn quốc tế."
+    },
+    {
+      "id": "q020",
+      "category": "general",
+      "query": "Các dịch vụ in ấn của Innt có gì ngoài in ấn giấy?",
+      "query_type": "out_of_scope",
+      "expected_product": null,
+      "relevant_passages": [],
+      "expected_answer_snippet": "không có thông tin",
+      "ground_truth": "Tôi hiện chỉ có thông tin về các sản phẩm in ấn giấy của Innt. Vui lòng liên hệ trực tiếp để biết thêm về các dịch vụ khác."
+    }
+  ],
+  "metadata": {
+    "total_questions": 20,
+    "categories_covered": [
+      "phong-bi",
+      "to-gap",
+      "tui-giay",
+      "tem-nhan",
+      "bieu-mau-hoa-don",
+      "to-roi",
+      "danh-thiep"
+    ],
+    "query_types": {
+      "product_spec": 8,
+      "product_matching": 2,
+      "vague": 7,
+      "pricing": 1,
+      "out_of_scope": 2
+    }
+  }
+}

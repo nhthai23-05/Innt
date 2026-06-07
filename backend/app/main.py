@@ -1,6 +1,7 @@
 """FastAPI application entry point for the RAG chatbot backend."""
 
 import logging
+from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.api.routes import router as api_router
@@ -12,6 +13,17 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    """Startup/shutdown lifecycle (replaces deprecated @app.on_event)."""
+    logger.info("🚀 Innt RAG Chatbot API starting...")
+    logger.info("📚 To rebuild the index, run: POST /api/index/rebuild")
+    logger.info("📖 API docs available at: /docs")
+    yield
+    logger.info("🛑 Innt RAG Chatbot API shutting down...")
+
+
 app = FastAPI(
     title="Innt RAG Chatbot API",
     description="RAG-driven chatbot for product catalog consultation (Phase 1+)",
@@ -19,6 +31,7 @@ app = FastAPI(
     openapi_url="/openapi.json",
     docs_url="/docs",
     redoc_url="/redoc",
+    lifespan=lifespan,
 )
 
 # CORS middleware to allow requests from frontend
@@ -32,18 +45,4 @@ app.add_middleware(
 
 # Include API routes
 app.include_router(api_router)
-
-
-@app.on_event("startup")
-async def startup():
-    """Initialize on startup."""
-    logger.info("🚀 Innt RAG Chatbot API starting...")
-    logger.info("📚 To rebuild the index, run: POST /api/index/rebuild")
-    logger.info("📖 API docs available at: /docs")
-
-
-@app.on_event("shutdown")
-async def shutdown():
-    """Cleanup on shutdown."""
-    logger.info("🛑 Innt RAG Chatbot API shutting down...")
 

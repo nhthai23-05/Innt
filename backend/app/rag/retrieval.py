@@ -8,8 +8,28 @@ import logging
 logger = logging.getLogger(__name__)
 
 
+try:
+    from pyvi import ViTokenizer  # type: ignore
+    _HAS_PYVI = True
+except ImportError:  # graceful fallback — BM25 still works, just less accurate
+    _HAS_PYVI = False
+    logger.warning(
+        "[BM25] pyvi not installed — falling back to whitespace tokenisation. "
+        "Install pyvi for proper Vietnamese word segmentation (multi-syllable terms)."
+    )
+
+
 def _tokenize_vi(text: str) -> List[str]:
-    """Whitespace tokenizer for Vietnamese BM25 indexing."""
+    """Word-segmenting tokenizer for Vietnamese BM25.
+
+    Vietnamese words are multi-syllable ("phong bì", "cán màng", "giấy couche").
+    pyvi joins each word's syllables with '_' so BM25 treats them as one term;
+    we lower-case and split on whitespace afterwards. Applied identically to the
+    corpus and the query, so dense/sparse stay consistent. Falls back to plain
+    whitespace tokenisation when pyvi is unavailable.
+    """
+    if _HAS_PYVI:
+        text = ViTokenizer.tokenize(text)
     return text.lower().split()
 
 

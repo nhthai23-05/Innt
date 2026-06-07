@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.cache/
+chroma_db/
+chroma_db_test/
+.env
+*.log
+.pytest_cache/

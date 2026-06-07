@@ -9,11 +9,13 @@ logger = logging.getLogger(__name__)
 class CrossEncoderReranker:
     """Rerank retrieved documents using a cross-encoder model.
 
-    Uses cross-encoder/ms-marco-MiniLM-L-6-v2 (lightweight, fast).
-    Latency target: <= +300ms over base retrieval.
+    Uses cross-encoder/mmarco-mMiniLMv2-L12-H384-v1 — a *multilingual* MS-MARCO
+    cross-encoder that covers Vietnamese. (The earlier default,
+    ms-marco-MiniLM-L-6-v2, is English-only and scored Vietnamese pairs
+    unreliably.) Latency target: <= +300ms over base retrieval.
     """
 
-    def __init__(self, model_name: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"):
+    def __init__(self, model_name: str = "cross-encoder/mmarco-mMiniLMv2-L12-H384-v1"):
         from sentence_transformers import CrossEncoder
 
         self.model = CrossEncoder(model_name)

@@ -135,6 +135,7 @@ class RagPipeline:
 
         # Extract sources and context
         sources = []
+        retrieved_ids = []  # product/doc slugs, in retrieval order — used for Recall@k/MRR
         context_docs = []
         for doc, score in retrieved_docs:
             context_docs.append(doc)
@@ -142,6 +143,9 @@ class RagPipeline:
             source_id = metadata.get("product_name") or metadata.get("doc_title") or "Unknown"
             if source_id not in sources:
                 sources.append(source_id)
+            doc_id = metadata.get("id")
+            if doc_id:
+                retrieved_ids.append(doc_id)
 
         # Generation
         if not context_docs:
@@ -152,6 +156,7 @@ class RagPipeline:
             result = {
                 "response": answer,
                 "sources": [],
+                "retrieved_ids": [],
                 "retrieved_contents": [],
                 "redirect_to_zalo": True,
                 "metadata": {
@@ -165,6 +170,7 @@ class RagPipeline:
             result = {
                 "response": answer,
                 "sources": sources,
+                "retrieved_ids": retrieved_ids,
                 "retrieved_contents": [doc["content"] for doc in context_docs],
                 "redirect_to_zalo": False,
                 "metadata": {
@@ -240,6 +246,7 @@ class RagPipeline:
         result = {
             "response": answer,
             "sources": sources,
+            "retrieved_ids": [d.get("metadata", {}).get("id") for d in context_docs if d.get("metadata", {}).get("id")],
             "retrieved_contents": [d["content"] for d in context_docs],
             "redirect_to_zalo": False,
             "metadata": {

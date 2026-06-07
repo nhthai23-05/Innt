@@ -103,6 +103,7 @@ class Chunker:
             source_id=product_id,
             source_type="product",
             metadata={
+                "id": product_id,
                 "category": product.get('metadata', {}).get('category', 'Unknown'),
                 "category_slug": product.get('metadata', {}).get('category_slug', ''),
                 "product_name": product_name,
@@ -117,6 +118,7 @@ class Chunker:
         product_name = product.get('embedding_data', {}).get('product_name', 'Unknown Product')
         
         base_metadata = {
+            "id": product_id,
             "category": product.get('metadata', {}).get('category', 'Unknown'),
             "category_slug": product.get('metadata', {}).get('category_slug', ''),
             "product_name": product_name,
@@ -198,6 +200,7 @@ class Chunker:
             source_id=doc_id,
             source_type="business",
             metadata={
+                "id": doc_id,
                 "category": doc.get('metadata', {}).get('category', 'Unknown'),
                 "doc_title": doc_title,
             }
@@ -210,6 +213,7 @@ class Chunker:
         doc_title = doc.get('embedding_data', {}).get('document_title', 'Unknown Document')
         
         base_metadata = {
+            "id": doc_id,
             "category": doc.get('metadata', {}).get('category', 'Unknown'),
             "doc_title": doc_title,
         }

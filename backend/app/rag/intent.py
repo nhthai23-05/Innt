@@ -5,8 +5,11 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-# Keyword heuristics for common cases (avoids an LLM call)
-_PRICING_KEYWORDS = {"giá", "báo giá", "bao nhiêu tiền", "bao nhiêu", "chi phí", "phí", "đơn giá", "giá cả"}
+# Keyword heuristics for common cases (avoids an LLM call).
+# NOTE: bare "bao nhiêu" / "phí" were removed — they false-trigger on spec
+# questions ("chịu được bao nhiêu kg?", "khổ A5 bao nhiêu cm?"). Only
+# unambiguous price phrases are kept; ambiguous ones fall through to the LLM.
+_PRICING_KEYWORDS = {"giá", "báo giá", "bao nhiêu tiền", "giá bao nhiêu", "chi phí", "đơn giá", "giá cả"}
 _OUT_OF_SCOPE_KEYWORDS = {"thời tiết", "bóng đá", "covid", "tin tức", "sức khỏe", "chứng khoán"}
 
 

@@ -101,6 +101,12 @@ def run_experiment(
             "answer_relevancy_std": float(df_results["answer_relevancy"].std()),
             "context_precision_mean": float(df_results["context_precision"].mean()),
             "context_recall_mean": float(df_results["context_recall"].mean()),
+            # Retrieval metrics (compared against relevant_passages ground truth)
+            "recall_at_k": custom_metrics["recall_at_k"],
+            "precision_at_k": custom_metrics["precision_at_k"],
+            "mrr": custom_metrics["mrr"],
+            "hit_at_1": custom_metrics["hit_at_1"],
+            "hit_at_3": custom_metrics["hit_at_3"],
             # Custom metrics (from metrics.py)
             "latency_mean_ms": custom_metrics["latency"]["mean"],
             "latency_p95_ms": custom_metrics["latency"]["p95"],

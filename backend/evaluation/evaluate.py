@@ -116,7 +116,7 @@ def run_evaluation(
             # Truncate each context to avoid single-prompt token limit on faithfulness/context_precision.
             _MAX = 800
             contexts = [c[:_MAX] for c in result.get("retrieved_contents", [])]
-            
+
             predictions.append({
                 "query_id": query_id,
                 "query": query,
@@ -124,8 +124,10 @@ def run_evaluation(
                 "query_type": test_case.get("query_type", "unknown"),
                 "answer": answer,
                 "contexts": contexts,
+                "retrieved_ids": result.get("retrieved_ids", []),
                 "ground_truth": ground_truth,
                 "relevant_passages": test_case.get("relevant_passages", []),
+                "expected_product": test_case.get("expected_product"),
                 "latency_ms": latency_ms,
             })
         except Exception as e:
@@ -137,8 +139,10 @@ def run_evaluation(
                 "query_type": test_case.get("query_type", "unknown"),
                 "answer": f"ERROR: {str(e)}",
                 "contexts": [],
+                "retrieved_ids": [],
                 "ground_truth": ground_truth,
                 "relevant_passages": test_case.get("relevant_passages", []),
+                "expected_product": test_case.get("expected_product"),
                 "latency_ms": -1,
             })
     
@@ -170,14 +174,28 @@ def run_evaluation(
     )
     # max_tokens=4096: InstructorModelArgs defaults to 1024 — too low for faithfulness JSON statements.
     # Passed via **kwargs → merged into InstructorLLM.model_args → forwarded in agenerate().
-    ragas_llm = llm_factory("gemini-2.5-flash-lite", client=_async_client, max_tokens=4096)
+    # Judge model: flash-lite by default (cheapest / highest free-tier quota).
+    # A stronger judge (gemini-2.5-flash / pro) gives less noisy faithfulness
+    # scores but burns quota much faster — override only with a paid key.
+    _judge_model = os.environ.get("RAG_RAGAS_JUDGE_MODEL", "gemini-2.5-flash-lite")
+    print(f"RAGAS judge model: {_judge_model}")
+    ragas_llm = llm_factory(_judge_model, client=_async_client, max_tokens=4096)
     # Note: instructor's default max_retries=1 in create() — no patching needed.
     # Earlier patch caused "got multiple values for keyword argument 'max_retries'" conflict.
 
     # Local embeddings via sentence-transformers (no API quota).
     # Simple duck-typing wrapper: RAGAS only calls embed_query / embed_documents.
+    # answer_relevancy is computed via cosine similarity in this embedding space,
+    # so the judge-embedding quality directly affects the score. We use
+    # multilingual-e5-base (strongest Vietnamese model in our embedding experiment)
+    # instead of the weaker MiniLM that was here before — it was a major source of
+    # noisy/low answer_relevancy scores. Override with RAG_RAGAS_JUDGE_EMBEDDING.
     from sentence_transformers import SentenceTransformer as _ST
-    _st_model = _ST("sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2")
+    _judge_embed_name = os.environ.get(
+        "RAG_RAGAS_JUDGE_EMBEDDING", "intfloat/multilingual-e5-base"
+    )
+    _st_model = _ST(_judge_embed_name)
+    print(f"RAGAS judge embedding: {_judge_embed_name}")
 
     class _LocalEmbeddings:
         def embed_query(self, text: str) -> list:
@@ -228,6 +246,9 @@ def run_evaluation(
         "query_type",
         "answer",
         "contexts",
+        "retrieved_ids",
+        "relevant_passages",
+        "expected_product",
         "ground_truth",
         "faithfulness",
         "answer_relevancy",

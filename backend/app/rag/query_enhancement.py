@@ -13,20 +13,32 @@ class QueryEnhancementMethod(str, Enum):
 
 
 _HYDE_PROMPT = (
-    "Bạn là chuyên gia về in ấn và đóng gói. "
-    "Hãy viết một đoạn mô tả ngắn (3-5 câu) bằng tiếng Việt về sản phẩm/thông tin "
-    "có thể trả lời câu hỏi dưới đây. "
-    "Chỉ viết đoạn mô tả, không giải thích.\n\nCâu hỏi: {query}"
+    "Bạn là một hệ thống tìm kiếm sản phẩm thông minh cho một công ty in ấn và bao bì. "
+    "Dựa vào câu hỏi của người dùng, hãy viết một tài liệu giả định (hypothetical document) "
+    "chứa chính xác những thông tin sản phẩm có thể giải quyết nhu cầu đó. "
+    "Tài liệu này nên được viết dưới dạng mô tả sản phẩm trên website, bao gồm: "
+    "tên sản phẩm tiềm năng, chất liệu thường dùng, quy cách in ấn, và ứng dụng thực tế. "
+    "Chỉ trả về nội dung mô tả, tuyệt đối không giải thích hay mở bài.\n\n"
+    "Câu hỏi: {query}"
 )
 
 _REWRITE_PROMPT = (
-    "Viết lại câu hỏi sau bằng tiếng Việt, rõ ràng hơn và tập trung vào sản phẩm in ấn. "
-    "Chỉ trả về câu hỏi đã viết lại.\n\nCâu hỏi gốc: {query}"
+    "Nhiệm vụ của bạn là viết lại câu hỏi tìm kiếm của người dùng để tối ưu hóa cho hệ thống vector search (Semantic Retrieval) trong lĩnh vực in ấn và đóng gói. "
+    "Hãy thực hiện các bước sau một cách âm thầm: "
+    "1. Sửa các lỗi chính tả hoặc từ viết tắt nếu có. "
+    "2. Trích xuất ý định cốt lõi và chuyển đổi các từ ngữ dân dã thành thuật ngữ chuyên ngành in ấn (VD: 'rẻ' -> 'tối ưu chi phí', 'chất liệu tiết kiệm', 'giấy kraft'). "
+    "3. Viết lại thành một câu truy vấn hoàn chỉnh, súc tích và trực diện vào sản phẩm/dịch vụ. "
+    "Chỉ trả về câu truy vấn đã được viết lại, không thêm bất kỳ văn bản nào khác.\n\n"
+    "Câu hỏi gốc: {query}"
 )
 
 _EXPAND_PROMPT = (
-    "Mở rộng câu hỏi sau với các từ khóa liên quan đến in ấn bằng tiếng Việt. "
-    "Trả về các từ khóa bổ sung (tối đa 10 từ), cách nhau bởi khoảng trắng.\n\nCâu hỏi: {query}"
+    "Bạn là chuyên gia phân tích dữ liệu e-commerce ngành in ấn. "
+    "Hãy mở rộng câu hỏi tìm kiếm dưới đây bằng cách bổ sung thêm các từ đồng nghĩa, "
+    "thuật ngữ chuyên ngành, hoặc tên chất liệu/công nghệ có liên quan TRỰC TIẾP và CHẶT CHẼ đến sản phẩm được nhắc tới. "
+    "Tuyệt đối không thêm các từ khóa về các loại sản phẩm khác để tránh làm loãng ngữ nghĩa. "
+    "Trả về tối đa 7 từ/cụm từ khóa bổ sung, cách nhau bởi dấu phẩy.\n\n"
+    "Câu hỏi: {query}"
 )
 
 
