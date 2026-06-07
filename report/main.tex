@@ -1,0 +1,95 @@
+\documentclass[11pt,a4paper]{article}
+
+% ---------------------------------------------------------------------------
+% Packages
+% ---------------------------------------------------------------------------
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc}   % T5 = Vietnamese glyph coverage (covers ASCII too); default encoding
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{listings}
+\usepackage[hidelinks]{hyperref}
+\usepackage{cleveref}
+
+\definecolor{inntred}{HTML}{E62026}
+\graphicspath{{figures/}}
+
+% Compact table column types
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{R}{>{\raggedleft\arraybackslash}X}
+
+% Code listing style
+\lstset{
+  basicstyle=\ttfamily\footnotesize,
+  breaklines=true,
+  frame=single,
+  framerule=0.3pt,
+  rulecolor=\color{gray!40},
+  backgroundcolor=\color{gray!5},
+  columns=fullflexible,
+  keepspaces=true,
+}
+
+\newcommand{\best}[1]{\textbf{#1}}   % mark the best value in a column
+
+% ---------------------------------------------------------------------------
+% Title
+% ---------------------------------------------------------------------------
+\title{\textbf{A Progressive Retrieval-Augmented Generation Chatbot\\
+for a Vietnamese Printing-and-Packaging Catalog}\\[4pt]
+\large From Naive RAG to an Advanced, Evaluation-Driven Pipeline}
+
+\author{In N\&T RAG Chatbot Team\\
+\small Natural Language Processing --- Course Project}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent We design, build, and rigorously evaluate a Retrieval-Augmented
+Generation (RAG) chatbot for \textit{innt.vn}, the catalog website of a
+Vietnamese printing-and-packaging company (19 products, 5 company documents).
+Starting from a naive single-stage dense-retrieval baseline, we add one
+component at a time --- sparse (BM25) retrieval, hybrid fusion, cross-encoder
+re-ranking, intent routing, and query enhancement --- and measure the effect of
+each step with RAGAS metrics \cite{es2023ragas} and standard information-retrieval
+metrics (Recall@$k$, MRR, Hit@$k$) on an 80-question Vietnamese test set.
+Our central finding is that ``more advanced'' is \emph{not} automatically
+better: hybrid retrieval plus cross-encoder re-ranking is the best
+configuration (Recall@5 $0.884\!\to\!0.899$, MRR $0.821\!\to\!0.876$), intent
+routing adds a 100\% pricing/out-of-scope redirect rate at no retrieval cost,
+but \textbf{query enhancement (HyDE) consistently degrades retrieval and adds
+${\sim}1.8$\,s of latency} and is therefore rejected for production. We report
+the full progressive-optimization trajectory, per-component ablations, and a
+trade-off analysis, demonstrating engineering judgment about \emph{when} an
+optimization is worth its cost.
+\end{abstract}
+
+\tableofcontents
+\newpage
+
+\input{chapters/01_introduction}
+\input{chapters/02_architecture}
+\input{chapters/03_data_methodology}
+\input{chapters/04_results}
+\input{chapters/05_discussion_conclusion}
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\end{document}

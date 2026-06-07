@@ -1,4 +1,4 @@
-embedding_model,faithfulness,answer_relevancy,context_precision,context_recall,latency_mean_ms,n_queries,status
-bkai-foundation-models/vietnamese-bi-encoder,0.4567,0.3273,0.4458,0.65,3320.9,20,success
-intfloat/multilingual-e5-base,0.4325,0.3383,0.475,0.6,3630.7,20,success
-sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,0.4125,0.2373,0.3273,0.575,4417.2,20,success
+embedding_model,faithfulness,answer_relevancy,context_precision,context_recall,recall_at_k,mrr,hit_at_3,latency_mean_ms,n_queries,status
+bkai-foundation-models/vietnamese-bi-encoder,0.5337,0.572,0.6244,0.7125,0.8841,0.8213,0.8841,3387.8,80,success
+intfloat/multilingual-e5-base,0.5386,0.5848,0.6154,0.7375,0.8841,0.8133,0.8551,3364.7,80,success
+sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2,0.4656,0.5213,0.5077,0.6396,0.7899,0.6783,0.7246,3426.5,80,success

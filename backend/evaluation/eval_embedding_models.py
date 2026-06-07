@@ -58,12 +58,18 @@ def run_embedding_experiment(model_name: str, limit: int | None = None) -> dict:
         }
         df = run_evaluation(TEST_SET, pipeline_config=pipeline_config, limit=limit)
 
+        from evaluation.metrics import calculate_retrieval_metrics
+        ret = calculate_retrieval_metrics(df, k=5)
+
         return {
             "embedding_model": model_name,
             "faithfulness": round(float(df["faithfulness"].mean()), 4),
             "answer_relevancy": round(float(df["answer_relevancy"].mean()), 4),
             "context_precision": round(float(df["context_precision"].mean()), 4),
             "context_recall": round(float(df["context_recall"].mean()), 4),
+            "recall_at_k": round(ret["recall_at_k"], 4),
+            "mrr": round(ret["mrr"], 4),
+            "hit_at_3": round(ret["hit_at_3"], 4),
             "latency_mean_ms": round(float(df["latency_ms"].mean()), 1),
             "n_queries": len(df),
             "status": "success",

@@ -1,0 +1,93 @@
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Trade-off analysis}
+The experiments let us reason about \emph{when} a technique earns its cost.
+
+\paragraph{Accuracy vs.\ latency.}
+Re-ranking buys a real ordering improvement (MRR $0.866\!\to\!0.876$, Context
+Precision $0.655\!\to\!0.680$) for only ${\sim}0.4$\,s and is clearly worth it.
+Query enhancement is the opposite: it costs ${\sim}1.8$\,s \emph{and} lowers
+every quality metric, so it is on the wrong side of every trade-off and is
+dropped. The recommended pipeline (stage 05) keeps end-to-end latency around
+$3.6$\,s, within the project's $<5$\,s target for text queries.
+
+\paragraph{Complexity vs.\ gain.}
+Intent routing adds an LLM call and code complexity but does not change retrieval
+quality. Its justification is not accuracy but \emph{safety and correctness}: it
+delivers a 100\% redirect rate on pricing and out-of-scope queries, structurally
+preventing the chatbot from inventing prices --- a hard business requirement.
+This is complexity that pays for itself in guarantees rather than metrics.
+
+\paragraph{Model size vs.\ quality.}
+The embedding study shows the largest model is not required: the compact,
+domain-matched \texttt{bkai} encoder ties the larger \texttt{e5-base}, while the
+even smaller \texttt{MiniLM} is the one that genuinely hurts retrieval. The
+minimum viable embedder for this corpus is a Vietnamese-aware model of
+${\sim}135$M parameters.
+
+\paragraph{The headline lesson.}
+\Cref{fig:cumulative} (RAGAS view) and \Cref{fig:ladder} (IR view) together make
+the project's central point: ``more advanced'' is not monotonically better. The
+best system is obtained by adding hybrid retrieval and re-ranking, adding intent
+routing for safety, and \emph{deliberately omitting} query enhancement. Knowing
+which optimization to leave out is itself a result.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{cumulative_gains.png}
+\caption{RAGAS metric view of the cumulative ladder, complementing the IR view
+in \Cref{fig:ladder}.}
+\label{fig:cumulative}
+\end{figure}
+
+\subsection{Threats to validity}
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+  \item \textbf{Test-set size.} 80 questions is larger than our initial draft but
+        still modest; the LLM-judged RAGAS faithfulness mean in particular has
+        run-to-run variance of ${\pm}0.05$--$0.08$. We mitigate this by leading
+        with deterministic IR metrics, which are stable across runs, and by
+        treating sub-$0.05$ faithfulness differences as noise.
+  \item \textbf{Single judge.} RAGAS uses a single Gemini Flash-Lite judge; a
+        stronger or ensemble judge would reduce noise but increase cost. The
+        relative rankings (especially of retrieval techniques) are corroborated
+        by the judge-independent IR metrics.
+  \item \textbf{Reference-based metrics.} Faithfulness and context recall depend
+        on the reference answers; we rebuilt the test set directly from the
+        source data to remove the fabricated-reference problem present in an
+        earlier draft (\Cref{sec:testset}).
+  \item \textbf{Not evaluated.} The Qwen/Ollama LLM comparison and the CLIP
+        image-matching accuracy were not run (no local Ollama server; no held-out
+        test images). The image path is implemented but its accuracy is future
+        work.
+\end{itemize}
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+We built an evaluation-driven Vietnamese RAG chatbot for a printing-and-packaging
+catalog and used it to study how each RAG component contributes to quality. By
+adding one technique at a time and measuring with both RAGAS and classical IR
+metrics on an 80-question test set, we established a clear, defensible result:
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=2pt]
+  \item \textbf{Hybrid retrieval + cross-encoder re-ranking} is the quality win
+        (Recall@5 $0.884\!\to\!0.899$, MRR $0.821\!\to\!0.876$, Context Precision
+        $\to0.680$) for negligible added latency.
+  \item \textbf{Intent routing} adds a 100\% pricing/out-of-scope redirect rate
+        --- a business-critical guarantee --- at no retrieval cost.
+  \item \textbf{Query enhancement (HyDE/rewrite)} is rejected: on a small,
+        on-vocabulary catalog it causes vocabulary drift that collapses recall
+        and adds latency.
+  \item \textbf{Vietnamese-aware embeddings} (\texttt{bkai} or \texttt{e5-base})
+        clearly beat a generic small multilingual model; chunking strategy is
+        immaterial at this scale.
+\end{enumerate}
+
+The recommended production pipeline is hybrid retrieval + re-ranking + intent
+routing with the \texttt{bkai} embedder and document-level chunking. Beyond the
+specific configuration, the project demonstrates the methodological point that
+the most elaborate pipeline is not the best one --- and that disciplined,
+component-wise evaluation is what reveals which optimizations to keep and which
+to discard. Future work includes the open-source LLM comparison, a quantitative
+evaluation of the CLIP image-matching path, and a hybrid-$\alpha$ sweep.

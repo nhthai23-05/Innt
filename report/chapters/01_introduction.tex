@@ -1,0 +1,67 @@
+\section{Introduction and Motivation}
+\label{sec:intro}
+
+\subsection{Problem}
+\textit{In N\&T} (\texttt{innt.vn}) is a printing-and-packaging company in Hanoi,
+Vietnam. Its catalog website presents 19 products across seven categories
+(envelopes, flyers, folded leaflets, paper bags, labels/stickers, business
+forms, and name cards) together with company information. Prospective B2B
+customers routinely ask the same questions before requesting a quote: \emph{what
+materials and sizes are available, what is the minimum order quantity, how long
+does production take, and which product fits a given use case?} Answering these
+manually does not scale, and a generic chatbot would either lack the
+domain-specific Vietnamese printing vocabulary (e.g.\ \textit{cán màng},
+\textit{bế khuôn}, \textit{giấy Couche}) or hallucinate specifications
+and --- worst of all --- prices.
+
+\subsection{Motivation for RAG}
+A purely generative large language model (LLM) cannot be trusted to state
+product facts: it has never seen this private catalog and will invent
+plausible-but-wrong specifications. Retrieval-Augmented Generation
+\cite{lewis2020rag} solves exactly this: the model answers \emph{only} from
+documents retrieved from a trusted knowledge base, which (i) grounds every
+answer in the real catalog, (ii) lets us update facts by editing data rather
+than retraining, and (iii) makes it straightforward to enforce business rules
+such as ``never quote a price --- redirect to Zalo.'' RAG is therefore the
+natural fit for a small, high-precision, frequently-updated product catalog.
+
+\subsection{Goals and contributions}
+The project has two intertwined goals: ship a working Vietnamese chatbot, and
+use it as an experimental platform to study \emph{how each RAG technique
+contributes to quality}. Concretely, this report contributes:
+\begin{enumerate}[leftmargin=1.4em,itemsep=2pt]
+  \item A modular, configuration-driven RAG pipeline in which every component
+        (embedding model, retrieval strategy, re-ranker, query enhancer, LLM)
+        is independently swappable for controlled experiments
+        (\Cref{sec:architecture}).
+  \item An 80-question Vietnamese evaluation set with gold passage labels, and
+        an evaluation harness combining RAGAS \cite{es2023ragas} with classical
+        IR metrics (\Cref{sec:methodology}).
+  \item A \emph{progressive optimization study}: starting from naive RAG and
+        adding one component at a time, we quantify the marginal effect of each
+        (\Cref{sec:results}).
+  \item A trade-off analysis showing that the most ``advanced'' configuration is
+        not the best --- query enhancement is measured and \emph{rejected} ---
+        which is the core engineering lesson of the project
+        (\Cref{sec:discussion}).
+\end{enumerate}
+
+\subsection{Background: three RAG architectures}
+We frame the work around three progressively more capable architectures, each
+building on the previous one:
+\begin{description}[leftmargin=1.6em,style=nextline,itemsep=3pt]
+  \item[Naive RAG (baseline).] Embed the query, perform single-stage dense
+        vector search, and generate from the top-$k$ documents
+        \cite{lewis2020rag}.
+  \item[Advanced RAG.] Add query enhancement (HyDE \cite{gao2023hyde}), hybrid
+        retrieval combining dense embeddings with sparse BM25
+        \cite{robertson2009bm25}, and cross-encoder re-ranking
+        \cite{nogueira2019passage}.
+  \item[Agentic RAG.] Add LLM-based intent classification that routes each query
+        to a specialized handler (product, comparison, business,
+        recommendation, pricing, image, out-of-scope) \cite{gao2023survey,
+        asai2023selfrag}.
+\end{description}
+Rather than only comparing these three end-to-end, we decompose them into their
+constituent components and add each in isolation, which is what makes the
+improvement (or regression) of every technique measurable.

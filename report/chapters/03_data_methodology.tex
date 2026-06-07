@@ -1,0 +1,85 @@
+\section{Data and Evaluation Methodology}
+\label{sec:methodology}
+
+\subsection{Knowledge base}
+The corpus consists of 19 product documents and 5 company documents, all in
+Vietnamese, stored as structured JSON. Each product records a name, detailed
+description, use cases, and a technical-spec block (dimensions, paper weight in
+gsm, material, colors, minimum order quantity). Company documents cover the
+corporate profile, production capability, lead times, key clients, and contact
+information. Because the catalog is small and each product is self-contained,
+\textbf{document-level chunking} (one chunk per product) is the default; we test
+field-level chunking as an ablation in \Cref{sec:results}.
+
+\subsection{Test set construction}
+\label{sec:testset}
+We authored an 80-question Vietnamese test set. Every question is annotated with
+its category, a \texttt{query\_type}, the gold relevant passage(s) (product/
+document IDs), and a reference answer grounded strictly in the JSON data. The
+distribution deliberately spans the realistic query mix:
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcp{8.2cm}}
+\toprule
+\textbf{Query type} & \textbf{\#} & \textbf{Example} \\
+\midrule
+product\_spec   & 33 & ``Phong bì A5 có kích thước bao nhiêu?'' (sizes/materials/MOQ) \\
+comparison      & 12 & ``So sánh túi giấy size S và size M?'' \\
+business        & 12 & ``In một đơn hàng mất bao nhiêu ngày?'' \\
+vague/recommend & 12 & ``Tôi cần in gì để gửi thư mời?'' \\
+pricing         & 8  & ``In 1000 tờ rơi A5 giá bao nhiêu?'' (must redirect) \\
+out\_of\_scope  & 3  & ``Hôm nay thời tiết Hà Nội thế nào?'' \\
+\bottomrule
+\end{tabular}
+\caption{Composition of the 80-question evaluation set. 69 questions carry gold
+passage labels (pricing and out-of-scope questions intentionally have none).}
+\label{tab:testset}
+\end{table}
+
+\noindent\textit{Note on data quality.} An earlier 20-question draft referenced
+product slugs that did not exist in the catalog and contained reference answers
+with fabricated specifications. Because RAGAS faithfulness and context-recall
+are \emph{reference-based}, such errors silently corrupt the scores. The 80-item
+set used here was rebuilt directly from the source JSON and every gold slug was
+validated programmatically against \texttt{products.json}/\texttt{business.json}.
+
+\subsection{Metrics}
+We report two complementary families of metrics.
+
+\paragraph{RAGAS metrics \cite{es2023ragas} (LLM-judged).}
+\textit{Faithfulness} (is the answer grounded in the retrieved context?),
+\textit{Answer Relevancy} (does it address the question?),
+\textit{Context Precision}, and \textit{Context Recall} (are the right documents
+retrieved, judged against the reference). RAGAS is run with a Gemini 2.5
+Flash-Lite judge; answer relevancy is computed in a multilingual embedding space
+(\texttt{intfloat/multilingual-e5-base}).
+
+\paragraph{Information-retrieval metrics (deterministic).}
+Using the gold passage IDs and the IDs the pipeline actually retrieved, we
+compute \textit{Recall@5}, \textit{Precision@5}, \textit{MRR}, \textit{Hit@1},
+and \textit{Hit@3} over the 69 questions with gold labels. We also track
+end-to-end \textit{latency} and a \textit{redirect accuracy} for pricing queries.
+
+\paragraph{Why we lead with the IR metrics.}
+RAGAS faithfulness is inherently bimodal (per question it is effectively
+0 or 1), so on 80 questions its mean is noisy: re-running an \emph{identical}
+configuration can move faithfulness by ${\pm}0.05$--$0.08$. In contrast the IR
+metrics are deterministic given a fixed index --- e.g.\ dense retrieval scores
+Recall@5 $=0.884$ in \emph{every} experiment in which it appears (the cumulative
+ladder, the retrieval ablation, the architecture comparison, and the embedding
+study). We therefore treat Recall@5 / MRR as the primary signal for retrieval
+quality and use the RAGAS metrics as corroborating evidence for answer quality.
+
+\paragraph{A note on Precision@5.}
+Most questions have a single gold passage, so with $k=5$ the maximum achievable
+Precision@5 is $1/5 = 0.20$. Observed values near $0.21$ therefore indicate
+near-perfect precision for single-answer questions; Precision@5 is not a useful
+discriminator here and we rely on Recall@5, MRR, and Hit@3 instead.
+
+\subsection{Experimental protocol}
+Each experiment fixes all components except the one under study, evaluates
+against the same 80-question set, and is launched from a YAML configuration so
+runs are reproducible (the configuration is recorded in every result row). All
+experiments were executed in a Docker container (Python 3.11, CPU) to guarantee
+a consistent dependency environment.

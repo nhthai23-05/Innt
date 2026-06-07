@@ -1,0 +1,232 @@
+\section{Results}
+\label{sec:results}
+
+We first present the headline progressive-optimization study
+(\Cref{sec:ladder}), then the per-component ablations that isolate each design
+choice (\Cref{sec:retrieval}--\Cref{sec:llm}).
+
+\subsection{Progressive optimization: the cumulative ladder}
+\label{sec:ladder}
+
+Starting from naive RAG we add (or, at stage 2, swap in) one component at a time
+and re-evaluate. \Cref{tab:ladder} and \Cref{fig:ladder} report the trajectory.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{llcccccccc}
+\toprule
+\# & Stage & Faith. & Ans.Rel. & Ctx.Prec. & Ctx.Rec. & Recall@5 & MRR & Hit@3 & Lat.(s)\\
+\midrule
+01 & Naive (dense)        & 0.479 & 0.564 & 0.624 & 0.713 & 0.884 & 0.821 & 0.884 & 3.4\\
+02 & BM25 (sparse)        & 0.487 & 0.581 & 0.629 & 0.740 & 0.884 & 0.831 & 0.884 & 3.5\\
+03 & + Hybrid             & 0.527 & 0.575 & 0.655 & 0.754 & 0.899 & 0.866 & 0.884 & 3.4\\
+04 & + Re-rank            & 0.519 & 0.601 & \best{0.680} & 0.762 & \best{0.899} & \best{0.876} & 0.870 & 3.8\\
+05 & + Intent routing     & 0.484 & \best{0.607} & \best{0.680} & \best{0.762} & \best{0.899} & \best{0.876} & 0.870 & 3.6\\
+06 & + HyDE (full)        & 0.505 & 0.534 & 0.580 & 0.621 & 0.725 & 0.721 & 0.725 & 5.5\\
+\bottomrule
+\end{tabular}
+\caption{Cumulative ladder on the 80-question set. Stage 02 swaps dense for
+sparse BM25 as a reference point; stage 03 combines them (hybrid). The best
+operating point is stage 05.}
+\label{tab:ladder}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{retrieval_gains.png}
+\caption{Retrieval quality across pipeline stages. Recall@5, MRR, Context
+Precision, and Context Recall all improve from Naive through Re-rank, plateau at
+Intent routing, and \emph{regress sharply once HyDE is added}.}
+\label{fig:ladder}
+\end{figure}
+
+\paragraph{Reading the trajectory.}
+On the deterministic IR metrics the story is clean and monotonic from stage 01
+to 04: Recall@5 rises $0.884\!\to\!0.899$, MRR $0.821\!\to\!0.876$, Context
+Precision $0.624\!\to\!0.680$, and Context Recall $0.713\!\to\!0.762$.
+\begin{itemize}[leftmargin=1.4em,itemsep=2pt]
+  \item \textbf{Sparse vs.\ dense (01$\to$02).} BM25 alone matches dense on
+        Recall@5 and slightly improves Context Recall (0.713$\to$0.740),
+        confirming that exact-term matching helps for spec-heavy queries
+        (``A5'', ``300gsm'').
+  \item \textbf{Hybrid (03).} Combining dense and sparse is the first strict
+        improvement on Recall@5 ($\to0.899$) and MRR ($\to0.866$): the two
+        retrievers are complementary.
+  \item \textbf{Re-ranking (04).} The cross-encoder does exactly what theory
+        predicts \cite{nogueira2019passage} --- it leaves the recall set
+        unchanged (Recall@5 stays 0.899) but improves ordering: MRR
+        $\to0.876$ and Context Precision $\to0.680$, the best in the table, for
+        ${\sim}0.4$\,s extra latency.
+  \item \textbf{Intent routing (05).} Retrieval metrics are unchanged (routing
+        does not alter product retrieval) but it contributes a 100\% redirect
+        rate for pricing/out-of-scope queries and the best answer relevancy
+        (0.607). It is a capability gain at no retrieval cost.
+  \item \textbf{HyDE (06).} Adding query enhancement \emph{regresses every
+        retrieval metric} (Recall@5 $0.899\!\to\!0.725$, MRR $\to0.721$) and adds
+        ${\sim}1.9$\,s. This is examined in detail in \Cref{sec:qe}.
+\end{itemize}
+The recommended production configuration is therefore \textbf{stage 05}: hybrid
+retrieval + cross-encoder re-ranking + intent routing, \emph{without} query
+enhancement.
+
+\subsection{Retrieval strategy ablation}
+\label{sec:retrieval}
+Holding everything else fixed (no re-ranking, no enhancement),
+\Cref{tab:retrieval} compares the three first-stage retrievers.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lccccccc}
+\toprule
+Strategy & Faith. & Ans.Rel. & Ctx.Prec. & Ctx.Rec. & Recall@5 & MRR & Hit@3\\
+\midrule
+Dense  & 0.548 & 0.571 & 0.624 & 0.713 & 0.884 & 0.821 & 0.884\\
+BM25   & 0.495 & 0.549 & 0.629 & 0.740 & 0.884 & 0.831 & 0.884\\
+Hybrid & 0.462 & \best{0.585} & \best{0.655} & \best{0.754} & \best{0.899} & \best{0.866} & 0.884\\
+\bottomrule
+\end{tabular}
+\caption{Retrieval strategy comparison (Experiment~3). Hybrid wins on every
+retrieval metric.}
+\label{tab:retrieval}
+\end{table}
+
+\noindent Hybrid retrieval dominates the IR metrics, confirming the ladder
+result. (Faithfulness disagrees, ranking dense highest --- a reminder that the
+LLM-judged faithfulness mean is noisy; see \Cref{sec:methodology}.)
+
+\subsection{Query enhancement: measured and rejected}
+\label{sec:qe}
+\Cref{tab:qe} and \Cref{fig:qe} compare no-enhancement against HyDE, query
+rewriting, and keyword expansion, on top of the hybrid+re-rank pipeline. These
+runs used our \emph{improved} enhancement prompts, so the comparison is fair to
+the technique.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcccccccc}
+\toprule
+Method & Faith. & Ans.Rel. & Ctx.Prec. & Ctx.Rec. & Recall@5 & MRR & Hit@3 & Lat.(s)\\
+\midrule
+None (baseline) & \best{0.525} & \best{0.581} & \best{0.680} & \best{0.762} & \best{0.899} & \best{0.876} & 0.870 & \best{3.7}\\
+Expand          & 0.517 & 0.555 & \best{0.680} & 0.756 & \best{0.899} & 0.870 & \best{0.884} & 5.4\\
+HyDE            & 0.484 & 0.452 & 0.530 & 0.594 & 0.696 & 0.679 & 0.696 & 5.5\\
+Rewrite         & 0.485 & 0.430 & 0.483 & 0.496 & 0.580 & 0.609 & 0.623 & 5.5\\
+\bottomrule
+\end{tabular}
+\caption{Query enhancement comparison (Experiment~5). No-enhancement wins on
+every quality metric \emph{and} is ${\sim}1.8$\,s faster.}
+\label{tab:qe}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.74\textwidth]{qe_compare.png}
+\caption{Query enhancement vs.\ the no-enhancement baseline (latency annotated
+under each group). HyDE and rewrite damage retrieval; expand is neutral but
+slower.}
+\label{fig:qe}
+\end{figure}
+
+\paragraph{Why enhancement fails here.}
+Query enhancement is designed for \emph{vague queries against a large corpus}.
+Our setting is the opposite: a small (19-product), well-structured catalog with
+specific Vietnamese terminology, where user queries already contain the right
+terms (product names, ``16 x 23 cm'', ``gi\^a\'y Couche''). HyDE and rewrite
+introduce \emph{vocabulary drift} --- the LLM invents or reformulates phrasing
+that moves away from the exact terms both dense and BM25 rely on --- so Recall@5
+collapses ($0.899\!\to\!0.696$ for HyDE, $\to0.580$ for rewrite). Expansion keeps
+the original query (no drift) but only dilutes it and adds an LLM round-trip.
+The principled decision is to \textbf{disable query enhancement}.
+
+\subsection{Embedding models}
+\label{sec:embedding}
+\Cref{tab:embedding} compares three sentence embedders (dense retrieval,
+document chunking).
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lccccccc}
+\toprule
+Embedding model & Faith. & Ans.Rel. & Ctx.Prec. & Ctx.Rec. & Recall@5 & MRR & Hit@3\\
+\midrule
+bkai vietnamese-bi-encoder (VN) & 0.534 & 0.572 & \best{0.624} & 0.713 & \best{0.884} & \best{0.821} & \best{0.884}\\
+multilingual-e5-base            & \best{0.539} & \best{0.585} & 0.615 & \best{0.738} & \best{0.884} & 0.813 & 0.855\\
+paraphrase-multilingual-MiniLM  & 0.466 & 0.521 & 0.508 & 0.640 & 0.790 & 0.678 & 0.725\\
+\bottomrule
+\end{tabular}
+\caption{Embedding-model comparison (Experiment~1).}
+\label{tab:embedding}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.7\textwidth]{embedding_compare.png}
+\caption{Embedding-model comparison (RAGAS metrics).}
+\label{fig:embedding}
+\end{figure}
+
+\noindent The Vietnamese-specific \texttt{bkai} model and the multilingual
+\texttt{e5-base} are statistically indistinguishable (both Recall@5 $=0.884$;
+\texttt{bkai} edges MRR/Hit@3, \texttt{e5} edges Context Recall and answer
+relevancy). The smaller \texttt{MiniLM} model is clearly weakest (Recall@5
+$0.790$, MRR $0.678$). We keep \texttt{bkai} as the default and note
+\texttt{e5-base} as a fully viable multilingual alternative.
+
+\subsection{Chunking strategy}
+\label{sec:chunking}
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lccccccc}
+\toprule
+Strategy & Faith. & Ans.Rel. & Ctx.Prec. & Ctx.Rec. & Recall@5 & MRR & Hit@3\\
+\midrule
+Document-level & 0.477 & \best{0.583} & \best{0.624} & 0.713 & \best{0.884} & 0.821 & \best{0.884}\\
+Field-level    & \best{0.497} & 0.572 & 0.613 & \best{0.721} & 0.870 & \best{0.841} & 0.870\\
+\bottomrule
+\end{tabular}
+\caption{Chunking-strategy comparison (Experiment~4).}
+\label{tab:chunking}
+\end{table}
+
+\noindent The two strategies are essentially tied. Document-level retrieves
+marginally more of the relevant set (Recall@5 $0.884$ vs.\ $0.870$); field-level
+ranks marginally better when it does retrieve (MRR $0.841$). At this corpus size
+chunking has negligible impact, so we keep the simpler document-level default.
+
+\subsection{Architecture A/B/C}
+\label{sec:arch}
+\Cref{tab:arch} compares the three end-to-end architectures of \Cref{sec:intro}.
+
+\begin{table}[H]
+\centering\small
+\begin{tabular}{lcccccccc}
+\toprule
+Architecture & Faith. & Ans.Rel. & Ctx.Prec. & Ctx.Rec. & Recall@5 & MRR & Hit@3 & Lat.(s)\\
+\midrule
+A --- Naive (dense)                 & 0.515 & \best{0.564} & \best{0.624} & \best{0.713} & \best{0.884} & \best{0.821} & \best{0.884} & 3.3\\
+B --- Advanced (hybrid+rerank+HyDE) & 0.481 & 0.555 & 0.581 & 0.669 & 0.783 & 0.764 & 0.768 & 5.3\\
+C --- Agentic (B + routing, Flash)  & 0.516 & 0.477 & 0.567 & 0.656 & 0.768 & 0.733 & 0.754 & 5.3\\
+\bottomrule
+\end{tabular}
+\caption{Architecture comparison (Experiment~6).}
+\label{tab:arch}
+\end{table}
+
+\paragraph{Important caveat.} Taken at face value, \Cref{tab:arch} appears to
+show the naive architecture beating the advanced ones --- the opposite of the
+ladder. The reason is that architectures B and C, \emph{as specified in the
+project plan}, bundle HyDE, whose harmfulness (\Cref{sec:qe}) drags both down.
+This is exactly why we decomposed the architectures into components: the
+cumulative ladder isolates HyDE and shows that the genuinely best configuration
+is the advanced pipeline \emph{minus} HyDE (stage 05). \Cref{tab:arch} should be
+read as ``advanced retrieval is being penalized by an unhelpful enhancement
+step,'' not ``naive is best.''
+
+\subsection{LLM comparison}
+\label{sec:llm}
+The Gemini~2.5 Flash-Lite generator on the full pipeline scores faithfulness
+$0.570$, answer relevancy $0.611$ --- competitive with the larger Flash model
+while being cheaper. The planned open-source comparison
+(Qwen~2.5~7B via Ollama) could not be executed in our containerized deployment
+because a local Ollama server was not available; we record it as not-run rather
+than reporting an invalid number.

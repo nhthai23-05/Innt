@@ -1,0 +1,100 @@
+\section{System Architecture}
+\label{sec:architecture}
+
+This section describes the system end to end, from a user's Vietnamese message
+to the grounded answer returned to the chat widget. The backend is a
+Python/FastAPI service; the frontend is an existing React/Vite single-page
+application with a floating chat widget. \Cref{fig:arch} sketches the data flow.
+
+\begin{figure}[H]
+\centering
+\fbox{\begin{minipage}{0.92\textwidth}
+\centering\small
+\textbf{Frontend (React)} $\;\to\;$ \texttt{POST /api/chat} (text + optional image)\\[2pt]
+$\big\downarrow$\\[2pt]
+\textbf{RAG Pipeline:}\quad
+Intent classify $\to$ [Pricing? $\Rightarrow$ Zalo redirect]\\
+$\to$ Query enhancement (optional) $\to$ Retrieval (dense / BM25 / hybrid)\\
+$\to$ Cross-encoder re-rank (optional) $\to$ LLM generation (grounded)\\[2pt]
+$\big\downarrow$\\[2pt]
+\textbf{Response:} answer + sources + redirect flag + metadata
+\end{minipage}}
+\caption{High-level request flow through the backend RAG pipeline.}
+\label{fig:arch}
+\end{figure}
+
+\subsection{Offline stage: indexing}
+The knowledge base lives in two JSON files (\texttt{products.json},
+\texttt{business.json}) which are the single source of truth. At index time the
+\emph{chunker} converts each product/document into one or more text chunks
+(document-level chunking by default: one chunk per product, concatenating name,
+ID, description, use cases, and technical specs). Each chunk carries metadata
+(product/document \texttt{id}, category, name) --- the \texttt{id} is essential
+for the retrieval metrics in \Cref{sec:methodology}. Chunks are embedded with a
+Vietnamese sentence-transformer (\texttt{bkai-foundation-models/vietnamese-bi-encoder}, 768-dim)
+and upserted into a persistent \textbf{ChromaDB} collection using cosine
+distance. With 19 products + 5 company documents the corpus is 24 chunks.
+
+\subsection{Online stage: the query pipeline}
+For a text query, the orchestrator (\texttt{rag/pipeline.py}) executes the
+following steps in order:
+
+\begin{enumerate}[leftmargin=1.5em,itemsep=3pt]
+  \item \textbf{Intent classification} (\texttt{rag/intent.py}). A cheap keyword
+        heuristic catches unambiguous pricing and out-of-scope queries; anything
+        else is sent to a single-label Gemini classifier that returns one of
+        \{product, comparison, business, recommendation, pricing, image,
+        out\_of\_scope\}.
+  \item \textbf{Pricing short-circuit.} If the intent is \textit{pricing}, the
+        pipeline returns a fixed Vietnamese message redirecting the user to Zalo
+        \emph{without any retrieval or generation} --- this structurally
+        guarantees the system never quotes a price.
+  \item \textbf{Query enhancement} (optional, \texttt{rag/query\_enhancement.py}).
+        For product/business/recommendation/comparison intents the query may be
+        transformed by HyDE (generate a hypothetical product description and
+        embed that \cite{gao2023hyde}), rewriting, or keyword expansion.
+        \emph{This stage is disabled in the recommended configuration} for the
+        reasons established in \Cref{sec:results}.
+  \item \textbf{Retrieval} (\texttt{rag/retrieval.py}). One of three strategies:
+        \emph{dense} (cosine search in ChromaDB), \emph{BM25}
+        \cite{robertson2009bm25} over Vietnamese word-segmented tokens (via
+        \texttt{pyvi}), or \emph{hybrid} --- the union of both candidate sets,
+        with each retriever's scores min--max normalized to $[0,1]$ and combined
+        as $\alpha \cdot \text{dense} + (1-\alpha)\cdot\text{BM25}$
+        ($\alpha=0.5$).
+  \item \textbf{Re-ranking} (optional, \texttt{rag/reranking.py}). A multilingual
+        cross-encoder (\texttt{cross-encoder/mmarco-mMiniLMv2-L12-H384-v1})
+        re-scores each (query, document) pair and keeps the top-$k$
+        \cite{nogueira2019passage}. A cross-encoder jointly attends to the query
+        and document, so it judges relevance far more precisely than the
+        bi-encoder used for first-stage retrieval --- at the cost of one forward
+        pass per candidate.
+  \item \textbf{Generation} (\texttt{rag/generation.py}). The retrieved chunks
+        are injected into a Vietnamese system prompt instructing the LLM to
+        answer only from the provided context, never invent prices, cite the
+        source product, and admit uncertainty. The default generator is Google
+        \textit{Gemini 2.5 Flash}; an Ollama (OpenAI-compatible) backend is also
+        supported for local open-source models.
+\end{enumerate}
+
+The pipeline returns a structured response: the answer text, the list of source
+product/document names, the retrieved IDs, a \texttt{redirect\_to\_zalo} flag,
+and a metadata block recording the configuration used (strategy, intent,
+re-rank/enhancement flags) for reproducibility.
+
+\subsection{Multimodal (image) path}
+If the request includes an image, it is routed through a CLIP image matcher
+(\texttt{open\_clip}, ViT-B/32, LAION-2B weights \cite{radford2021clip}). Product
+reference images are embedded once and cached; the uploaded image is embedded
+and matched by cosine similarity. If the best score is below a threshold the
+system returns a polite Vietnamese apology; otherwise the top matches' documents
+are retrieved and a description is generated. (This path is implemented but not
+evaluated quantitatively in this report --- see \Cref{sec:discussion}.)
+
+\subsection{Modularity for experiments}
+Every component is selected through a single configuration object, and the
+pipeline constructor accepts overrides for retrieval strategy, $\alpha$,
+re-ranking, query-enhancement method, top-$k$, and LLM. This is what allows the
+controlled, one-variable-at-a-time experiments in \Cref{sec:results}: an
+experiment is just a YAML file specifying the configuration, and the runner
+evaluates it against the fixed test set.
