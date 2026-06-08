@@ -23,7 +23,11 @@ class Embedder:
 
         if self.provider == "gemini":
             from google import genai
-            self._client = genai.Client(api_key=settings.gemini_api_key)
+            # text-embedding-004 requires v1 (not the default v1beta)
+            self._client = genai.Client(
+                api_key=settings.gemini_api_key,
+                http_options={"api_version": "v1"},
+            )
             logger.info(f"[Embedder] provider=gemini model={_GEMINI_MODEL}")
         else:
             from sentence_transformers import SentenceTransformer
