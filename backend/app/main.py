@@ -1,6 +1,7 @@
 """FastAPI application entry point for the RAG chatbot backend."""
 
 import logging
+import os
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -34,10 +35,16 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS middleware to allow requests from frontend
+# CORS — origins from env var (comma-separated) with localhost fallback for dev
+_raw_origins = os.getenv(
+    "CORS_ALLOWED_ORIGINS",
+    "http://localhost:3000,http://localhost:5173",
+)
+_allowed_origins = [o.strip() for o in _raw_origins.split(",") if o.strip()]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:5173"],  # Vite default
+    allow_origins=_allowed_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

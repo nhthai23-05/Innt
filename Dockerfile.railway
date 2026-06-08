@@ -1,0 +1,28 @@
+FROM python:3.11-slim
+
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY backend/requirements.txt .
+
+# CPU-only torch — avoids pulling the full 4 GB CUDA stack on Linux
+RUN pip install --no-cache-dir torch==2.5.1 torchvision==0.20.1 \
+    --index-url https://download.pytorch.org/whl/cpu
+
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy backend source
+COPY backend/ .
+
+# Copy knowledge base — config.py resolves data_dir as
+# Path(__file__).resolve().parent.parent.parent / "data"
+# = /app/app/config.py → ... → /data
+COPY data/ /data/
+
+EXPOSE 8000
+
+# Railway injects $PORT at runtime; fall back to 8000 for local docker run
+CMD uvicorn app.main:app --host 0.0.0.0 --port ${PORT:-8000}
