@@ -7,7 +7,7 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
-_GEMINI_MODEL = "text-embedding-004"
+_GEMINI_MODEL = "embedding-001"
 
 
 class Embedder:
@@ -54,7 +54,12 @@ class Embedder:
                 model=_GEMINI_MODEL,
                 contents=text,
             )
-            vectors.append(resp.embeddings[0].values)
+            # embedding-001 → resp.embedding.values
+            # text-embedding-004 → resp.embeddings[0].values
+            if hasattr(resp, "embedding") and resp.embedding is not None:
+                vectors.append(resp.embedding.values)
+            else:
+                vectors.append(resp.embeddings[0].values)
         return np.array(vectors, dtype=np.float32)
 
     @property
