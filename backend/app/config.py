@@ -9,8 +9,9 @@ class Settings(BaseSettings):
     data_dir: Path = Path(__file__).resolve().parent.parent.parent / "data"
     chroma_persist_dir: str = "./chroma_db"
 
-    # Embedding model
-    embedding_model: str = "bkai-foundation-models/vietnamese-bi-encoder"
+    # Embedding
+    embedding_provider: str = "gemini"  # "gemini" or "local"
+    embedding_model: str = "bkai-foundation-models/vietnamese-bi-encoder"  # used when provider=local
 
     # LLM
     llm_provider: str = "gemini"  # "gemini" or "ollama"
