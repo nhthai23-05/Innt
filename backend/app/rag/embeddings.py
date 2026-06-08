@@ -7,7 +7,7 @@ from app.config import settings
 
 logger = logging.getLogger(__name__)
 
-_GEMINI_MODEL = "embedding-001"
+_GEMINI_MODEL = "gemini-embedding-2"
 
 
 class Embedder:
@@ -23,11 +23,7 @@ class Embedder:
 
         if self.provider == "gemini":
             from google import genai
-            # text-embedding-004 requires v1 (not the default v1beta)
-            self._client = genai.Client(
-                api_key=settings.gemini_api_key,
-                http_options={"api_version": "v1"},
-            )
+            self._client = genai.Client(api_key=settings.gemini_api_key)
             logger.info(f"[Embedder] provider=gemini model={_GEMINI_MODEL}")
         else:
             from sentence_transformers import SentenceTransformer
@@ -54,16 +50,11 @@ class Embedder:
                 model=_GEMINI_MODEL,
                 contents=text,
             )
-            # embedding-001 → resp.embedding.values
-            # text-embedding-004 → resp.embeddings[0].values
-            if hasattr(resp, "embedding") and resp.embedding is not None:
-                vectors.append(resp.embedding.values)
-            else:
-                vectors.append(resp.embeddings[0].values)
+            vectors.append(resp.embeddings[0].values)
         return np.array(vectors, dtype=np.float32)
 
     @property
     def dimension(self) -> int:
         if self.provider == "gemini":
-            return 768  # text-embedding-004 output dimension
+            return 3072  # gemini-embedding-2 output dimension
         return self._local_model.get_sentence_embedding_dimension()
